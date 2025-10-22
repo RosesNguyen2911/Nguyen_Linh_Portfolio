@@ -67,6 +67,5 @@ My goal is to create engaging and professional digital experiences that express 
 To run the portfolio locally:  
 
 1. **Clone this repository**  
-   ```bash
  https://github.com/RosesNguyen2911/Nguyen_Linh_Portfolio_FIP.git
 
