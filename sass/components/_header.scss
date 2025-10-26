@@ -1,0 +1,249 @@
+@use '../abstracts' as *;
+
+/* ===== MOBILE ===== */
+#header {
+  background-color: $color-white;
+  align-items: center;
+  padding: 25px 40px;
+  height: 110px;
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+
+  .header-logo img {
+    width: 42px;
+    height: auto;
+  }
+
+  .header-connect {
+    display: none;
+  }
+
+  .header-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: $color-pink;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    z-index: 1002;
+    margin-left: auto;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: $color-white;
+      border-radius: 3px;
+      transition: all 0.4s ease;
+    }
+  }
+
+  .header-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($color-pink, 0.95);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: all 0.4s ease;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+      li {
+        margin: 20px 0;
+
+        a {
+            text-decoration: none;
+            color: $color-white;
+            font-size: 1.6rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s ease;
+          
+            &::after {
+              content: '';
+              position: absolute;
+              left: 50%;
+              bottom: -6px;
+              transform: translateX(-50%);
+              width: 0;
+              height: 2px;
+              background-color: $color-blue;
+              transition: width 0.3s ease;
+            }
+          
+            &:hover {
+              color: $color-blue;
+              &::after {
+                width: 60%;
+              }
+            }
+          
+            &.active {
+              color: $color-blue;
+              &::after {
+                width: 60%;
+              }
+            }
+          }          
+        }
+    }
+
+    /* Show Connect link in mobile overlay */
+    .mobile-connect {
+      display: block;
+    }
+  }
+
+  #menu-toggle:checked + .header-hamburger {
+    background-color: $color-pink;
+    border: 2px solid $color-white;
+  }
+  #menu-toggle:checked + .header-hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 6px);
+    transform-origin: center;
+  }
+  
+  #menu-toggle:checked + .header-hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  #menu-toggle:checked + .header-hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+    transform-origin: center;
+  }
+  
+  #menu-toggle:checked + .header-hamburger + .header-nav {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+  }  
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) {
+  #header {
+    padding: 25px 40px;
+    height: 110px;
+
+    .header-hamburger {
+      display: none;
+    }
+
+    .header-nav {
+      display: block;
+      position: static;
+      height: auto;
+      width: auto;
+      background: none;
+      opacity: 1;
+      transform: none;
+      margin-left: -30px;
+
+      ul {
+        display: flex;
+        gap: 28px;
+
+        .mobile-connect {
+          display: none; 
+        }
+
+        li a {
+          color: $color-heading;
+          font-size: 18px;
+          font-weight: 500;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: $color-blue;
+            transition: width 0.3s ease;
+          }
+
+          &:hover {
+            color: $color-blue;
+            &::after {
+              width: 60%;
+            }
+          }
+
+          &.active {
+            color: $color-blue;
+            &::after {
+              width: 60%;
+            }
+          }
+        }
+      }
+    }
+
+    .header-connect {
+      display: block;
+      margin-left: -50px;
+
+      .btn-connect {
+        background-color: $color-pink;
+        color: $color-white;
+        padding: 10px 22px;
+        border-radius: 40px;
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+          background-color: $color-orange;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1200px) {
+  #header {
+    padding: 25px 40px;
+    height: 110px;
+
+    .header-hamburger {
+      display: none; // hide hamburger on desktop
+    }
+
+    .header-nav ul {
+      gap: 40px;
+
+      .mobile-connect {
+        display: none;
+      }
+    }
+
+    .header-connect .btn-connect {
+      padding: 12px 26px;
+      font-size: 1rem;
+    }
+  }
+}
