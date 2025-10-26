@@ -1,11 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyen Linh Portfolio</title>
+
+  <link rel="stylesheet" href="css/grid.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    
+  <header id="header" class="grid-con">
+    <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
+      <a href="index.html">
+        <img src="images/L_Logo.svg" alt="Linh Nguyen Logo" class="logo">
+      </a>
+    </div>
+
+    <input type="checkbox" id="menu-toggle" hidden>
+
+    <label for="menu-toggle" class="header-hamburger col-start-4 col-end-5">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="header-nav m-col-start-6 m-col-end-8 l-col-start-6 l-col-end-8">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="works.html">Works</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="mobile-connect"><a href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-connect m-col-start-12 m-col-end-13 l-col-start-12 l-col-end-13">
+      <a href="connect.html" class="btn-connect">Connect</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="grid-con">
+      <h1 class="hidden">Nguyen Linh Portfolio</h1>
+      <h2 class="hidden">Hero Section</h2>
+
+      <h3 class="hero-tagline col-span-full">“Build. Brand. Lead.”</h3>
+
+      <div class="hero-banner col-span-full">
+        <div class="banner-bg">
+          <p class="banner-title">PORTFOLIO</p>
+          <img src="images/avatar.svg" alt="Linh Nguyen Avatar" class="hero-avatar">
+          <div class="banner-label">
+            <p>Graphic Designer..</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-status col-span-full">
+        <button class="status-btn">
+          <span class="dot"></span> Available For Work
+        </button>
+      </div>
+    </section>
+
+    <section id="about" class="grid-con">
+      <h2 class="hidden">About Section</h2>
+
+      <figure class="about-avatar-wrapper col-span-full m-col-span-5 l-col-span-5">
+        <img src="images/second_avatar.svg" alt="Linh Nguyen working on her laptop" class="about-avatar">
+      </figure>
+
+      <article class="about-text-wrapper col-span-full m-col-span-7 l-col-span-7">
+        <h3 class="hidden">About Me Introduction</h3>
+        <h4>Hi! I’m <span>Linh</span></h4>
+        <p>
+          Graphic Designer with 3+ years of experience in 2D/3D design, branding, ads, and logos for brands
+          that like to keep things fun — and functional. <br><br>
+          Let’s connect if you’re looking for creative that’s thoughtful, fresh, and easy to work with :)
+        </p>
+        <a href="about.html" class="about-btn">More About Me!</a>
+      </article>
+
+      <div class="about-video col-span-full">
+        <figure class="video-wrapper">
+          <video controls poster="images/portfolio_banner.png" aria-label="Nguyen Linh 2025 Demo Reel Thumbnail">
+            <source src="video/Nguyen_Linh_DemoReel2025.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+      </div>
+    </section>
+
+    <section id="featured-works" class="grid-con">
+      <h2 class="hidden">Featured Works</h2>
+
+      <article class="work-card col-span-full" data-color="blue">
+        <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
+        <div class="work-info">
+          <h3 class="hidden">Project 1</h3>
+          <h4>SWERVE DRINKS</h4>
+          <p>Rebranding for A Soda Brand.</p>
+          <div class="work-tags">
+            <span>Branding</span>
+            <span>Motion Design</span>
+            <span>Web Design</span>
+          </div>
+          <div class="arrow">→</div>
+        </div>
+      </article>
+
+      <article class="work-card col-span-full" data-color="yellow">
+        <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
+        <div class="work-info">
+          <h3 class="hidden">Project 2</h3>
+          <h4>SWERVE DRINKS</h4>
+          <p>Rebranding for A Soda Brand.</p>
+          <div class="work-tags">
+            <span>Branding</span>
+            <span>Motion Design</span>
+            <span>Web Design</span>
+          </div>
+          <div class="arrow">→</div>
+        </div>
+      </article>
+
+      <article class="work-card col-span-full" data-color="orange">
+        <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
+        <div class="work-info">
+          <h3 class="hidden">Project 3</h3>
+          <h4>SWERVE DRINKS</h4>
+          <p>Rebranding for A Soda Brand.</p>
+          <div class="work-tags">
+            <span>Branding</span>
+            <span>Motion Design</span>
+            <span>Web Design</span>
+          </div>
+          <div class="arrow">→</div>
+        </div>
+      </article>
+
+      <article class="work-card col-span-full" data-color="pink">
+        <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
+        <div class="work-info">
+          <h3 class="hidden">Project 4</h3>
+          <h4>SWERVE DRINKS</h4>
+          <p>Rebranding for A Soda Brand.</p>
+          <div class="work-tags">
+            <span>Branding</span>
+            <span>Motion Design</span>
+            <span>Web Design</span>
+          </div>
+          <div class="arrow">→</div>
+        </div>
+      </article>
+
+      <div class="work-button col-span-full">
+        <a href="works.html" class="btn-learn">Learn More</a>
+      </div>
+
+      <div class="work-color col-span-full">
+        <div class="white-bg">
+          <h3 class="hidden">Design Roles Highlight</h3>
+          <h4>
+            <span class="blue">WEB DEVELOPER</span>
+            <span class="pink">BRANDING</span>
+            <span class="yellow">UX/UI</span>
+            <span class="orange">GRAPHIC DESIGNER</span>
+          </h4>
+        </div>
+      </div>
+
+      <section class="testimonials col-span-full">
+        <h2 class="hidden">Testimonials Section</h2>
+
+        <article class="testimonial-card">
+          <h3 class="hidden">Testimonial 1</h3>
+          <h4>Rin Morito</h4>
+          <div class="line"></div>
+          <p>Working with Linh was inspiring — she’s organized, creative, and uplifting.</p>
+          <span>Classmate – Fanshawe College</span>
+        </article>
+
+        <article class="testimonial-card">
+          <h3 class="hidden">Testimonial 2</h3>
+          <h4>Situ Ranjit</h4>
+          <div class="line"></div>
+          <p>Linh’s design sense and branding ideas helped our project come alive visually.</p>
+          <span>Classmate – Fanshawe College</span>
+        </article>
+
+        <article class="testimonial-card">
+          <h3 class="hidden">Testimonial 3</h3>
+          <h4>Hannah Silva</h4>
+          <div class="line"></div>
+          <p>Linh’s design sense and ideas made our project visually stronger.</p>
+          <span>Classmate – Fanshawe College</span>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <footer id="footer" class="grid-con">
+    <div class="footer-top col-span-full">
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="works.html">Works</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+      </div>
+    </div>
+
+    <section class="footer-cta col-span-full">
+      <h2 class="hidden">Footer Call To Action</h2>
+      <h3>Ready to Bring Your Vision to Life?</h3>
+      <p>
+        Let’s make something incredible together! Reach out to discuss your project,
+        and let’s create designs that resonate and inspire.
+      </p>
+      <a href="connect.html" class="btn-connect">Connect</a>
+    </section>
+
+    <div class="footer-bottom col-span-full">
+      <p class="credit-left">Design and Developed by Linh Nguyen</p>
+      <p class="credit-right">© 2025 All Rights Reserved</p>
+    </div>
+  </footer>
 </body>
 </html>
