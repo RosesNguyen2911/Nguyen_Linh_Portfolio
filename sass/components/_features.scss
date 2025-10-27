@@ -1,0 +1,195 @@
+@use '../abstracts' as *;
+
+/* =============================
+   FEATURED WORKS SECTION
+   ============================= */
+#featured-works {
+  grid-column: 1 / -1;
+  width: 100%;
+  background-color: $color-background;
+  text-align: center;
+  padding: 100px 40px;
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: $color-heading;
+    margin-bottom: 60px;
+  }
+
+  /* --- CARD --- */
+  .work-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background-color: $color-white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    img {
+      width: 150px;
+      height: auto;
+      border-radius: 10px;
+      margin-right: 20px;
+    }
+
+    .work-info {
+      text-align: left;
+      flex: 1;
+
+      h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: $color-heading;
+        margin-bottom: 6px;
+      }
+
+      p {
+        font-size: 15px;
+        color: $color-heading;
+        opacity: 0.8;
+        margin-bottom: 10px;
+      }
+
+      .work-tags span {
+        font-size: 13px;
+        color: $color-heading;
+        opacity: 0.6;
+        margin-right: 12px;
+      }
+    }
+
+    .arrow {
+      font-size: 24px;
+      font-weight: 700;
+      margin-left: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      .arrow { transform: translateX(6px); }
+    }
+
+    &[data-color='blue'] { border-color: $color-blue; .arrow { color: $color-blue; } }
+    &[data-color='yellow'] { border-color: $color-yellow; .arrow { color: $color-yellow; } }
+    &[data-color='orange'] { border-color: $color-orange; .arrow { color: $color-orange; } }
+    &[data-color='pink'] { border-color: $color-pink; .arrow { color: $color-pink; } }
+  }
+
+  /* --- BUTTON --- */
+  .work-button {
+    margin: 50px 0 80px;
+
+    .btn-learn {
+      display: inline-block;
+      background-color: $color-pink;
+      color: $color-white;
+      font-weight: 600;
+      padding: 12px 36px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken($color-pink, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  /* --- WORK COLOR --- */
+  .work-color {
+    margin: 40px 0 100px;
+    text-align: center;
+
+    .white-bg {
+      background-color: $color-white;
+      display: inline-block;
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+      h4 {
+        font-family: $font-primary;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        line-height: 1.4;
+
+        span {
+          display: inline-block;
+          margin: 0 10px;
+        }
+
+        .blue { color: $color-blue; }
+        .pink { color: $color-pink; }
+        .yellow { color: $color-yellow; }
+        .orange { color: $color-orange; }
+      }
+    }
+  }
+
+  /* --- TESTIMONIALS --- */
+  .testimonials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+
+    .testimonial-card {
+      background: $color-white;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      width: 320px;
+      padding: 30px 25px 35px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      h4 {
+        color: $color-heading;
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .line {
+        width: 80%;
+        height: 3px;
+        margin: 0 auto 18px;
+        border-radius: 2px;
+        background-color: $color-blue;
+      }
+
+      p {
+        color: $color-heading;
+        opacity: 0.8;
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 18px;
+      }
+
+      span {
+        font-size: 13px;
+        color: $color-heading;
+        opacity: 0.7;
+        font-weight: 500;
+      }
+
+      &:nth-child(1) { .line { background-color: $color-yellow; } }
+      &:nth-child(2) { .line { background-color: $color-orange; } }
+      &:nth-child(3) { .line { background-color: $color-blue; } }
+    }
+  }
+}

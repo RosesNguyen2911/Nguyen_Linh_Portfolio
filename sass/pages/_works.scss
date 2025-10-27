@@ -1,0 +1,194 @@
+@use '../abstracts' as *;
+
+/* =============================
+   WORKS PAGE
+   ============================= */
+
+/* --- HERO --- */
+#works-hero {
+  background-color: $color-white;
+  text-align: center;
+  padding: 100px 40px 60px;
+
+  h1 {
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.3;
+    color: $color-heading;
+
+    .accent {
+      color: $color-pink;
+    }
+  }
+
+  p {
+    color: $color-heading;
+    opacity: 0.8;
+    font-size: 18px;
+    margin: 20px 0 40px;
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+
+    .filter-btn {
+      background: none;
+      border: 2px solid $color-heading;
+      color: $color-heading;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active,
+      &:hover {
+        background-color: $color-pink;
+        border-color: $color-pink;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+/* --- PROJECT GALLERY --- */
+#project-gallery {
+  padding: 60px 40px 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+
+  h2.hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .project-card {
+    position: relative;
+    .card-box {
+      background-color: $color-white;
+      border: 4px solid transparent;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .overlay {
+        padding: 25px 20px;
+        text-align: left;
+
+        h3 {
+          font-size: 20px;
+          font-weight: 700;
+          margin-bottom: 10px;
+          color: $color-heading;
+
+          i {
+            margin-right: 8px;
+            color: $color-pink;
+          }
+        }
+
+        p {
+          font-size: 15px;
+          color: $color-heading;
+          opacity: 0.8;
+          line-height: 1.5;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    &[data-color='pink'] .card-box { border-color: $color-pink; }
+    &[data-color='blue'] .card-box { border-color: $color-blue; }
+    &[data-color='yellow'] .card-box { border-color: $color-yellow; }
+    &[data-color='orange'] .card-box { border-color: $color-orange; }
+
+    /* Optional hover tint (subtle background tint on hover) */
+    &[data-color='pink']:hover .card-box { background-color: rgba($color-pink, 0.05); }
+    &[data-color='blue']:hover .card-box { background-color: rgba($color-blue, 0.05); }
+    &[data-color='yellow']:hover .card-box { background-color: rgba($color-yellow, 0.07); }
+    &[data-color='orange']:hover .card-box { background-color: rgba($color-orange, 0.07); }
+  }
+}
+
+/* --- CASE STUDY --- */
+#case-study {
+  background-color: $color-background;
+  padding: 100px 40px;
+  text-align: center;
+
+  h2.hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .case-content {
+    max-width: 700px;
+    margin: 0 auto;
+
+    h3 {
+      font-size: 28px;
+      font-weight: 700;
+      color: $color-heading;
+      margin-bottom: 20px;
+
+      i {
+        color: $color-pink;
+        margin-right: 8px;
+      }
+    }
+
+    p {
+      color: $color-heading;
+      opacity: 0.85;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .btn-learn {
+      display: inline-block;
+      background-color: $color-blue;
+      color: $color-white;
+      padding: 12px 36px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken($color-blue, 8%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

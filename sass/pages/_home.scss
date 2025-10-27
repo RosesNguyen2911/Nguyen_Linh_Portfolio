@@ -1,0 +1,10 @@
+@use '../abstracts' as *;
+
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $color-background;
+  color: $color-heading;
+  font-family: 'Poppins', sans-serif;
+}
