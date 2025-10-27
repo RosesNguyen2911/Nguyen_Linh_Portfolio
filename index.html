@@ -10,10 +10,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+  <!-- ===== HEADER ===== -->
   <header id="header" class="grid-con">
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
       <a href="index.html">
@@ -41,19 +42,21 @@
     </div>
   </header>
 
+  <!-- ===== MAIN ===== -->
   <main>
+
+    <!-- ===== HERO SECTION ===== -->
     <section id="hero" class="grid-con">
-      <h1 class="hidden">Nguyen Linh Portfolio</h1>
       <h2 class="hidden">Hero Section</h2>
 
-      <h3 class="hero-tagline col-span-full">“Build. Brand. Lead.”</h3>
+      <p class="hero-tagline col-span-full">“Build. Brand. Lead.”</p>
 
       <div class="hero-banner col-span-full">
         <div class="banner-bg">
           <p class="banner-title">PORTFOLIO</p>
           <img src="images/avatar.svg" alt="Linh Nguyen Avatar" class="hero-avatar">
           <div class="banner-label">
-            <p>Graphic Designer..</p>
+            <p>Graphic Designer</p>
           </div>
         </div>
       </div>
@@ -65,94 +68,146 @@
       </div>
     </section>
 
+    <!-- ===== ABOUT SECTION ===== -->
     <section id="about" class="grid-con">
-      <h2 class="hidden">About Section</h2>
+      <h2 class="hidden">About Me</h2>
 
       <figure class="about-avatar-wrapper col-span-full m-col-span-5 l-col-span-5">
         <img src="images/second_avatar.svg" alt="Linh Nguyen working on her laptop" class="about-avatar">
       </figure>
 
       <article class="about-text-wrapper col-span-full m-col-span-7 l-col-span-7">
-        <h3 class="hidden">About Me Introduction</h3>
-        <h4>Hi! I’m <span>Linh</span></h4>
+        <h3 class="hidden">About Me Details</h3>
         <p>
-          Graphic Designer with 3+ years of experience in 2D/3D design, branding, ads, and logos for brands
-          that like to keep things fun — and functional. <br><br>
+          Hi! I’m <strong>Linh</strong> — a Graphic Designer with 3+ years of experience in 2D/3D design,
+          branding, ads, and logos for brands that like to keep things fun — and functional. <br><br>
           Let’s connect if you’re looking for creative that’s thoughtful, fresh, and easy to work with :)
         </p>
         <a href="about.html" class="about-btn">More About Me!</a>
       </article>
-
-      <div class="about-video col-span-full">
-        <figure class="video-wrapper">
-          <video controls poster="images/portfolio_banner.png" aria-label="Nguyen Linh 2025 Demo Reel Thumbnail">
-            <source src="video/Nguyen_Linh_DemoReel2025.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </figure>
-      </div>
     </section>
 
+    <!-- ===== VIDEO SECTION ===== -->
+    <section id="video" class="about-video">
+      <h2 class="hidden">Demo Reel</h2>
+
+      <figure class="video-wrapper">
+        <video class="portfolio-video" poster="images/portfolio_banner.png" aria-label="Nguyen Linh 2025 Demo Reel Thumbnail">
+          <source src="video/Nguyen_Linh_DemoReel2025.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <button class="btn-center-play" aria-label="Play or Pause Video">
+          <i class="fa-solid fa-play"></i>
+        </button>
+
+        <div class="video-controls">
+          <div class="left-controls">
+            <button class="btn-playpause" aria-label="Play or Pause">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <span class="time-display">0:00 / 0:00</span>
+          </div>
+
+          <div class="center-controls">
+            <div class="progress-container">
+              <div class="progress-bar"></div>
+              <div class="progress-thumb"></div>
+            </div>
+          </div>
+
+          <div class="right-controls">
+            <div class="volume-container">
+              <button class="volume-icon" aria-label="Mute or Unmute">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+              <div class="volume-track">
+                <div class="volume-bar"></div>
+                <div class="volume-thumb"></div>
+              </div>
+            </div>
+
+            <div class="setting-wrapper">
+              <button class="btn-setting" aria-label="Playback Speed">
+                <i class="fa-solid fa-gear"></i>
+              </button>
+              <ul class="setting-menu hidden">
+                <li data-speed="0.5">0.5×</li>
+                <li data-speed="1">1×</li>
+                <li data-speed="2">2×</li>
+                <li data-speed="2.5">2.5×</li>
+              </ul>
+            </div>
+
+            <button class="btn-airplay" aria-label="AirPlay">
+              <i class="fa-solid fa-tv"></i>
+            </button>
+
+            <button class="btn-replay" aria-label="Replay Video">
+              <i class="fa-solid fa-rotate-right"></i>
+            </button>
+
+            <button class="btn-fullscreen" aria-label="Fullscreen">
+              <i class="fa-solid fa-expand"></i>
+            </button>
+          </div>
+        </div>
+      </figure>
+    </section>
+
+    <!-- ===== FEATURED WORKS SECTION ===== -->
     <section id="featured-works" class="grid-con">
       <h2 class="hidden">Featured Works</h2>
 
+      <!-- Project 1 -->
       <article class="work-card col-span-full" data-color="blue">
+        <h3 class="hidden">Project 1</h3>
         <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
         <div class="work-info">
-          <h3 class="hidden">Project 1</h3>
           <h4>SWERVE DRINKS</h4>
-          <p>Rebranding for A Soda Brand.</p>
+          <p>Rebranding for a soda brand.</p>
           <div class="work-tags">
-            <span>Branding</span>
-            <span>Motion Design</span>
-            <span>Web Design</span>
+            <span>Branding</span><span>Motion Design</span><span>Web Design</span>
           </div>
-          <div class="arrow">→</div>
         </div>
       </article>
 
+      <!-- Project 2 -->
       <article class="work-card col-span-full" data-color="yellow">
+        <h3 class="hidden">Project 2</h3>
         <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
         <div class="work-info">
-          <h3 class="hidden">Project 2</h3>
           <h4>SWERVE DRINKS</h4>
-          <p>Rebranding for A Soda Brand.</p>
+          <p>Rebranding for a soda brand.</p>
           <div class="work-tags">
-            <span>Branding</span>
-            <span>Motion Design</span>
-            <span>Web Design</span>
+            <span>Branding</span><span>Motion Design</span><span>Web Design</span>
           </div>
-          <div class="arrow">→</div>
         </div>
       </article>
 
+      <!-- Project 3 -->
       <article class="work-card col-span-full" data-color="orange">
+        <h3 class="hidden">Project 3</h3>
         <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
         <div class="work-info">
-          <h3 class="hidden">Project 3</h3>
           <h4>SWERVE DRINKS</h4>
-          <p>Rebranding for A Soda Brand.</p>
+          <p>Rebranding for a soda brand.</p>
           <div class="work-tags">
-            <span>Branding</span>
-            <span>Motion Design</span>
-            <span>Web Design</span>
+            <span>Branding</span><span>Motion Design</span><span>Web Design</span>
           </div>
-          <div class="arrow">→</div>
         </div>
       </article>
 
+      <!-- Project 4 -->
       <article class="work-card col-span-full" data-color="pink">
+        <h3 class="hidden">Project 4</h3>
         <img src="images/project_poster.jpg" alt="Swerve Drinks Branding Project">
         <div class="work-info">
-          <h3 class="hidden">Project 4</h3>
           <h4>SWERVE DRINKS</h4>
-          <p>Rebranding for A Soda Brand.</p>
+          <p>Rebranding for a soda brand.</p>
           <div class="work-tags">
-            <span>Branding</span>
-            <span>Motion Design</span>
-            <span>Web Design</span>
+            <span>Branding</span><span>Motion Design</span><span>Web Design</span>
           </div>
-          <div class="arrow">→</div>
         </div>
       </article>
 
@@ -162,7 +217,6 @@
 
       <div class="work-color col-span-full">
         <div class="white-bg">
-          <h3 class="hidden">Design Roles Highlight</h3>
           <h4>
             <span class="blue">WEB DEVELOPER</span>
             <span class="pink">BRANDING</span>
@@ -172,9 +226,10 @@
         </div>
       </div>
 
-      <section class="testimonials col-span-full">
-        <h2 class="hidden">Testimonials Section</h2>
-
+      <!-- Testimonials -->
+      <aside class="testimonials col-span-full">
+        <h2 class="hidden">Testimonials</h2>
+      
         <article class="testimonial-card">
           <h3 class="hidden">Testimonial 1</h3>
           <h4>Rin Morito</h4>
@@ -182,7 +237,7 @@
           <p>Working with Linh was inspiring — she’s organized, creative, and uplifting.</p>
           <span>Classmate – Fanshawe College</span>
         </article>
-
+      
         <article class="testimonial-card">
           <h3 class="hidden">Testimonial 2</h3>
           <h4>Situ Ranjit</h4>
@@ -190,7 +245,7 @@
           <p>Linh’s design sense and branding ideas helped our project come alive visually.</p>
           <span>Classmate – Fanshawe College</span>
         </article>
-
+      
         <article class="testimonial-card">
           <h3 class="hidden">Testimonial 3</h3>
           <h4>Hannah Silva</h4>
@@ -198,10 +253,12 @@
           <p>Linh’s design sense and ideas made our project visually stronger.</p>
           <span>Classmate – Fanshawe College</span>
         </article>
-      </section>
+      </aside>
+      
     </section>
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer id="footer" class="grid-con">
     <div class="footer-top col-span-full">
       <nav class="footer-nav">
@@ -235,5 +292,7 @@
       <p class="credit-right">© 2025 All Rights Reserved</p>
     </div>
   </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
