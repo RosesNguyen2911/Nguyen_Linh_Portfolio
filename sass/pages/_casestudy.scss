@@ -1,0 +1,350 @@
+@use '../abstracts' as *;
+
+/* ===================================
+   GLOBAL CASE STUDY STYLE
+=================================== */
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: $color-heading;
+  text-align: left;
+  margin: 60px 0px 30px;
+}
+
+.list li {
+  font-size: 17px;
+  color: $color-heading;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* ===================================
+   HERO SECTION
+=================================== */
+#project-hero {
+  padding: 20px 40px;
+  background-color: $color-background;
+
+  .hero-wrapper {
+    text-align: left;
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .project-title {
+      font-size: 38px;
+      font-weight: 800;
+      margin-top: 25px;
+      color: $color-heading;
+
+      .accent {
+        color: $color-heading;
+      }
+    }
+
+    .project-subtitle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: left;
+      font-size: 16px;
+      color: $color-heading;
+      opacity: 0.9;
+      margin-top: 10px;
+
+      span {
+        position: relative;
+      }
+
+      span:not(:last-child)::after {
+        content: "|";
+        margin-left: 8px;
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+/* ===================================
+   HERO RESPONSIVE
+=================================== */
+@media (min-width: 768px) {
+  #project-hero .hero-wrapper .project-title {
+    font-size: 54px; /* +4px */
+  }
+
+  #project-hero .hero-wrapper .project-subtitle {
+    font-size: 20px; /* +4px */
+  }
+}
+
+@media (min-width: 1200px) {
+    #project-hero .hero-wrapper .project-title {
+        font-size: 58px; /* +4px */
+      }
+    
+      #project-hero .hero-wrapper .project-subtitle {
+        font-size: 22px; /* +4px */
+      }
+}
+
+/* ===================================
+   DESCRIPTION
+=================================== */
+#project-desc {
+  padding: 20px 40px;
+
+  h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .desc-wrapper {
+    text-align: left;
+
+    p {
+      font-size: 16px;
+      color: $color-heading;
+      line-height: 1.7;
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+  }
+
+  .visit-btn {
+    background-color: $color-pink;
+    color: $color-white;
+    border: 2px solid $color-pink;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 550;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: $color-background;
+      border-color: $color-pink;
+      color: $color-pink;
+    }
+  }
+}
+
+/* ===================================
+   INFO GRID
+=================================== */
+#project-info {
+  padding: 20px 40px;
+
+  .info-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+
+    .info-item {
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        color: $color-heading;
+      }
+
+      p {
+        margin-top: 4px;
+        font-size: 16px;
+        color: $color-heading;
+        opacity: 0.85;
+      }
+    }
+  }
+
+  .info-image {
+    margin-top: 40px;
+    border-radius: 18px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+      display: block;
+    }
+  }
+}
+
+/* ===================================
+   GOALS / CHALLENGES / LEARNINGS / RESULTS
+=================================== */
+#project-goals,
+#project-challenges,
+#project-learnings,
+#project-final {
+  padding: 20px 40px;
+
+  h3 {
+    text-align: left;
+    font-size: 24px;
+  }
+
+  p {
+    margin-top: -20px;
+  }
+}
+
+#project-goals { margin-top: -40px; }
+#project-challenges { margin-top: -40px; }
+#project-learnings { margin-top: -100px; }
+#project-final { margin-top: -40px; }
+
+@media (min-width: 768px) {
+  #project-goals p,
+  #project-challenges p,
+  #project-learnings p,
+  #project-final p {
+    margin-top: 60px;
+  }
+}
+
+/* ===================================
+   DETAIL SHOTS
+=================================== */
+#details {
+  padding: 60px 40px;
+
+  .details-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+
+    img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+  }
+}
+
+/* ===================================
+   MORE PROJECTS
+=================================== */
+#more-projects {
+  padding: 20px 40px 80px;
+  margin-top: -140px;
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: $color-heading;
+    text-align: left;
+    margin-bottom: 50px;
+    position: relative;
+    padding-left: 4px;
+  }
+
+  .slider-wrapper {
+    display: flex;
+    gap: 22px;
+    padding-bottom: 20px;
+    justify-content: center;
+    overflow-x: visible;
+    max-width: 1200px;
+    margin-top: 40px;
+
+    @media (max-width: 767px) {
+      overflow-x: auto;
+      justify-content: flex-start;
+      max-width: 100%;
+
+      &::-webkit-scrollbar { height: 6px; }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba($color-heading, 0.25);
+        border-radius: 20px;
+      }
+    }
+
+    .slider-card {
+      min-width: 240px;
+      background: $color-white;
+      border: 2px solid rgba($color-heading, 1);
+      border-radius: 20px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+      text-align: center;
+      padding: 18px 12px 20px;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+      img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin-bottom: 14px;
+      }
+
+      h4 {
+        font-size: 18px;
+        font-weight: 600;
+        color: $color-heading;
+        margin-top: 6px;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      &:hover {
+        border: 2px solid rgba($color-heading, 0.5);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+
+        h4 {
+          opacity: 0.75;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}
+
+/* ===================================
+   SECTION DIVIDER LINE
+=================================== */
+section {
+  position: relative;
+  padding-bottom: 60px;
+  margin-bottom: 60px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 85%;
+    height: 2px;
+    opacity: 1;
+  }
+}
+
+#project-goals::after { background-color: $color-blue; }
+#project-challenges::after { background-color: $color-yellow; }
+#project-learnings::after { background-color: $color-orange; }
+#project-final::after { background-color: $color-pink; }
+
+@media (min-width: 768px) {
+  section {
+
+    &::after {
+      width: 80%;
+    }
+}
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: rgba($color-heading, 1); 
+  margin-top: -20px;
+  opacity: 1;
+}
+

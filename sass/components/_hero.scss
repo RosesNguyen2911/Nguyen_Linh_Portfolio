@@ -28,7 +28,7 @@
       border-radius: 8px;
       position: relative;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 90%;
+      width: 95%;
     }
 
     .banner-title {
@@ -55,7 +55,7 @@
     .banner-label {
       position: absolute;
       bottom: -30px;
-      right: -20px;
+      right: -10px;
       background-color: $color-yellow;
       padding: 10px 20px;
       border-radius: 4px;
@@ -70,37 +70,75 @@
     }
   }
 
-  /* Status Button */
-  .hero-status {
-    display: flex;
-    justify-content: center;
+/* Status Button */
+.hero-status {
+  display: flex;
+  justify-content: center;
 
-    .status-btn {
-      background-color: $color-pink;
-      color: $color-white;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+  .status-btn {
+    background-color: $color-pink;
+    color: $color-white;
+    padding: 12px 32px;
+    border-radius: 40px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+    border: 2px solid $color-pink;
 
-      .dot {
-        width: 10px;
-        height: 10px;
-        background-color: $color-orange;
-        border-radius: 50%;
-      }
+    .dot {
+      width: 9px;
+      height: 9px;
+      background-color: #34eb52;
+      border-radius: 50%;
+      position: relative;
 
-      &:hover {
-        background-color: $color-orange;
-        transform: scale(1.05);
-      }
+      animation: triplePulse 2.2s ease-in-out infinite;
+    }
+
+    /* HOVER */
+    &.active,
+    &:hover {
+      background-color: $color-background;
+      border-color: $color-pink;
+      color: $color-pink;
     }
   }
+}
+
+/* LED Glow Animation */
+@keyframes triplePulse {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      0 0 5px rgba(52, 235, 82, 0.6),
+      0 0 10px rgba(52, 235, 82, 0.4),
+      inset 0 0 3px rgba(255, 255, 255, 0.4);
+  }
+
+  33% {
+    transform: scale(1.25);
+    box-shadow:
+      0 0 10px rgba(52, 235, 82, 0.9),
+      0 0 18px rgba(52, 235, 82, 0.7),
+      inset 0 0 5px rgba(255, 255, 255, 0.7);
+  }
+
+  66% {
+    transform: scale(1.45);
+    box-shadow:
+      0 0 14px rgba(52, 235, 82, 1),
+      0 0 26px rgba(52, 235, 82, 0.95),
+      inset 0 0 7px rgba(255, 255, 255, 0.9);
+  }
+
+  100% {
+    transform: scale(1.55);
+    box-shadow:
+      0 0 18px rgba(52, 235, 82, 0.6),
+      0 0 34px rgba(52, 235, 82, 0.4),
+      inset 0 0 9px rgba(255, 255, 255, 0.4);
+  }
+}
 }
 
 /* ===== TABLET ===== */
@@ -140,14 +178,14 @@
           border-radius: 50%;
           background-color: $color-white;
           box-shadow: 0 0 0 6px $color-white;
-          margin-left: 92px;
+          margin-left: 87px;
           margin-top: 4px;
         }
   
         .banner-label {
           position: absolute;
           bottom: -30px;
-          right: -40px;
+          right: -20px;
           background-color: $color-yellow;
           padding: 10px 20px;
           border-radius: 4px;
@@ -185,7 +223,6 @@
 @media (min-width: 1200px) {
     #hero {
         padding: 80px 0px;
-    
     
         .hero-banner {
           .banner-title {
