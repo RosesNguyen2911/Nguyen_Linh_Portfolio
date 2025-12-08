@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Works — Linh Nguyen Portfolio</title>
+  <title>Works — Nguyen Linh Portfolio</title>
 
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header id="header" class="grid-con">
+    <h1 class="hidden"> Nguyen Linh Portfolio - Works Page </h1>
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
       <a href="index.html">
         <img src="images/L_Logo.svg" alt="Linh Nguyen Logo" class="logo">
@@ -29,111 +34,172 @@
     </label>
 
     <nav class="header-nav m-col-start-6 m-col-end-8 l-col-start-6 l-col-end-8">
+      <h2 class="hidden"> Main Navigation</h2>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="works.html" class="active">Works</a></li>
         <li><a href="about.html">About</a></li>
-        <li class="mobile-connect"><a href="connect.html">Connect</a></li>
+        <li class="mobile-connect"><a href="connect.php">Connect</a></li>
       </ul>
     </nav>
 
     <div class="header-connect m-col-start-12 m-col-end-13 l-col-start-12 l-col-end-13">
-      <a href="connect.html" class="btn-connect">Connect</a>
+      <a href="connect.php" class="btn-connect">Connect</a>
     </div>
   </header>
 
+
   <!-- ===== MAIN ===== -->
   <main>
+
     <!-- HERO -->
     <section id="works-hero" class="grid-con">
-      <div class="hero-content col-span-full m-col-span-7 l-col-span-7">
-        <h1><span class="accent">Creative Playground</span><br>Where Ideas Come Alive</h1>
-        <p>Branding, Motion, and 3D explorations — crafted to tell stories through visuals and interaction.</p>
+
+      <!-- FLOATING SHAPES (NEW) -->
+      <div class="float blue"></div>
+      <div class="float pink"></div>
+      <div class="float orange"></div>
+      <div class="float yellow"></div>
+      
+      
+
+      <div class="hero-content col-span-full m-col-span-full l-col-span-full">
+        <h2><span class="accent">Creative Playground</span><br>Where Ideas Come Alive</h2>
+
+        <p>A curated collection of Branding, Motion, 3D, and Web projects - blending imagination and craft to bring ideas vividly to life.</p>
+
         <div class="filter-bar">
           <button class="filter-btn active" data-filter="all">All</button>
           <button class="filter-btn" data-filter="branding">Branding</button>
           <button class="filter-btn" data-filter="motion">Motion</button>
-          <button class="filter-btn" data-filter="web">Web</button>
+          <button class="filter-btn" data-filter="web">Web Development</button>
           <button class="filter-btn" data-filter="3d">3D</button>
-        </div>
+      </div>
       </div>
     </section>
 
-    <!-- PROJECT GALLERY -->
-    <section id="project-gallery" class="grid-con">
-      <h2 class="hidden">Project Gallery</h2>
 
-      <article class="project-card col-span-full m-col-span-6 l-col-span-5" data-color="pink">
-        <div class="card-box">
-          <img src="images/work_elin.jpg" alt="ELIN Skincare project thumbnail">
-          <div class="overlay">
-            <h3><i class="fas fa-seedling"></i> ELIN Skincare</h3>
-            <p>Branding & packaging design for minimalist beauty line.</p>
-          </div>
-        </div>
-      </article>
+    <!-- FEATURED WORKS -->
+    <section id="featured-works" class="grid-con" aria-labelledby="featured-heading">
+      <h2 id="featured-heading" class="hidden">Featured Works</h2>
 
-      <article class="project-card col-span-full m-col-span-6 l-col-span-7" data-color="blue">
-        <div class="card-box">
-          <img src="images/work_motion.jpg" alt="Motion Design Reel thumbnail">
-          <div class="overlay">
-            <h3><i class="fas fa-film"></i> Motion Design Reel</h3>
-            <p>Dynamic animation collection for visual storytelling.</p>
-          </div>
-        </div>
-      </article>
+      <!-- PROJECT 1 -->
+      <a href="swan_project.html" class="work-card col-span-full" data-color="blue" data-category="3d motion web">
+        <article>
+          <h3 class="hidden"> Swan Earbuds Project</h3>
 
-      <article class="project-card col-span-full m-col-span-6 l-col-span-6" data-color="yellow">
-        <div class="card-box">
-          <img src="images/work_industrynight.jpg" alt="Industry Night Website project">
-          <div class="overlay">
-            <h3><i class="fas fa-laptop-code"></i> Industry Night</h3>
-            <p>Interactive showcase website for Fanshawe designers.</p>
-          </div>
-        </div>
-      </article>
+          <img src="images/swanearbud_poster.jpg" alt="Swan Earbuds Poster">
 
-      <article class="project-card col-span-full m-col-span-6 l-col-span-6" data-color="orange">
-        <div class="card-box">
-          <img src="images/work_swan.jpg" alt="Swan Earbuds 3D render">
-          <div class="overlay">
-            <h3><i class="fas fa-headphones"></i> Swan Earbuds</h3>
-            <p>3D product modeling with elegant material textures.</p>
+          <div class="work-info">
+            <h4>SWAN EARBUDS</h4>
+            <p>Earbuds Production And Promotion.</p>
+
+            <div class="work-tags">
+              <span>3D Modeling</span>
+              <span>Motion Design</span>
+              <span>Web Development</span>
+            </div>
+
+            <div class="work-arrow">
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </a>
+
+      <!-- PROJECT 2 -->
+      <a href="swerve_project.html" class="work-card col-span-full" data-color="yellow"  data-category="branding motion web">
+        <article>
+          <h3 class="hidden"> Swerve Drinks Project</h3>
+
+          <img src="images/swerve_poster.jpg" alt="Swerve Drinks Poster">
+
+          <div class="work-info">
+            <h4>SWERVE DRINKS</h4>
+            <p>Rebranding For A Soda Brand.</p>
+
+            <div class="work-tags">
+              <span>Branding</span>
+              <span>Motion Design</span>
+              <span>Web Development</span>
+            </div>
+
+            <div class="work-arrow">
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </div>
+          </div>
+        </article>
+      </a>
+
+      <!-- PROJECT 3 -->
+      <a href="elin_project.html" class="work-card col-span-full" data-color="orange" data-category="branding motion">
+        <article>
+          <h3 class="hidden"> Elin Skincare Project</h3>
+
+          <img src="images/elin_poster.jpg" alt="Elin Skincare Poster">
+
+          <div class="work-info">
+            <h4>ELIN SKINCARE</h4>
+            <p>Cosmetic Brand Production.</p>
+
+            <div class="work-tags">
+              <span>Branding</span>
+              <span>Motion Design</span>
+            </div>
+
+            <div class="work-arrow">
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </div>
+          </div>
+        </article>
+      </a>
+
+      <!-- PROJECT 4 -->
+      <a href="industrynight_project.html" class="work-card col-span-full" data-color="pink" data-category="branding motion web">
+        <article>
+          <h3 class="hidden">Industry Night Project</h3>
+
+          <img src="images/industrynight_poster.jpg" alt="Industry Night Poster">
+
+          <div class="work-info">
+            <h4>INDUSTRY NIGHT</h4>
+            <p>Fanshawe's Students Showcase</p>
+
+            <div class="work-tags">
+              <span>Branding</span>
+              <span>Motion Design</span>
+              <span>Web Development</span>
+            </div>
+
+            <div class="work-arrow">
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </div>
+          </div>
+        </article>
+      </a>
     </section>
 
-    <!-- CASE STUDY -->
-    <section id="case-study" class="grid-con">
-      <h2 class="hidden">Case Study Section</h2>
-      <div class="case-content col-span-full m-col-span-8 l-col-span-8">
-        <h3><i class="fas fa-feather-alt"></i> Swan Earbuds — Where Form Meets Sound</h3>
-        <p>
-          This project merges branding, motion, and 3D design to visualize the harmony between minimalism and music.
-          Rendered in Cinema 4D and composed with Redshift for lifelike lighting.
-        </p>
-        <a href="#" class="btn-learn">View Case Study</a>
-      </div>
-    </section>
+
   </main>
+
 
   <!-- ===== FOOTER ===== -->
   <footer id="footer" class="grid-con">
     <div class="footer-top col-span-full">
       <nav class="footer-nav">
+        <h2 class="hidden">Footer Navigation</h2>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="works.html">Works</a></li>
+          <li><a href="works.html" class="active">Works</a></li>
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
 
       <div class="footer-social">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+        <a href="https://www.facebook.com/share/19oDSNrdYf/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+        <a href="https://www.instagram.com/k._.ninhh/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/linh-nguyen-893b79325/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.behance.net/linhkhnh358" aria-label="Behance"><i class="fab fa-behance"></i></a>
       </div>
     </div>
 
@@ -144,7 +210,7 @@
         Let’s make something incredible together! Reach out to discuss your project,
         and let’s create designs that resonate and inspire.
       </p>
-      <a href="connect.html" class="btn-connect">Connect</a>
+      <a href="connect.php" class="btn-connect">Connect</a>
     </section>
 
     <div class="footer-bottom col-span-full">
@@ -152,5 +218,12 @@
       <p class="credit-right">© 2025 All Rights Reserved</p>
     </div>
   </footer>
+
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="js/works.js"></script>
+
 </body>
 </html>
