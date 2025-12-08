@@ -29,8 +29,8 @@
 
       a {
         color: $color-heading;
-        font-weight: 700;
-        font-size: 18px;
+        font-weight: 550;
+        font-size: 17px;
         text-decoration: none;
         position: relative;
         transition: color 0.3s ease;
@@ -103,7 +103,7 @@
   
     p {
       color: $color-orange;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 16px;
       line-height: 1.5;
       margin: 0 auto 30px;
@@ -115,16 +115,20 @@
       display: inline-block;
       background-color: $color-pink;
       color: $color-white;
-      font-weight: 700;
-      padding: 12px 36px;
-      border-radius: 30px;
+      border: 2px solid $color-pink;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-size: 17px;
+      font-weight: 550;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
 
-      &:hover {
-        background-color: darken($color-pink, 10%);
-        transform: translateY(-2px);
-      }
+      &.active,
+    &:hover {
+      background-color: $color-white;
+      border-color: $color-pink;
+      color: $color-pink;
+    }
     }
   }
 
@@ -139,7 +143,7 @@
 
     p {
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 450;
       color: $color-heading;
       opacity: 0.9;
       margin: 0;

@@ -1,0 +1,112 @@
+@use '../abstracts' as *;
+
+/* Testimonials Section */
+.testimonials-section {
+  background: $color-background;
+  padding: 50px 30px;
+
+  /* Wrapper */
+  .testimonials-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    transition: transform 0.4s ease;
+    align-items: stretch;
+    margin: 0;
+  }
+
+  /* Card */
+  .testimonial-card {
+    flex: 0 0 85%;
+    max-width: 85%;
+    margin: 0 7.5%;
+    min-height: 250px;
+    height: 100%;
+
+    background: $color-white;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h4 {
+      color: $color-heading;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    p {
+      color: $color-heading;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    span {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .line {
+      width: 80%;
+      height: 3px;
+      margin: 0.5rem auto 1.2rem auto;
+    }
+
+    &.yellow { border-color: $color-yellow; .line { background: $color-yellow; } }
+    &.orange { border-color: $color-orange; .line { background: $color-orange; } }
+    &.blue   { border-color: $color-blue;   .line { background: $color-blue; } }
+  }
+
+  /* BUTTONS BELOW SLIDER */
+  .carousel-controls {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    button {
+      display: inline-block;
+      background-color: $color-pink;
+      color: $color-white;
+      border: 2px solid $color-pink;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-size: 20px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &.active,
+    &:hover {
+      background-color: $color-background;
+      border-color: $color-pink;
+      color: $color-pink;
+    }
+    }
+  }
+
+  /* REMOVE DOTS */
+  .testimonials-dots {
+    display: none;
+  }
+
+  /* RESPONSIVE */
+  @media (min-width: 768px) {
+    .testimonial-card {
+      min-height: 360px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .testimonial-card {
+      padding: 2.5rem;
+    }
+  }
+}
