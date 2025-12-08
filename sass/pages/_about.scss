@@ -72,10 +72,10 @@
   perspective: 1200px;
   cursor: pointer;
   
-  /* Card zigzag on mobile */
-  &:nth-child(1) { margin-left: -100px; }
-  &:nth-child(2) { margin-left: 100px; }
-  &:nth-child(3) { margin-left: -100px; }
+   /* Card zigzag on mobile */
+   &:nth-child(1) { margin-left: -100px; z-index: 1000; }
+   &:nth-child(2) { margin-left: 100px; z-index: 1000; }
+   &:nth-child(3) { margin-left: -100px; z-index: 1000;}
 
   .card-front,
   .card-back {

@@ -1911,12 +1911,15 @@ html, body {
 }
 .card:nth-child(1) {
   margin-left: -100px;
+  z-index: 1000;
 }
 .card:nth-child(2) {
   margin-left: 100px;
+  z-index: 1000;
 }
 .card:nth-child(3) {
   margin-left: -100px;
+  z-index: 1000;
 }
 .card .card-front,
 .card .card-back {
