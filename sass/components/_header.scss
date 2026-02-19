@@ -6,7 +6,6 @@
   background-color: $color-white;
   align-items: center;
   padding: 25px 40px;
-  height: 110px;
   width: 100%;
   position: relative;
   z-index: 1000;
@@ -14,7 +13,49 @@
   .header-logo img {
     width: 42px;
     height: auto;
+    margin-top: -5px;
   }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+  
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+  
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.10;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      margin-top: 15px;
+    
+      background: linear-gradient(
+        135deg,
+        $color-blue,
+        $color-yellow,
+        $color-orange,
+        $color-pink
+      );
+    
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;    
+      
+      span {
+        display: block;
+      }
+    }
+  }
+  
 
 
   .header-connect {
