@@ -26,12 +26,19 @@ $message_value = $_GET["message"] ?? "";
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="L_Favicon/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="L_Favicon/favicon.svg">
+<link rel="shortcut icon" href="L_Favicon/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="L_Favicon/apple-touch-icon.png">
+<link rel="manifest" href="L_Favicon/site.webmanifest">
+
 </head>
 
 <body>
   <!-- HEADER -->
   <header id="header" class="grid-con">
-    <h1 class="hidden"> Nguyen Linh Portfolio - Home Page </h1>
+    <h1 class="hidden"> Nguyen Linh Portfolio - Connect Page </h1>
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
       <a href="index.html" class="logo-wrapper">
         <img src="images/L_Logo.svg" alt="Linh Nguyen Logo">
