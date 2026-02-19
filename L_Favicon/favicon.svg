@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="374.2" height="561.4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="374.2" height="561.4"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 374.2 561.4">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="187.1" y1="527.2" x2="187.1" y2="-34.3" gradientTransform="translate(0 527.2) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5ce1e6"></stop>
+      <stop offset=".3" stop-color="#ffde59"></stop>
+      <stop offset=".6" stop-color="#ff914d"></stop>
+      <stop offset="1" stop-color="#ff66c4"></stop>
+    </linearGradient>
+  </defs>
+  <path class="st0" d="M187.1,561.4v-.2C83.8,561.3,0,477.6,0,374.4V0c103.4,0,187.1,83.8,187.1,187.1v187.1c103.4,0,187.1,83.8,187.1,187.1h-187.1v.2Z"></path>
+</svg></svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
