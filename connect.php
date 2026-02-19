@@ -31,7 +31,7 @@ $message_value = $_GET["message"] ?? "";
 <body>
   <!-- HEADER -->
   <header id="header" class="grid-con">
-    <h1 class="hidden"> Nguyen Linh Portfolio - Connect Page </h1>
+    <h1 class="hidden"> Nguyen Linh Portfolio - Home Page </h1>
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
       <a href="index.html" class="logo-wrapper">
         <img src="images/L_Logo.svg" alt="Linh Nguyen Logo">
@@ -40,6 +40,8 @@ $message_value = $_GET["message"] ?? "";
           <span>Linh</span>
           <span>Nguyen</span>
         </div>
+      </a>
+    </div>
 
     <input type="checkbox" id="menu-toggle" hidden>
 
