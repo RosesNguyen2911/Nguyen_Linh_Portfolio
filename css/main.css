@@ -19,10 +19,18 @@
   align-items: center;
 }
 #header .header-logo .logo-wrapper {
-  display: flex;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
   gap: 12px;
   text-decoration: none;
+}
+#header .header-logo img {
+  width: 42px;
+  height: auto;
+  margin-top: -5px;
+  display: block;
+  flex-shrink: 0;
 }
 #header .header-logo .logo-text {
   display: flex;
@@ -32,15 +40,58 @@
   font-weight: 600;
   letter-spacing: 1px;
   font-family: "Bricolage Grotesque", sans-serif;
-  margin-top: 15px;
+  margin-top: 0;
   background: linear-gradient(135deg, #5CE1E6, #FFDE59, #FF8D59, #FF66C4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-18px);
+  filter: blur(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease, visibility 0.35s ease;
 }
 #header .header-logo .logo-text span {
   display: block;
+  text-decoration: none;
+}
+#header .header-logo .logo-wrapper:hover .logo-text {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  filter: blur(0);
+}
+#header .header-logo .logo-wrapper:hover,
+#header .header-logo .logo-wrapper:focus,
+#header .header-logo .logo-wrapper:active {
+  text-decoration: none;
+}
+#header .header-connect {
+  display: none;
+}
+#header .header-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  background-color: #FF66C4;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 1002;
+  margin-left: auto;
+}
+#header .header-hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  transition: all 0.4s ease;
 }
 #header .header-connect {
   display: none;
