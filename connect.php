@@ -136,6 +136,9 @@ $message_value = $_GET["message"] ?? "";
           placeholder="Tell Me About Your Project..."
           class="<?= strpos($errors, 'message') !== false ? 'error-field' : '' ?>"
         ><?= htmlspecialchars($message_value) ?></textarea>
+        <small>
+        *Please fill out all required sections.
+        </small>
       </div>
 
       <!-- SUCCESS -->
