@@ -9,10 +9,17 @@
 
   /* Tagline */
   .hero-tagline {
-    color: $color-orange;
+    color: $color-heading;
     font-size: 30px;
     font-weight: 600;
     margin-top: -40px;
+  }
+
+  /* Secondary Line */
+  .hero-second-line {
+    color: $color-orange;
+    font-size: 24px;
+    font-weight: 550;
   }
 
   /* Banner */
@@ -149,6 +156,11 @@
       /* Tagline */
       .hero-tagline {
         font-size: 50px;
+      }
+
+      .hero-second-line {
+        font-size: 28px;
+        margin-bottom: 15px;
       }
   
       .hero-banner {

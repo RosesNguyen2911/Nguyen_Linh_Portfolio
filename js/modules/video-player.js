@@ -1,11 +1,4 @@
-/* ===== MY SIMPLE VIDEO PLAYER =====
-   I made this script to control my demo reel video.
-   It lets me play, pause, replay, adjust sound, fullscreen, and drag progress easily.
-   I tried to keep the code short and clean like in class.
-*/
-
-
-// ====== SELECT ELEMENTS ======
+export function videoPlayer(){
 // I used const because these elements stay the same
 const vid = document.querySelector(".portfolio-video");
 const playMid = document.querySelector(".btn-center-play");
@@ -270,4 +263,4 @@ document.addEventListener("mouseup", stopHold);
 vidBox.addEventListener("mouseenter", showControls);
 vidBox.addEventListener("mouseleave", hideControls);
 
-
+}

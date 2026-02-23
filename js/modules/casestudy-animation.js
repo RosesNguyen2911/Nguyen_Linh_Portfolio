@@ -1,3 +1,4 @@
+export function casestudyAnimation(){
 gsap.registerPlugin(ScrollTrigger);
 
 // Reusable fade + slide animation
@@ -24,3 +25,4 @@ fadeUpOnScroll(".info-item, .info-image");       // Info grid
 fadeUpOnScroll(".section-title, .list");         // Section titles + text blocks
 fadeUpOnScroll("#details img");                  // Detail shots images
 fadeUpOnScroll("#more-projects .slider-card");   // More project cards
+}
