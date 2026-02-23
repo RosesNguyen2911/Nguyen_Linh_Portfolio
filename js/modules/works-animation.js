@@ -1,3 +1,4 @@
+export function workAnimation(){
 gsap.registerPlugin(ScrollTrigger);
 
 /* FEATURED HEADING - SIMPLE FADE */
@@ -7,7 +8,7 @@ function animateFeaturedHeading() {
   gsap.from(featuredHeading, {
     opacity: 0,
     duration: 1,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 
@@ -15,7 +16,7 @@ function animateFeaturedHeading() {
 const floatShapes = document.querySelectorAll(".float");
 
 function animateFloatingShapes() {
-  floatShapes.forEach(function(shape) {
+  floatShapes.forEach(function (shape) {
     const isBlue = shape.classList.contains("blue");
     const isYellow = shape.classList.contains("yellow");
 
@@ -25,7 +26,7 @@ function animateFloatingShapes() {
       duration: gsap.utils.random(4, 7),
       repeat: -1,
       yoyo: true,
-      ease: "sine.inOut"
+      ease: "sine.inOut",
     });
 
     gsap.to(shape, {
@@ -33,7 +34,7 @@ function animateFloatingShapes() {
       duration: gsap.utils.random(3, 5),
       repeat: -1,
       yoyo: true,
-      ease: "power1.inOut"
+      ease: "power1.inOut",
     });
 
     if (isBlue) {
@@ -43,7 +44,7 @@ function animateFloatingShapes() {
         duration: gsap.utils.random(3, 5),
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut"
+        ease: "sine.inOut",
       });
     }
 
@@ -53,7 +54,7 @@ function animateFloatingShapes() {
         duration: gsap.utils.random(2.5, 3.8),
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut"
+        ease: "sine.inOut",
       });
     }
   });
@@ -69,7 +70,7 @@ function animateHeroIntro() {
     opacity: 0,
     y: 20,
     duration: 1,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 
   gsap.from(heroText, {
@@ -77,7 +78,7 @@ function animateHeroIntro() {
     y: 20,
     duration: 1,
     delay: 0.2,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 
   gsap.from(heroFilters, {
@@ -85,64 +86,106 @@ function animateHeroIntro() {
     y: 20,
     duration: 1,
     delay: 0.4,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 
-/* FILTER SYSTEM */
+/* FILTER SYSTEM (FIXED FOR YOUR HTML) */
 const filterButtons = document.querySelectorAll(".filter-btn");
 const allCards = document.querySelectorAll(".work-card");
 
-function handleFilterClick(event) {
-  const selected = event.currentTarget.getAttribute("data-filter");
+function normalizeTagText(text) {
+  return text.trim().toLowerCase();
+}
 
-  const shuffled = Array.from(allCards).sort(function() {
-    return Math.random() - 0.5;
+function getCardTags(card) {
+  const tagSpans = card.querySelectorAll(".work-tags span");
+  const tags = [];
+
+  tagSpans.forEach(function (span) {
+    tags.push(normalizeTagText(span.textContent));
   });
 
-  shuffled.forEach(function(card) {
-    const categories = card.getAttribute("data-category");
-    const isVisible = selected === "all" || categories.includes(selected);
+  return tags;
+}
 
-    if (isVisible) {
-      card.style.display = "block";
+function filterToRequiredTag(selectedFilter) {
+  if (selectedFilter === "branding") {
+    return "branding";
+  }
 
-      gsap.fromTo(
-        card,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        }
-      );
-    }
+  if (selectedFilter === "motion") {
+    return "motion design";
+  }
 
-    else {
-      gsap.to(card, {
-        opacity: 0,
-        duration: 0.2,
-        ease: "power2.out",
-        onComplete: function() {
-          card.style.display = "none";
-        }
-      });
-    }
+  if (selectedFilter === "web") {
+    return "web development";
+  }
+
+  if (selectedFilter === "3d") {
+    return "3d modeling";
+  }
+
+  return "all";
+}
+
+function showCard(card) {
+  card.style.display = "";
+  gsap.fromTo(
+    card,
+    { opacity: 0 },
+    { opacity: 1, duration: 0.3, ease: "power2.out" }
+  );
+}
+
+function hideCard(card) {
+  gsap.to(card, {
+    opacity: 0,
+    duration: 0.2,
+    ease: "power2.out",
+    onComplete: function () {
+      card.style.display = "none";
+      card.style.opacity = "";
+    },
   });
-
-  updateActiveButton(event.currentTarget);
 }
 
 function updateActiveButton(activeBtn) {
-  filterButtons.forEach(function(btn) {
+  filterButtons.forEach(function (btn) {
     btn.classList.remove("active");
   });
 
   activeBtn.classList.add("active");
 }
 
+function applyFilter(selectedFilter) {
+  const requiredTag = filterToRequiredTag(selectedFilter);
+
+  allCards.forEach(function (card) {
+    if (requiredTag === "all") {
+      showCard(card);
+      return;
+    }
+
+    const tags = getCardTags(card);
+    const isVisible = tags.includes(requiredTag);
+
+    if (isVisible) {
+      showCard(card);
+    } else {
+      hideCard(card);
+    }
+  });
+}
+
+function handleFilterClick(event) {
+  const selected = event.currentTarget.getAttribute("data-filter");
+  applyFilter(selected);
+  updateActiveButton(event.currentTarget);
+}
+
 function setFilterListeners() {
-  filterButtons.forEach(function(btn) {
+  filterButtons.forEach(function (btn) {
     btn.addEventListener("click", handleFilterClick);
   });
 }
@@ -152,3 +195,5 @@ animateFeaturedHeading();
 animateFloatingShapes();
 animateHeroIntro();
 setFilterListeners();
+applyFilter("all");
+}

@@ -33,9 +33,16 @@ $message_value = $_GET["message"] ?? "";
 <link rel="apple-touch-icon" sizes="180x180" href="L_Favicon/apple-touch-icon.png">
 <link rel="manifest" href="L_Favicon/site.webmanifest">
 
+ <!-- SCRIPT -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+ 
+ <script type="module" src="js/main.js"></script>
 </head>
 
-<body>
+<body data-page="connect">
+
   <!-- HEADER -->
   <header id="header" class="grid-con">
     <h1 class="hidden"> Nguyen Linh Portfolio - Connect Page </h1>
@@ -226,10 +233,9 @@ $message_value = $_GET["message"] ?? "";
       </nav>
 
       <div class="footer-social">
-        <a href="https://www.facebook.com/share/19oDSNrdYf/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+        <a href="https://github.com/RosesNguyen2911" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.instagram.com/k._.ninhh/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://www.linkedin.com/in/linh-nguyen-893b79325/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.behance.net/linhkhnh358" aria-label="Behance"><i class="fab fa-behance"></i></a>
       </div>
     </div>
 
@@ -248,13 +254,6 @@ $message_value = $_GET["message"] ?? "";
       <p class="credit-right">© 2025 All Rights Reserved</p>
     </div>
   </footer>
-
-  <!-- SCRIPT -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
-  <script src="js/connect.js"></script>
   </body>
   </html>
   

@@ -1,3 +1,4 @@
+export function aboutAnimation(){
 gsap.registerPlugin(ScrollTrigger);
 
 // ELEMENTS
@@ -141,4 +142,4 @@ function animateSkillRows() {
 
 animateSkillRows();
 
-
+}

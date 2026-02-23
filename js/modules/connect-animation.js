@@ -1,3 +1,4 @@
+export function connectAnimation(){
 gsap.registerPlugin(ScrollTrigger);
 
 const heroTitle = document.querySelector("#contact-hero h2");
@@ -336,3 +337,4 @@ window.addEventListener("load", () => {
   // I add a small delay so animations still run before the URL gets cleaned
   setTimeout(clearURLParams, 800);
 });
+}

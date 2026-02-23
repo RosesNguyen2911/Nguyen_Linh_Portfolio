@@ -3,12 +3,13 @@
 /* ===== MOBILE ===== */
 
 #header {
+  z-index: 9998;
+  isolation: isolate;
   background-color: $color-white;
   align-items: center;
   padding: 25px 40px;
   width: 100%;
   position: relative;
-  z-index: 1000;
 
   .header-logo img {
     width: 42px;
