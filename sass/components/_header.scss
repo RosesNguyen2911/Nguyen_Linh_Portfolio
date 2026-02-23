@@ -11,6 +11,9 @@
   width: 100%;
   position: relative;
 
+
+  // LOGO ANIMATION
+
   .header-logo img {
     width: 42px;
     height: auto;
@@ -22,22 +25,32 @@
     align-items: center;
   
     .logo-wrapper {
-      display: flex;
+      display: inline-flex;          
+      flex-direction: row;       
       align-items: center;
       gap: 12px;
-      text-decoration: none;
+      text-decoration: none;      
+    }
+  
+    img {
+      width: 42px;
+      height: auto;
+      margin-top: -5px;
+      display: block;
+      flex-shrink: 0;           
     }
   
     .logo-text {
       display: flex;
-      flex-direction: column;
+      flex-direction: column;   
       line-height: 1.10;
       font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: 1px;
       font-family: 'Bricolage Grotesque', sans-serif;
-      margin-top: 15px;
-    
+  
+      margin-top: 0;             
+  
       background: linear-gradient(
         135deg,
         $color-blue,
@@ -45,15 +58,67 @@
         $color-orange,
         $color-pink
       );
-    
+  
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      color: transparent;    
-      
+      color: transparent;
+  
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-18px);
+      filter: blur(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease, visibility 0.35s ease;
+  
       span {
         display: block;
+        text-decoration: none;      
       }
+    }
+  
+
+    .logo-wrapper:hover .logo-text {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      filter: blur(0);
+    }
+  
+
+    .logo-wrapper:hover,
+    .logo-wrapper:focus,
+    .logo-wrapper:active {
+      text-decoration: none;
+    }
+  }
+
+
+  .header-connect {
+    display: none;
+  }
+
+  .header-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: $color-pink;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    z-index: 1002;
+    margin-left: auto;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: $color-white;
+      border-radius: 3px;
+      transition: all 0.4s ease;
     }
   }
   
