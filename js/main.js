@@ -5,6 +5,7 @@ import { featuredWorks } from "./modules/featured-works.js";
 import { homeAnimation } from "./modules/home-animation.js";
 import { videoPlayer } from "./modules/video-player.js";
 import { workAnimation } from "./modules/works-animation.js";
+import { videoplayerCasestudy } from "./modules/video-player-casestudy.js";
 
 
 if(document.body.dataset.page==="home"){
@@ -20,5 +21,6 @@ if(document.body.dataset.page==="home"){
   connectAnimation();
 }else if(document.body.dataset.page==="casestudy"){
   casestudyAnimation();
+  videoplayerCasestudy();
 }
 
