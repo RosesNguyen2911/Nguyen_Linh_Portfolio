@@ -173,9 +173,13 @@
     border-radius: 12px;
     padding: 22px 25px;
     margin-bottom: 30px;
-    transition: 0.3s ease;
     min-height: 50px;
 
+    transition: transform 0.28s cubic-bezier(.34, 1.56, .64, 1),
+                box-shadow 0.28s ease;
+    will-change: transform;
+
+    /* Alternate border colors */
     &:nth-of-type(2) { border-left-color: $color-yellow; }
     &:nth-of-type(3) { border-left-color: $color-orange; }
     &:nth-of-type(4) { border-left-color: $color-pink; }
@@ -198,16 +202,37 @@
       line-height: 1.6;
     }
 
+    /* Bounce hover */
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
     }
   }
 }
 
+/* FAQ links */
 #faqs .faq-item p a {
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  #faqs {
+    h2 { font-size: 32px; }
+
+    .faq-item {
+      h3 { font-size: 19px; }
+      p  { font-size: 16px; }
+    }
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #faqs .faq-item:hover {
+    transform: translateY(-6px);
+  }
 }
 
 /* CONTACT PAGE — MEDIA QUERIES */
