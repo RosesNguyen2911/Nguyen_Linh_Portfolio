@@ -69,12 +69,12 @@ $message_value = $_GET["message"] ?? "";
         <li><a href="index.html">Home</a></li>
         <li><a href="works.html">Works</a></li>
         <li><a href="about.html">About</a></li>
-        <li class="mobile-connect"><a href="connect.php" class="active">Connect</a></li>
+        <li class="mobile-connect"><a href="contact.php" class="active">Contact</a></li>
       </ul>
     </nav>
 
     <div class="header-connect m-col-start-12 m-col-end-13 l-col-start-12 l-col-end-13">
-      <a href="connect.php" class="btn-connect active">Connect</a>
+      <a href="contact.php" class="btn-connect active">Contact</a>
     </div>
   </header>
 
@@ -249,7 +249,7 @@ $message_value = $_GET["message"] ?? "";
         Let’s make something incredible together! Reach out to discuss your project,
         and let’s create designs that resonate and inspire.
       </p>
-      <a href="connect.php" class="btn-connect active">Connect</a>
+      <a href="contact.php" class="btn-connect active">Contact</a>
     </section>
 
     <div class="footer-bottom col-span-full">
