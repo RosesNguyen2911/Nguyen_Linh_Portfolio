@@ -302,9 +302,7 @@
     font-size: 19px;
   }
 }
-/* =============================
-   FOOTER SECTION (MOBILE FIRST)
-   ============================= */
+/* FOOTER SECTION (MOBILE FIRST) */
 #footer {
   background-color: #FFFFFF;
   color: #5CE1E6;
@@ -1028,7 +1026,7 @@
   background-color: #FFFFFF;
   color: #2E989C;
   padding: 60px 50px;
-  /* ===== AVATAR ===== */
+  /* ===== AVATAR */
 }
 #about .about-avatar-wrapper {
   display: grid;

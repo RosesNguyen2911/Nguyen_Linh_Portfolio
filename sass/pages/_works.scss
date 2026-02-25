@@ -1,8 +1,10 @@
 @use '../abstracts' as *;
 
-/* WORKS PAGE */
+/* =============================
+   WORKS PAGE
+============================= */
 
-/* FLOATING SHAPES */
+/* Floating shapes */
 .float {
   position: absolute;
   border-radius: 50%;
@@ -43,12 +45,28 @@
   }
 }
 
-/* HERO SECTION */
+/* Hero container */
 #works-hero {
   position: relative;
+}
+
+/* Highlight bar */
+.filter-highlight {
+  position: absolute;
+  bottom: -4px;
+  height: 4px;
+  border-radius: 20px;
+  background-color: $color-pink;
+  width: 0;
+  transform: translateX(0);
+  transition: width 0.3s ease;
+}
+
+/* Hero section (mobile-first) */
+#works-hero {
   background-color: $color-background;
   text-align: center;
-  padding: 100px 40px 0;
+  padding: 100px 40px 0px;
 
   h2 {
     font-weight: 800;
@@ -68,25 +86,12 @@
     margin: 20px 0 40px;
   }
 
-  /* FILTER BAR */
   .filter-bar {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
     position: relative;
-
-    /* HIGHLIGHT BAR */
-    .filter-highlight {
-      position: absolute;
-      bottom: -4px;
-      height: 4px;
-      border-radius: 20px;
-      background-color: $color-pink;
-      width: 0;
-      transform: translateX(0);
-      transition: width 0.3s ease;
-    }
 
     .filter-btn {
       background: none;
@@ -98,7 +103,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins',sans-serif;
 
       &.active,
       &:hover {
@@ -110,50 +115,59 @@
   }
 }
 
-/* WORKS PAGE TABLET */
+
+/* =============================
+   TABLET
+============================= */
 @media (min-width: 768px) {
+  /* Larger text */
+  #works-hero h2 {
+    font-size: 48px;
+  }
+
+  #works-hero p {
+    font-size: 20px;
+    margin: 24px 0 40px;
+  }
+
+  /* Larger filter buttons */
+  #works-hero .filter-btn {
+    padding: 10px 28px;
+    font-size: 17px;
+    border-radius: 30px;
+  }
+
+  /* Spacing */
   #works-hero {
     padding: 120px 50px 20px;
-
-    h2 {
-      font-size: 48px;
-    }
-
-    p {
-      font-size: 20px;
-      margin: 24px 0 40px;
-    }
-
-    .filter-bar {
-      .filter-btn {
-        padding: 10px 28px;
-        font-size: 17px;
-        border-radius: 30px;
-      }
-    }
   }
+
 }
 
-/* WORKS PAGE DESKTOP */
+/* =============================
+   DESKTOP
+============================= */
 @media (min-width: 1200px) {
+  /* Larger hero typography */
+  #works-hero h2 {
+    font-size: 50px;
+  }
+
+  #works-hero p {
+    font-size: 22px;
+    margin: 28px 0 45px;
+  }
+
+  /* Desktop filter buttons */
+  #works-hero .filter-btn {
+    padding: 12px 36px;
+    font-size: 18px;
+    border-radius: 40px;
+  }
+
+  /* Desktop spacing */
   #works-hero {
     padding: 140px 70px 30px;
-
-    h2 {
-      font-size: 50px;
-    }
-
-    p {
-      font-size: 22px;
-      margin: 28px 0 45px;
-    }
-
-    .filter-bar {
-      .filter-btn {
-        padding: 12px 36px;
-        font-size: 18px;
-        border-radius: 40px;
-      }
-    }
   }
 }
+
