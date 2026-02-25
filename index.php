@@ -1,5 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+require_once('includes/connect.php');
+
+/* Projects query
+I get title, brief, subtitle and color from tbl_projects.
+I also get the first poster (src and alt) from tbl_projects_media. */
+$stmt_projects = $connect->prepare("
+  SELECT
+    p.project_id,
+    p.project_title,
+    p.project_brief,
+    p.project_subtitle,
+    p.project_color,
+
+    (
+      SELECT pm.project_media_src
+      FROM tbl_projects_media pm
+      WHERE pm.project_id = p.project_id
+        AND pm.project_media_type = 'poster'
+        AND pm.is_active = 1
+      ORDER BY pm.project_media_order ASC
+      LIMIT 1
+    ) AS poster_src,
+
+    (
+      SELECT pm.project_media_alt
+      FROM tbl_projects_media pm
+      WHERE pm.project_id = p.project_id
+        AND pm.project_media_type = 'poster'
+        AND pm.is_active = 1
+      ORDER BY pm.project_media_order ASC
+      LIMIT 1
+    ) AS poster_alt
+
+  FROM tbl_projects p
+  WHERE p.is_active = 1
+  ORDER BY p.project_order ASC, p.project_id ASC
+");
+
+$stmt_projects->execute();
+
+/* I store all projects into an array so I can loop them in the HTML section */
+$projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
+$stmt_projects = null;
+
+/* This function turns "A | B | C" into separate span tags */
+function buildTags($subtitle) {
+  $tags = explode('|', $subtitle);
+  $output = '';
+
+  foreach ($tags as $tag) {
+    $clean = trim($tag);
+    if ($clean != '') {
+      $output .= '<span>'.$clean.'</span>';
+    }
+  }
+
+  return $output;
+}
+
+/* SERVICES QUERY
+I get service title + color from tbl_services */
+$stmt_services = $connect->prepare("
+  SELECT service_title, service_color
+  FROM tbl_services
+  WHERE is_active = 1
+  ORDER BY service_order ASC, service_id ASC
+");
+$stmt_services->execute();
+$services = $stmt_services->fetchAll(PDO::FETCH_ASSOC);
+$stmt_services = null;
+
+
+/* TESTIMONIALS QUERY
+I get name, role, message and color from tbl_testimonials */
+$stmt_testimonials = $connect->prepare("
+  SELECT testimonial_author_name, testimonial_author_role, testimonial_message, testimonial_color
+  FROM tbl_testimonials
+  WHERE is_active = 1
+  ORDER BY testimonial_id ASC
+");
+$stmt_testimonials->execute();
+$testimonials = $stmt_testimonials->fetchAll(PDO::FETCH_ASSOC);
+$stmt_testimonials = null;
+?>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +110,6 @@
 <link rel="apple-touch-icon" sizes="180x180" href="L_Favicon/apple-touch-icon.png">
 <link rel="manifest" href="L_Favicon/site.webmanifest">
 
- <!-- SCRIPT -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -33,11 +118,13 @@
 </head>
 
 <body data-page="home">
+
+
    <!-- HEADER -->
    <header id="header" class="grid-con">
     <h1 class="hidden"> Nguyen Linh Portfolio - Home Page </h1>
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
-      <a href="index.html" class="logo-wrapper">
+      <a href="index.php" class="logo-wrapper">
         <img src="images/L_Logo.svg" alt="Linh Nguyen Logo">
     
         <div class="logo-text">
@@ -57,9 +144,9 @@
     <nav class="header-nav m-col-start-6 m-col-end-8 l-col-start-6 l-col-end-8">
       <h2 class="hidden"> Main Navigation</h2>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="works.html">Works</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.php" class="active">Home</a></li>
+        <li><a href="works.php">Works</a></li>
+        <li><a href="about.php">About</a></li>
         <li class="mobile-connect"><a href="contact.php">Contact</a></li>
       </ul>
     </nav>
@@ -113,7 +200,7 @@
       Originally from Vietnam and currently based in London, Ontario, I’m open to freelance opportunities and creative collaborations worldwide.
     </p>
     
-    <a href="about.html" class="about-btn">More About Me!</a>
+    <a href="about.php" class="about-btn">More About Me!</a>
   </article>
 </section>
 
@@ -193,203 +280,109 @@
 <section id="featured-works" class="grid-con" aria-labelledby="featured-heading">
   <h2 id="featured-heading" class="col-span-full m-col-span-full l-col-span-full">Featured Works</h2>
 
-  <a href="swan_project.html"
-  class="work-card col-span-full m-col-span-6 l-col-span-6"
-  data-color="blue">
+  <?php foreach ($projects as $project): ?>
 
- <span class="work-arrow" aria-hidden="true">
-   <i class="fa-solid fa-arrow-right-long"></i>
- </span>
+<a href="case_study.php?id=<?php echo $project['project_id']; ?>"
+   class="work-card col-span-full m-col-span-6 l-col-span-6"
+   data-color="<?php echo $project['project_color']; ?>">
 
- <article>
-   <h3 class="hidden">Swan Earbuds Project</h3>
+  <span class="work-arrow" aria-hidden="true">
+    <i class="fa-solid fa-arrow-right-long"></i>
+  </span>
 
-   <img src="images/swanearbud_poster.jpg" alt="Swan Earbuds Poster">
+  <article>
+    <h3 class="hidden"><?php echo $project['project_title']; ?> Project</h3>
 
-   <div class="work-info">
-     <h4>SWAN EARBUDS</h4>
-     <p>Earbuds Production And Promotion</p>
+    <img src="images/<?php echo $project['poster_src']; ?>"
+         alt="<?php echo $project['poster_alt']; ?>">
 
-     <div class="work-tags">
-       <span>3D Modeling</span>
-       <span>Motion Design</span>
-       <span>Web Development</span>
-     </div>
-   </div>
- </article>
+    <div class="work-info">
+      <h4><?php echo $project['project_title']; ?></h4>
+      <p><?php echo $project['project_brief']; ?></p>
+
+      <div class="work-tags">
+        <?php echo buildTags($project['project_subtitle']); ?>
+      </div>
+    </div>
+  </article>
+
 </a>
 
-  <!-- PROJECT 2 -->
-  <a href="swerve_project.html" class="work-card col-span-full m-col-span-6 l-col-span-6" data-color="yellow">
-
- <span class="work-arrow" aria-hidden="true">
-  <i class="fa-solid fa-arrow-right-long"></i>
-</span>
-
-    <article>
-      <h3 class="hidden">Swerve Drinks Project</h3>
-
-      <img class="work-media" src="images/swerve_poster.jpg" alt="Swerve Drinks Poster" />
-
-      <div class="work-info">
-        <h4>SWERVE DRINKS</h4>
-        <p>Rebranding For A Soda Brand</p>
-
-        <div class="work-tags">
-          <span>Branding</span>
-          <span>Motion Design</span>
-          <span>Web Development</span>
-        </div>
-
-      </div>
-    </article>
-  </a>
-
-  <!-- PROJECT 3 -->
-  <a href="elin_project.html" class="work-card col-span-full m-col-span-6 l-col-span-6" data-color="orange">
-
-
- <span class="work-arrow" aria-hidden="true">
-  <i class="fa-solid fa-arrow-right-long"></i>
-</span>
-
-    <article>
-      <h3 class="hidden">Elin Skincare Project</h3>
-
-      <img class="work-media" src="images/elin_poster.jpg" alt="Elin Skincare Poster" />
-
-      <div class="work-info">
-        <h4>ELIN SKINCARE</h4>
-        <p>Cosmetic Brand Production</p>
-
-        <div class="work-tags">
-          <span>Branding</span>
-          <span>Motion Design</span>
-        </div>
-
-      </div>
-    </article>
-  </a>
-
-  <!-- PROJECT 4 -->
-  <a href="industrynight_project.html" class="work-card col-span-full m-col-span-6 l-col-span-6" data-color="pink">
-
-
- <span class="work-arrow" aria-hidden="true">
-  <i class="fa-solid fa-arrow-right-long"></i>
-</span>
-
-    <article>
-      <h3 class="hidden">Industry Night Project</h3>
-
-      <img class="work-media" src="images/industrynight_poster.jpg" alt="Industry Night Poster" />
-
-      <div class="work-info">
-        <h4>INDUSTRY NIGHT</h4>
-        <p>Fanshawe's Students Showcase</p>
-
-        <div class="work-tags">
-          <span>Branding</span>
-          <span>Motion Design</span>
-          <span>Web Development</span>
-        </div>
-
-      </div>
-    </article>
-  </a>
+<?php endforeach; ?>
 
   <!-- Learn More Button -->
   <div class="work-button col-span-full">
-    <a href="works.html" class="btn-learn">See All</a>
+    <a href="works.php" class="btn-learn">See All</a>
   </div>
 </section>
     
-      <!-- MY SERVICES SECTION -->
-      <section id="services" class="grid-con" aria-labelledby="services-heading">
-        <h2 id="services-heading" class="hidden">My Services</h2>
       
-        <div class="ticker" data-duration="18">
-          <div class="ticker-wrap">
-            <div class="ticker-text">
-              <span class="blue">WEB DEVELOPMENT</span>
-              <span class="pink">BRANDING</span>
-              <span class="yellow">UX/UI DESIGN</span>
-              <span class="orange">ILLUSTRATION</span>
-              <span class="dark-blue">MOTION DESIGN</span>
-            </div>
+       <!-- MY SERVICES SECTION -->
+    <section id="services" class="grid-con" aria-labelledby="services-heading">
+      <h2 id="services-heading" class="hidden">My Services</h2>
+
+      <div class="ticker" data-duration="18">
+        <div class="ticker-wrap">
+          <div class="ticker-text">
+
+            <?php
+            /* I loop services and print spans like the old HTML */
+            foreach ($services as $service) {
+              echo '<span class="'.$service['service_color'].'">'.$service['service_title'].'</span>';
+            }
+            ?>
+
           </div>
         </div>
-      </section>
-      
+      </div>
+    </section>
 
- <!-- TESTIMONIALS -->
-<section id="testimonials" class="testimonials-section col-span-full" aria-labelledby="testimonials-heading">
-  <h2 id="testimonials-heading" class="hidden">Testimonials</h2>
 
-  <div class="testimonials-wrapper">
-    
-    <article class="testimonial-card yellow">
-      <h3 class="hidden">Testimonial from Rin Morito</h3>
-      <h4>Rin Morito</h4>
-      <div class="line"></div>
-      <p>
-        Working with Linh has always been inspiring. She brings a level of organization,
-        creativity, and dedication that elevates every project she touches. Her ability
-        to stay calm under pressure, contribute meaningful ideas, and support her teammates
-        makes her an invaluable collaborator. Linh doesn’t just complete tasks — she brings
-        energy, clarity, and a positive spirit that motivates everyone around her.
-      </p>
-      <span>Classmate – Fanshawe College</span>
-    </article>
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="testimonials-section col-span-full" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading" class="hidden">Testimonials</h2>
 
-    <article class="testimonial-card orange">
-      <h3 class="hidden">Testimonial from Situ Ranjit</h3>
-      <h4>Situ Ranjit</h4>
-      <div class="line"></div>
-      <p>
-        Linh’s design sense and branding ideas helped our project come alive visually.
-        She approaches every detail with intention and has an impressive ability to unify
-        colors, layout, and storytelling into a clear visual language. Her work added depth,
-        clarity, and professionalism to our project, making it feel cohesive and industry-ready.
-      </p>      
-      <span>Classmate – Fanshawe College</span>
-    </article>
+      <div class="testimonials-wrapper">
 
-    <article class="testimonial-card blue">
-      <h3 class="hidden">Testimonial from Hannah Silva</h3>
-      <h4>Hannah Silva</h4>
-      <div class="line"></div>
-      <p>
-        Linh brought a fresh and thoughtful perspective that transformed the visual strength of our project. 
-        She carefully crafted each element to support the story we wanted to express. 
-        Her creativity added depth, harmony, and a distinctive finish that made the work truly memorable.
-      </p>      
-      <span>Classmate – Fanshawe College</span>
-    </article>
-  </div>
-  <div class="carousel-controls">
-    <button class="btn-prev" aria-label="Previous slide">
-      <i class="fas fa-chevron-left"></i>
-    </button>
-  
-    <button class="btn-next" aria-label="Next slide">
-      <i class="fas fa-chevron-right"></i>
-    </button>
-  </div>
-  
-</section>
+        <?php
+        foreach ($testimonials as $t) {
+          echo '
+            <article class="testimonial-card '.$t['testimonial_color'].'">
+              <h3 class="hidden">Testimonial from '.$t['testimonial_author_name'].'</h3>
+              <h4>'.$t['testimonial_author_name'].'</h4>
+              <div class="line"></div>
+              <p>'.$t['testimonial_message'].'</p>
+              <span>'.$t['testimonial_author_role'].'</span>
+            </article>
+          ';
+        }
+        ?>
+
+      </div>
+
+      <div class="carousel-controls">
+        <button class="btn-prev" aria-label="Previous slide">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <button class="btn-next" aria-label="Next slide">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer id="footer" class="grid-con">
     <div class="footer-top col-span-full">
       <nav class="footer-nav">
         <h2 class="hidden">Footer Navigation</h2>
         <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="works.html">Works</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="index.php" class="active">Home</a></li>
+          <li><a href="works.php">Works</a></li>
+          <li><a href="about.php">About</a></li>
         </ul>
       </nav>
 

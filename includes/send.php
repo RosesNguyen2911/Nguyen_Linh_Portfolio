@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once(__DIR__ . "/connect.php"); // // I use __DIR__ to prevent incorrect relative path loading
+require_once(__DIR__ . "/connect.php"); // I use __DIR__ to prevent incorrect relative path loading
 
 // I only accept POST requests so this script cannot be accessed directly
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -17,10 +17,10 @@ $name = trim(strip_tags($name_raw));
 $message = trim(strip_tags($message_raw));
 
 // I remove line breaks to prevent header injection
-$email_sanitized = str_replace(["\r", "\n", "%0a", "%0d"], "", trim($email_raw));
+$email_clean = str_replace(["\r", "\n", "%0a", "%0d"], "", trim($email_raw));
 
 // I validate the email format before inserting it into the database
-$email = filter_var($email_sanitized, FILTER_VALIDATE_EMAIL);
+$email = filter_var($email_clean, FILTER_VALIDATE_EMAIL);
 
 $errors = [];
 
@@ -62,8 +62,6 @@ try {
 } catch (PDOException $e) {
     // I log the real database error internally but return a generic message to the user
     error_log($e->getMessage());
-    http_response_code(500);
-
     echo json_encode([
         "errors" => ["Sorry, something went wrong. Please try again later."]
     ]);

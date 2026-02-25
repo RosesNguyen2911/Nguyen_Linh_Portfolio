@@ -1,8 +1,6 @@
 @use '../abstracts' as *;
 
-/* =========================================
-   CONTACT HERO (MOBILE FIRST)
-========================================= */
+/* CONTACT HERO */
 #contact-hero {
   background-color: $color-background;
   padding: 120px 40px 100px;
@@ -12,33 +10,6 @@
 
   .letter {
     display: inline-block;
-  }
-
-  /* glowing orb */
-  &::before {
-    content: "";
-    position: absolute;
-    top: -160px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 680px;
-    height: 680px;
-    background: radial-gradient(circle at 30% 30%,
-      rgba($color-blue, 0.50),
-      rgba($color-yellow, 0.45),
-      rgba($color-orange, 0.35),
-      rgba($color-pink, 0.40),
-      transparent 70%
-    );
-    filter: blur(110px);
-    opacity: 0.95;
-    z-index: 0;
-    animation: driftGlow 9s ease-in-out infinite alternate;
-  }
-
-  @keyframes driftGlow {
-    0% { transform: translateX(-50%) translateY(0); }
-    100% { transform: translateX(-46%) translateY(50px); }
   }
 
   .accent {
@@ -70,11 +41,32 @@
       line-height: 1.6;
     }
   }
+
+  /* GLOWING ORB */
+  &::before {
+    content: "";
+    position: absolute;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 680px;
+    height: 680px;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba($color-blue, 0.50),
+      rgba($color-yellow, 0.45),
+      rgba($color-orange, 0.35),
+      rgba($color-pink, 0.40),
+      transparent 70%
+    );
+    filter: blur(110px);
+    opacity: 0.95;
+    z-index: 0;
+    animation: driftGlow 9s ease-in-out infinite alternate;
+  }
 }
 
-/* =========================================
-   CONTACT FORM — MOBILE FIRST
-========================================= */
+/* CONTACT FORM */
 #contact-form {
   background-color: $color-background;
   padding: 60px 25px;
@@ -91,7 +83,7 @@
     background-color: $color-white;
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.05);
 
     .form-group {
       margin-bottom: 22px;
@@ -117,7 +109,7 @@
       }
     }
 
-    /* Input colours */
+    /* INPUT COLOURS */
     .form-group:nth-of-type(1) input {
       border-color: $color-blue;
     }
@@ -150,9 +142,7 @@
   }
 }
 
-/* =========================================
-   FAQ — MOBILE FIRST
-========================================= */
+/* FAQ */
 #faqs {
   background-color: $color-background;
   padding: 60px 30px;
@@ -174,12 +164,11 @@
     padding: 22px 25px;
     margin-bottom: 30px;
     min-height: 50px;
-
     transition: transform 0.28s cubic-bezier(.34, 1.56, .64, 1),
-                box-shadow 0.28s ease;
+      box-shadow 0.28s ease;
     will-change: transform;
 
-    /* Alternate border colors */
+    /* ALTERNATE BORDER COLORS */
     &:nth-of-type(2) { border-left-color: $color-yellow; }
     &:nth-of-type(3) { border-left-color: $color-orange; }
     &:nth-of-type(4) { border-left-color: $color-pink; }
@@ -202,75 +191,17 @@
       line-height: 1.6;
     }
 
-    /* Bounce hover */
+    /* BOUNCE HOVER */
     &:hover {
       transform: translateY(-10px) scale(1.03);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
     }
   }
-}
 
-/* FAQ links */
-#faqs .faq-item p a {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-/* Tablet */
-@media screen and (min-width: 768px) {
-  #faqs {
-    h2 { font-size: 32px; }
-
-    .faq-item {
-      h3 { font-size: 19px; }
-      p  { font-size: 16px; }
-    }
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #faqs .faq-item:hover {
-    transform: translateY(-6px);
-  }
-}
-
-/* CONTACT PAGE — MEDIA QUERIES */
-
-/* TABLET (min-width: 768px) */
-@media screen and (min-width: 768px) {
-
-  /* Contact Hero */
-  #contact-hero .contact-intro {
-    h2 { font-size: 46px; }
-    p { font-size: 19px; }
-  }
-
-  /* Contact Form */
-  #contact-form {
-    h2 { font-size: 32px; }
-    p { font-size: 16px; }
-  }
-
-  /* FAQs */
-  #faqs {
-    h2 { font-size: 32px; }
-
-    .faq-item {
-      h3 { font-size: 19px; }
-      p { font-size: 16px; }
-    }
-  }
-}
-
-
-/* DESKTOP (min-width: 1200px) */
-@media screen and (min-width: 1200px) {
-
-  /* Contact Hero */
-  #contact-hero .contact-intro {
-    h2 { font-size: 50px; }
-    p { font-size: 22px; }
+  /* FAQ LINKS */
+  .faq-item p a {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }
 
@@ -313,7 +244,6 @@
   }
 }
 
-
 /* ERROR MESSAGE UNDER BUTTON */
 .custom-errors-box {
   margin-top: 25px;
@@ -349,11 +279,55 @@
   }
 }
 
+/* ERROR FIELD */
 .error-field {
   border-color: #e74c3c !important;
   background-color: #fff6f6;
   transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
+/* ANIMATION */
+@keyframes driftGlow {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-46%) translateY(50px); }
+}
 
+/* TABLET */
+@media screen and (min-width: 768px) {
+  #contact-hero .contact-intro {
+    h2 { font-size: 46px; }
+    p { font-size: 19px; }
+  }
 
+  #contact-form {
+    h2 { font-size: 32px; }
+  }
+
+  #faqs {
+    h2 { font-size: 32px; }
+
+    .faq-item {
+      h3 { font-size: 19px; }
+      p  { font-size: 16px; }
+    }
+  }
+}
+
+/* DESKTOP */
+@media screen and (min-width: 1200px) {
+  #contact-hero .contact-intro {
+    h2 { font-size: 50px; }
+    p { font-size: 22px; }
+  }
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  #faqs .faq-item:hover {
+    transform: translateY(-6px);
+  }
+
+  #contact-hero::before {
+    animation: none;
+  }
+}
