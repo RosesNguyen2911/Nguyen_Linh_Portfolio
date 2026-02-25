@@ -1,4 +1,4 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 
 /* ABOUT SECTION */
 #about {
@@ -6,7 +6,7 @@
   color: $color-heading;
   padding: 60px 50px;
 
-  /* ===== AVATAR ===== */
+  /* AVATAR WRAPPER */
   .about-avatar-wrapper {
     display: grid;
     place-items: center;
@@ -23,7 +23,7 @@
     }
   }
 
-  /* ===== TEXT CONTENT ===== */
+  /* TEXT CONTENT */
   .about-text-wrapper {
     display: grid;
     place-items: center;
@@ -43,7 +43,6 @@
 
     p {
       line-height: 1.65;
-      color: $color-heading;
       margin-bottom: 28px;
       text-align: left;
       font-weight: 400;
@@ -51,11 +50,11 @@
 
       strong {
         color: $color-pink;
-        font-weight:bold;
+        font-weight: bold;
       }
     }
 
-    /* ===== BUTTON ===== */
+    /* ABOUT BUTTON */
     .about-btn {
       background-color: $color-pink;
       color: $color-white;
@@ -63,8 +62,8 @@
       border-radius: 40px;
       font-weight: 600;
       text-decoration: none;
-      transition: background-color 0.25s ease, transform 0.25s ease;
       border: 2px solid $color-pink;
+      transition: background-color 0.25s ease, transform 0.25s ease;
 
       &.active,
       &:hover {
@@ -75,10 +74,38 @@
     }
   }
 
-  /* ===========================
-     TABLET — ≥ 768px
-  ============================ */
-  @media (min-width: 768px) {
+  /* GRADIENT WAVE */
+  .gradient-wave {
+    width: 100vw;
+    height: 200px;
+    position: relative;
+    left: 50%;
+    transform: rotate(180deg);
+    margin-top: -60px;
+    margin-left: -100px;
+
+    background: linear-gradient(
+      90deg,
+      $color-orange,
+      $color-pink,
+      $color-yellow,
+      $color-blue,
+      $color-orange
+    );
+
+    background-size: 400% 100%;
+    animation: gradientShift 8s ease-in-out infinite;
+
+    mask-image: url("../images/wave-mask.svg");
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+}
+
+/* TABLET STYLES */
+@media (min-width: 768px) {
+  #about {
     text-align: left;
 
     .about-avatar-wrapper {
@@ -91,9 +118,7 @@
 
     .about-text-wrapper {
       grid-column: 5 / 13;
-        text-align: left;
-        justify-items: start;
-      
+      justify-items: start;
 
       .about-intro {
         font-size: 38px;
@@ -104,20 +129,19 @@
       }
     }
 
-
-   .gradient-wave {
-    margin-left: -120px;
+    .gradient-wave {
+      margin-left: -120px;
+    }
   }
 }
 
-  /* ===========================
-     DESKTOP — ≥ 1200px
-  ============================ */
-  @media (min-width: 1200px) {
-
+/* DESKTOP STYLES */
+@media (min-width: 1200px) {
+  #about {
     .about-avatar-wrapper .about-avatar {
       width: 350px;
     }
+
     .about-text-wrapper {
       .about-intro {
         font-size: 50px;
@@ -128,39 +152,9 @@
       }
     }
   }
-
-/* GRADIENT WAVE */
-
-   .gradient-wave {
-  width: 100vw;
-  height: 200px;
-  position: relative;
-  left: 50%;
-  transform: rotate(180deg);
-  margin-top: -60px;
-  margin-left: -100px;
-
-
-  background: linear-gradient(
-    90deg,
-    $color-orange,
-    $color-pink,
-    $color-yellow,
-    $color-blue,
-    $color-orange
-  );
-
-  background-size: 400% 100%;
-  animation: gradientShift 8s ease-in-out infinite;
-
-  mask-image: url('../images/wave-mask.svg');
-  mask-size: cover;
-  mask-repeat: no-repeat;
-  mask-position: center;
 }
 
-
-/* ANIMATION: Gradient moves left → right → left */
+/* GRADIENT ANIMATION */
 @keyframes gradientShift {
   0% {
     background-position: 0% center;
@@ -172,5 +166,3 @@
     background-position: 0% center;
   }
 }
-}
-

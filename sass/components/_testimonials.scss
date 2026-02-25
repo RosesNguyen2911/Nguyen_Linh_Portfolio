@@ -1,21 +1,21 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 
-/* Testimonials Section */
+/* TESTIMONIALS */
 .testimonials-section {
   background: $color-background;
   padding: 50px 30px;
 
-  /* Wrapper */
+  /* WRAPPER */
   .testimonials-wrapper {
     display: flex;
     flex-direction: row;
     width: 100%;
-    transition: transform 0.4s ease;
-    align-items: stretch;
     margin: 0;
+    align-items: stretch;
+    transition: transform 0.4s ease;
   }
 
-  /* Card */
+  /* CARD */
   .testimonial-card {
     flex: 0 0 85%;
     max-width: 85%;
@@ -24,11 +24,11 @@
     height: 100%;
 
     background: $color-white;
-    border-radius: 16px;
     border: 2px solid transparent;
+    border-radius: 16px;
     padding: 2rem;
     text-align: center;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
 
     display: flex;
     flex-direction: column;
@@ -55,15 +55,35 @@
     .line {
       width: 80%;
       height: 3px;
-      margin: 0.5rem auto 1.2rem auto;
+      margin: 0.5rem auto 1.2rem;
     }
 
-    &.yellow { border-color: $color-yellow; .line { background: $color-yellow; } }
-    &.orange { border-color: $color-orange; .line { background: $color-orange; } }
-    &.blue   { border-color: $color-blue;   .line { background: $color-blue; } }
+    &.yellow {
+      border-color: $color-yellow;
+
+      .line {
+        background: $color-yellow;
+      }
+    }
+
+    &.orange {
+      border-color: $color-orange;
+
+      .line {
+        background: $color-orange;
+      }
+    }
+
+    &.blue {
+      border-color: $color-blue;
+
+      .line {
+        background: $color-blue;
+      }
+    }
   }
 
-  /* BUTTONS BELOW SLIDER */
+  /* CONTROLS */
   .carousel-controls {
     width: 100%;
     margin-top: 25px;
@@ -84,26 +104,27 @@
       transition: background-color 0.3s ease, transform 0.2s ease;
 
       &.active,
-    &:hover {
-      background-color: $color-background;
-      border-color: $color-pink;
-      color: $color-pink;
-    }
+      &:hover {
+        background-color: $color-background;
+        border-color: $color-pink;
+        color: $color-pink;
+      }
     }
   }
 
-  /* REMOVE DOTS */
+  /* DOTS */
   .testimonials-dots {
     display: none;
   }
 
-  /* RESPONSIVE */
+  /* TABLET */
   @media (min-width: 768px) {
     .testimonial-card {
       min-height: 360px;
     }
   }
 
+  /* DESKTOP */
   @media (min-width: 1200px) {
     .testimonial-card {
       padding: 2.5rem;

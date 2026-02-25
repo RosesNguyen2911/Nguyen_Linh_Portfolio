@@ -2,26 +2,23 @@
 <html lang="en">
 
 <?php
-/*FAQ QUERY 
-I load my PDO connection first, then prepare and execute the FAQ query
-so the FAQ section can be generated dynamically from the database. */
-
 require_once('includes/connect.php');
 
-$stmt_faq = $connect->prepare("
-    SELECT faq_id, faq_icon, faq_question, faq_answer 
-    FROM tbl_faqs 
-    WHERE is_active = 1
-    ORDER BY faq_id ASC
+/* SKILLS QUERY
+I fetch all active skills first. */
+$stmt_skills = $connect->prepare("
+  SELECT skill_id, skill_number, skill_title, skill_desc
+  FROM tbl_skills
+  WHERE is_active = 1
+  ORDER BY skill_id ASC
 ");
-
-$stmt_faq->execute();
+$stmt_skills->execute();
 ?>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - Nguyen Linh Portfolio</title>
+  <title>About - Nguyen Linh Portfolio</title>
 
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/main.css">
@@ -53,15 +50,15 @@ $stmt_faq->execute();
 
 </head>
 
-<body data-page="contact">
+<body data-page="about">
 
   <!-- HEADER -->
   <header id="header" class="grid-con">
-    <h1 class="hidden"> Nguyen Linh Portfolio - Contact Page </h1>
+    <h1 class="hidden"> Nguyen Linh Portfolio - About Page </h1>
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
       <a href="index.php" class="logo-wrapper">
         <img src="images/L_Logo.svg" alt="Linh Nguyen Logo">
-
+    
         <div class="logo-text">
           <span>Linh</span>
           <span>Nguyen</span>
@@ -80,113 +77,144 @@ $stmt_faq->execute();
       <ul>
         <li><a href="index.php">Home</a></li>
         <li><a href="works.php">Works</a></li>
-        <li><a href="about.php">About</a></li>
-        <li class="mobile-connect"><a href="contact.php" class="active">Contact</a></li>
+        <li><a href="about.php" class="active">About</a></li>
+        <li class="mobile-connect"><a href="contact.php">Contact</a></li>
       </ul>
     </nav>
 
     <div class="header-connect m-col-start-12 m-col-end-13 l-col-start-12 l-col-end-13">
-      <a href="contact.php" class="btn-connect active">Contact</a>
+      <a href="contact.php" class="btn-connect">Contact</a>
     </div>
   </header>
 
-   
   <main>
     <!-- HERO -->
-    <section id="contact-hero" class="grid-con">
-      <div class="contact-intro col-span-full m-col-span-full l-col-span-full">
-        <h2 class="col-span-full m-col-span-full l-col-span-full">Let’s <span class="accent">Connect</span> and <span class="accent">Collaborate</span></h2>
-        <p>
-          Have a creative idea or project in mind?
-          Fill out the form below or explore the FAQs to learn more about how we can work together.
+    <section id="about-hero" class="grid-con">
+
+      <!-- TITLE -->
+      <div class="about-hero-content col-span-full">
+    
+        <h2 id="hero-title-1" class="hero-title">
+          Hi, I’m <span class="accent">Linh Nguyen</span>
+        </h2>
+
+        <h3 id="hero-title-2" class="hero-title">
+          An <span class="accent">Interactive</span> <br>
+           Designer & Developer
+        </h3>
+
+        <p class="flip-hint">
+          Let’s flip each card to know more facts about me <i class="far fa-smile-wink"></i>
         </p>
+        
+    
       </div>
+    
+      <!-- 3 FLIP PHOTOS -->
+<div class="card-container col-span-full m-col-span-full l-col-span-full">
+
+  <div class="card" id="card-1">
+    <div class="card-front">
+      <img src="images/card_1.png" alt="Work Style">
+    </div>
+    <div class="card-back">
+      <span>Thoughtful & Precise</span>
+      <p>I refine every detail until a design feels balanced, intentional, and meaningful.</p>
+    </div>
+  </div>
+
+  <div class="card" id="card-2">
+    <div class="card-front">
+      <img src="images/card_2.png" alt="Creative Personality">
+    </div>
+    <div class="card-back">
+      <span>Curiosity First</span>
+      <p>I experiment, explore, and follow curiosity - that’s where my best ideas happen.</p>
+    </div>
+  </div>
+
+  <div class="card" id="card-3">
+    <div class="card-front">
+      <img src="images/card_3.png" alt="Personal Vibe">
+    </div>
+    <div class="card-back">
+      <span>Warm & Collaborative</span>
+      <p>I listen, communicate clearly, and bring calm positive energy to every team.</p>
+    </div>
+  </div>
+
+</div>
+
     </section>
+    
+<!-- SKILLS & TOOLS -->
+     <section id="skills">
+  <h2 class="skills-heading">Skills & Tools</h2>
 
-    <!-- CONTACT FORM -->
-    <section id="contact-form" class="grid-con">
-      <h2 class="col-span-full m-col-span-full l-col-span-full">Contact Me</h2>
-
-      <div id="form-box" class="contact-form-box col-span-full m-col-start-2 m-col-end-12 l-col-start-2 l-col-end-12">
-
-      <form id="contactForm" action="includes/send.php" method="post" novalidate>
-
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Full Name"
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Your Email"
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="Tell Me About Your Project..."
-            ></textarea>
-            <small>
-              *Please fill out all required sections.
-            </small>
-          </div>
-
-          <div id="successBox" class="custom-success-box form-success-under-btn" hidden>
-            <p>
-              <i class="fa-solid fa-circle-check"></i>
-              <span id="successText"></span>
-            </p>
-          </div>
-
-          <div id="errorBox" class="custom-errors-box form-errors-under-btn" hidden>
-            <ul id="errorList"></ul>
-          </div>
-
-          <button type="submit" class="btn-submit">Send Message</button>
-
-        </form>
-
-      </div>
-    </section>
-
-<!-- FAQ -->
-<section id="faqs" class="grid-con">
-  <h2 class="col-span-full">Frequently Asked Questions</h2>
-
-  <?php 
-  while($row = $stmt_faq->fetch(PDO::FETCH_ASSOC)) {
+  <?php
+  while ($skill = $stmt_skills->fetch(PDO::FETCH_ASSOC)) {
 
     echo '
-      <article class="faq-item col-span-full m-col-span-3 l-col-span-3">
-        <div class="faq-inner">
-          <h3>
-            <i class="'.($row['faq_icon']).'"></i> 
-            '.($row['faq_question']).'
-          </h3>
-          <p>'.($row['faq_answer']).'</p>
+      <div class="skill-row">
+        <span class="skill-number">'.$skill['skill_number'].'</span>
+
+        <div class="skill-info">
+          <h3>'.$skill['skill_title'].'</h3>
+
+          <p>
+            '.$skill['skill_desc'].'
+          </p>
+
+          <div class="skill-icons">
+    ';
+
+    /* TOOLS QUERY (PER SKILL)
+       I fetch tools related to the current skill using the junction table. */
+
+    $stmt_tools = $connect->prepare("
+      SELECT t.tool_src, t.tool_alt
+      FROM tbl_skills_tools st
+      INNER JOIN tbl_tools t ON t.tool_id = st.tool_id
+      WHERE st.skill_id = :skill_id
+        AND t.is_active = 1
+      ORDER BY t.tool_id ASC
+    ");
+
+    $stmt_tools->bindParam(':skill_id', $skill['skill_id'], PDO::PARAM_INT);
+    $stmt_tools->execute();
+
+    while ($tool = $stmt_tools->fetch(PDO::FETCH_ASSOC)) {
+      echo '
+        <img src="images/'.$tool['tool_src'].'" alt="'.$tool['tool_alt'].'">
+      ';
+    }
+
+    $stmt_tools = null;
+
+    echo '
+          </div>
         </div>
-      </article>
+      </div>
     ';
   }
 
-  $stmt_faq = null;
+  $stmt_skills = null;
   ?>
 </section>
 
+
+<div class="resume-wrapper">
+  <a 
+    class="resume-btn"
+    href="images/Linh_Nguyen_Resume.pdf"
+    target="_blank"
+    rel="noopener"
+  >
+    My Resume
+  </a>
+</div>
   </main>
+
 
   <!-- FOOTER -->
   <footer id="footer" class="grid-con">
@@ -196,7 +224,7 @@ $stmt_faq->execute();
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="works.php">Works</a></li>
-          <li><a href="about.php">About</a></li>
+          <li><a href="about.php" class="active">About</a></li>
         </ul>
       </nav>
 
@@ -214,7 +242,7 @@ $stmt_faq->execute();
         Let’s make something incredible together! Reach out to discuss your project,
         and let’s create designs that resonate and inspire.
       </p>
-      <a href="contact.php" class="btn-connect active">Contact</a>
+      <a href="contact.php" class="btn-connect">Contact</a>
     </section>
 
     <div class="footer-bottom col-span-full">

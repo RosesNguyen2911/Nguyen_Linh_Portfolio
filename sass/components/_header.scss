@@ -1,7 +1,6 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 
-/* ===== MOBILE ===== */
-
+/* HEADER */
 #header {
   z-index: 9998;
   isolation: isolate;
@@ -11,46 +10,50 @@
   width: 100%;
   position: relative;
 
-
-  // LOGO ANIMATION
-
-  .header-logo img {
-    width: 42px;
-    height: auto;
-    margin-top: -5px;
-  }
-
+  /* LOGO */
   .header-logo {
     display: flex;
     align-items: center;
-  
+
     .logo-wrapper {
-      display: inline-flex;          
-      flex-direction: row;       
+      display: inline-flex;
+      flex-direction: row;
       align-items: center;
       gap: 12px;
-      text-decoration: none;      
+      text-decoration: none;
+
+      &:hover .logo-text {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        filter: blur(0);
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: none;
+      }
     }
-  
+
     img {
       width: 42px;
       height: auto;
       margin-top: -5px;
       display: block;
-      flex-shrink: 0;           
+      flex-shrink: 0;
     }
-  
+
     .logo-text {
       display: flex;
-      flex-direction: column;   
-      line-height: 1.10;
+      flex-direction: column;
+      line-height: 1.1;
       font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: 1px;
-      font-family: 'Bricolage Grotesque', sans-serif;
-  
-      margin-top: 0;             
-  
+      font-family: "Bricolage Grotesque", sans-serif;
+      margin-top: 0;
+
       background: linear-gradient(
         135deg,
         $color-blue,
@@ -58,76 +61,35 @@
         $color-orange,
         $color-pink
       );
-  
+
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;
-  
+
       opacity: 0;
       visibility: hidden;
       transform: translateX(-18px);
       filter: blur(6px);
-      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease, visibility 0.35s ease;
-  
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s ease,
+        filter 0.35s ease,
+        visibility 0.35s ease;
+
       span {
         display: block;
-        text-decoration: none;      
+        text-decoration: none;
       }
     }
-  
-
-    .logo-wrapper:hover .logo-text {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0);
-      filter: blur(0);
-    }
-  
-
-    .logo-wrapper:hover,
-    .logo-wrapper:focus,
-    .logo-wrapper:active {
-      text-decoration: none;
-    }
   }
 
-
+  /* CONNECT BUTTON (HIDDEN ON MOBILE) */
   .header-connect {
     display: none;
   }
 
-  .header-hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    background-color: $color-pink;
-    border-radius: 50%;
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    z-index: 1002;
-    margin-left: auto;
-
-    span {
-      display: block;
-      width: 100%;
-      height: 3px;
-      background-color: $color-white;
-      border-radius: 3px;
-      transition: all 0.4s ease;
-    }
-  }
-  
-
-
-  .header-connect {
-    display: none;
-  }
-
+  /* HAMBURGER */
   .header-hamburger {
     display: flex;
     flex-direction: column;
@@ -153,18 +115,20 @@
     }
   }
 
+  /* MOBILE NAV OVERLAY */
   .header-nav {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     height: 100vh;
     width: 100vw;
     background-color: rgba($color-pink, 0.95);
     z-index: 1001;
+
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
     opacity: 0;
     transform: scale(1.05);
     transition: all 0.4s ease;
@@ -179,79 +143,80 @@
         margin: 20px 0;
 
         a {
-            text-decoration: none;
-            color: $color-white;
-            font-size: 1.6rem;
-            font-weight: 600;
-            position: relative;
-            transition: color 0.3s ease;
-          
+          text-decoration: none;
+          color: $color-white;
+          font-size: 1.6rem;
+          font-weight: 600;
+          position: relative;
+          transition: color 0.3s ease;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: $color-blue;
+            transition: width 0.3s ease;
+          }
+
+          &:hover {
+            color: $color-blue;
+
             &::after {
-              content: '';
-              position: absolute;
-              left: 50%;
-              bottom: -6px;
-              transform: translateX(-50%);
-              width: 0;
-              height: 2px;
-              background-color: $color-blue;
-              transition: width 0.3s ease;
+              width: 60%;
             }
-          
-            &:hover {
-              color: $color-blue;
-              &::after {
-                width: 60%;
-              }
+          }
+
+          &.active {
+            color: $color-blue;
+
+            &::after {
+              width: 60%;
             }
-          
-            &.active {
-              color: $color-blue;
-              &::after {
-                width: 60%;
-              }
-            }
-          }          
+          }
         }
+      }
     }
 
-    /* Show Connect link in mobile overlay */
     .mobile-connect {
       display: block;
     }
   }
 
+  /* TOGGLE MENU */
   #menu-toggle:checked + .header-hamburger {
     background-color: $color-pink;
     border: 2px solid $color-white;
+
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 6px);
+      transform-origin: center;
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+    }
+
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+      transform-origin: center;
+    }
   }
-  #menu-toggle:checked + .header-hamburger span:nth-child(1) {
-    transform: rotate(45deg) translate(7px, 6px);
-    transform-origin: center;
-  }
-  
-  #menu-toggle:checked + .header-hamburger span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  #menu-toggle:checked + .header-hamburger span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-    transform-origin: center;
-  }
-  
+
   #menu-toggle:checked + .header-hamburger + .header-nav {
     display: flex;
     opacity: 1;
     transform: scale(1);
-  }  
+  }
 }
 
-/* ===== TABLET ===== */
+/* HEADER TABLET */
 @media (min-width: 768px) {
   #header {
-    padding: 25px 40px;
     height: 110px;
-    width: 100%;
 
     .header-hamburger {
       display: none;
@@ -272,39 +237,16 @@
         gap: 28px;
 
         .mobile-connect {
-          display: none; 
+          display: none;
         }
 
         li a {
           color: $color-heading;
           font-size: 18px;
           font-weight: 550;
-          position: relative;
 
           &::after {
-            content: '';
-            position: absolute;
-            left: 50%;
             bottom: -4px;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background-color: $color-blue;
-            transition: width 0.3s ease;
-          }
-
-          &:hover {
-            color: $color-blue;
-            &::after {
-              width: 60%;
-            }
-          }
-
-          &.active {
-            color: $color-blue;
-            &::after {
-              width: 60%;
-            }
           }
         }
       }
@@ -326,37 +268,24 @@
         transition: background-color 0.3s ease, transform 0.2s ease;
 
         &.active,
-      &:hover {
-        background-color: $color-white;
-        border-color: $color-pink;
-        color: $color-pink;
-      }
+        &:hover {
+          background-color: $color-white;
+          border-color: $color-pink;
+          color: $color-pink;
+        }
       }
     }
   }
 }
 
-/* ===== DESKTOP ===== */
+/* HEADER DESKTOP */
 @media (min-width: 1200px) {
   #header {
-    padding: 25px 40px;
-    height: 110px;
-    
-
-    .header-hamburger {
-      display: none; 
-    }
-
     .header-nav ul {
       gap: 40px;
 
       li a {
         font-size: 20px;
-
-      }
-
-      .mobile-connect {
-        display: none;
       }
     }
 

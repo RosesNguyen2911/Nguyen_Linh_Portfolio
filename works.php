@@ -2,26 +2,71 @@
 <html lang="en">
 
 <?php
-/*FAQ QUERY 
-I load my PDO connection first, then prepare and execute the FAQ query
-so the FAQ section can be generated dynamically from the database. */
 
 require_once('includes/connect.php');
 
-$stmt_faq = $connect->prepare("
-    SELECT faq_id, faq_icon, faq_question, faq_answer 
-    FROM tbl_faqs 
-    WHERE is_active = 1
-    ORDER BY faq_id ASC
+/* Projects query
+I get title, brief, subtitle and color from tbl_projects.
+I also get the first poster (src and alt) from tbl_projects_media. */
+$stmt_projects = $connect->prepare("
+  SELECT
+    p.project_id,
+    p.project_title,
+    p.project_brief,
+    p.project_subtitle,
+    p.project_color,
+
+    (
+      SELECT pm.project_media_src
+      FROM tbl_projects_media pm
+      WHERE pm.project_id = p.project_id
+        AND pm.project_media_type = 'poster'
+        AND pm.is_active = 1
+      ORDER BY pm.project_media_order ASC
+      LIMIT 1
+    ) AS poster_src,
+
+    (
+      SELECT pm.project_media_alt
+      FROM tbl_projects_media pm
+      WHERE pm.project_id = p.project_id
+        AND pm.project_media_type = 'poster'
+        AND pm.is_active = 1
+      ORDER BY pm.project_media_order ASC
+      LIMIT 1
+    ) AS poster_alt
+
+  FROM tbl_projects p
+  WHERE p.is_active = 1
+  ORDER BY p.project_order ASC, p.project_id ASC
 ");
 
-$stmt_faq->execute();
+$stmt_projects->execute();
+
+/* I store all projects into an array so I can loop them in the HTML section */
+$projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
+$stmt_projects = null;
+
+/* This function turns "A | B | C" into separate span tags */
+function buildTags($subtitle) {
+  $tags = explode('|', $subtitle);
+  $output = '';
+
+  foreach ($tags as $tag) {
+    $clean = trim($tag);
+    if ($clean != '') {
+      $output .= '<span>'.$clean.'</span>';
+    }
+  }
+
+  return $output;
+}
 ?>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - Nguyen Linh Portfolio</title>
+  <title>Works - Nguyen Linh Portfolio</title>
 
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/main.css">
@@ -53,15 +98,14 @@ $stmt_faq->execute();
 
 </head>
 
-<body data-page="contact">
-
+<body data-page="works">
   <!-- HEADER -->
   <header id="header" class="grid-con">
-    <h1 class="hidden"> Nguyen Linh Portfolio - Contact Page </h1>
+    <h1 class="hidden"> Nguyen Linh Portfolio - Works Page </h1>
     <div class="header-logo col-span-2 m-col-span-3 l-col-span-2">
       <a href="index.php" class="logo-wrapper">
         <img src="images/L_Logo.svg" alt="Linh Nguyen Logo">
-
+    
         <div class="logo-text">
           <span>Linh</span>
           <span>Nguyen</span>
@@ -79,123 +123,94 @@ $stmt_faq->execute();
       <h2 class="hidden"> Main Navigation</h2>
       <ul>
         <li><a href="index.php">Home</a></li>
-        <li><a href="works.php">Works</a></li>
+        <li><a href="works.php" class="active">Works</a></li>
         <li><a href="about.php">About</a></li>
-        <li class="mobile-connect"><a href="contact.php" class="active">Contact</a></li>
+        <li class="mobile-connect"><a href="contact.php">Contact</a></li>
       </ul>
     </nav>
 
     <div class="header-connect m-col-start-12 m-col-end-13 l-col-start-12 l-col-end-13">
-      <a href="contact.php" class="btn-connect active">Contact</a>
+      <a href="contact.php" class="btn-connect">Contact</a>
     </div>
   </header>
 
-   
+
+  <!-- ===== MAIN ===== -->
   <main>
+
     <!-- HERO -->
-    <section id="contact-hero" class="grid-con">
-      <div class="contact-intro col-span-full m-col-span-full l-col-span-full">
-        <h2 class="col-span-full m-col-span-full l-col-span-full">Let’s <span class="accent">Connect</span> and <span class="accent">Collaborate</span></h2>
-        <p>
-          Have a creative idea or project in mind?
-          Fill out the form below or explore the FAQs to learn more about how we can work together.
-        </p>
+    <section id="works-hero" class="grid-con">
+
+      <!-- FLOATING SHAPES (NEW) -->
+      <div class="float blue"></div>
+      <div class="float pink"></div>
+      <div class="float orange"></div>
+      <div class="float yellow"></div>
+      
+      
+
+      <div class="hero-content col-span-full m-col-span-full l-col-span-full">
+        <h2><span class="accent">Creative Playground</span><br>Where Ideas Come Alive</h2>
+
+        <p>A curated collection of Branding, Motion, 3D, and Web projects - blending imagination and craft to bring ideas vividly to life.</p>
+
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="branding">Branding</button>
+          <button class="filter-btn" data-filter="motion">Motion</button>
+          <button class="filter-btn" data-filter="web">Web Development</button>
+          <button class="filter-btn" data-filter="3d">3D</button>
+      </div>
       </div>
     </section>
 
-    <!-- CONTACT FORM -->
-    <section id="contact-form" class="grid-con">
-      <h2 class="col-span-full m-col-span-full l-col-span-full">Contact Me</h2>
 
-      <div id="form-box" class="contact-form-box col-span-full m-col-start-2 m-col-end-12 l-col-start-2 l-col-end-12">
+<!-- FEATURED WORKS -->
+<section id="featured-works" class="grid-con" aria-labelledby="featured-heading">
 
-      <form id="contactForm" action="includes/send.php" method="post" novalidate>
+  <?php foreach ($projects as $project): ?>
 
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Full Name"
-            >
+    <a href="case_study.php?id=<?php echo $project['project_id']; ?>"
+       class="work-card col-span-full m-col-span-6 l-col-span-6"
+       data-color="<?php echo $project['project_color']; ?>">
+
+      <span class="work-arrow" aria-hidden="true">
+        <i class="fa-solid fa-arrow-right-long"></i>
+      </span>
+
+      <article>
+        <h3 class="hidden"><?php echo $project['project_title']; ?> Project</h3>
+
+        <img src="images/<?php echo $project['poster_src']; ?>"
+             alt="<?php echo $project['poster_alt']; ?>">
+
+        <div class="work-info">
+          <h4><?php echo $project['project_title']; ?></h4>
+          <p><?php echo $project['project_brief']; ?></p>
+
+          <div class="work-tags">
+            <?php echo buildTags($project['project_subtitle']); ?>
           </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Your Email"
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="Tell Me About Your Project..."
-            ></textarea>
-            <small>
-              *Please fill out all required sections.
-            </small>
-          </div>
-
-          <div id="successBox" class="custom-success-box form-success-under-btn" hidden>
-            <p>
-              <i class="fa-solid fa-circle-check"></i>
-              <span id="successText"></span>
-            </p>
-          </div>
-
-          <div id="errorBox" class="custom-errors-box form-errors-under-btn" hidden>
-            <ul id="errorList"></ul>
-          </div>
-
-          <button type="submit" class="btn-submit">Send Message</button>
-
-        </form>
-
-      </div>
-    </section>
-
-<!-- FAQ -->
-<section id="faqs" class="grid-con">
-  <h2 class="col-span-full">Frequently Asked Questions</h2>
-
-  <?php 
-  while($row = $stmt_faq->fetch(PDO::FETCH_ASSOC)) {
-
-    echo '
-      <article class="faq-item col-span-full m-col-span-3 l-col-span-3">
-        <div class="faq-inner">
-          <h3>
-            <i class="'.($row['faq_icon']).'"></i> 
-            '.($row['faq_question']).'
-          </h3>
-          <p>'.($row['faq_answer']).'</p>
         </div>
       </article>
-    ';
-  }
 
-  $stmt_faq = null;
-  ?>
+    </a>
+
+  <?php endforeach; ?>
+
 </section>
-
+    
   </main>
 
-  <!-- FOOTER -->
+
+  <!-- ===== FOOTER ===== -->
   <footer id="footer" class="grid-con">
     <div class="footer-top col-span-full">
       <nav class="footer-nav">
         <h2 class="hidden">Footer Navigation</h2>
         <ul>
           <li><a href="index.php">Home</a></li>
-          <li><a href="works.php">Works</a></li>
+          <li><a href="works.php" class="active">Works</a></li>
           <li><a href="about.php">About</a></li>
         </ul>
       </nav>
@@ -214,7 +229,7 @@ $stmt_faq->execute();
         Let’s make something incredible together! Reach out to discuss your project,
         and let’s create designs that resonate and inspire.
       </p>
-      <a href="contact.php" class="btn-connect active">Contact</a>
+      <a href="contact.php" class="btn-connect">Contact</a>
     </section>
 
     <div class="footer-bottom col-span-full">
@@ -222,6 +237,7 @@ $stmt_faq->execute();
       <p class="credit-right">© 2026 All Rights Reserved</p>
     </div>
   </footer>
+
 
 </body>
 </html>

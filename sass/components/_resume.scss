@@ -1,30 +1,28 @@
 @use '../abstracts' as *;
 
 /* RESUME BUTTON */
-
 .resume-wrapper {
   display: flex;
   justify-content: center;
   padding: 30px;
-  margin-bottom: 40px;
   margin-top: -90px;
+  margin-bottom: 40px;
 }
 
 .resume-btn {
   display: inline-block;
+  padding: 10px 22px;
+  border: 2px solid $color-pink;
+  border-radius: 40px;
+
   background-color: $color-pink;
   color: $color-white;
-  border: 2px solid $color-pink;
-  padding: 10px 22px;
-  border-radius: 40px;
+
   font-size: 17px;
   font-weight: 550;
   text-decoration: none;
 
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease,
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease,
     transform 0.2s ease;
 
   &:hover {
@@ -35,18 +33,16 @@
   }
 }
 
-/* TABLET */
-
+/* RESUME LAYOUT TABLET */
 @media (min-width: 768px) {
   .resume-wrapper {
     justify-content: flex-end;
     padding: 10px 30px;
-        margin-top: 0px;
-      }
+    margin-top: 0;
   }
+}
 
-/* DESKTOP */
-
+/* RESUME LAYOUT DESKTOP */
 @media (min-width: 1200px) {
   .resume-wrapper {
     padding: 20px 60px;
@@ -54,7 +50,6 @@
 }
 
 /* RESUME PAGE */
-
 .resume-page {
   padding: 30px 0;
 }
@@ -66,24 +61,24 @@
   margin-bottom: 16px;
 }
 
+/* RESUME ACTION BUTTONS */
 .resume-back,
 .resume-download {
   display: inline-flex;
   align-items: center;
   gap: 10px;
 
+  padding: 10px 18px;
+  border: 2px solid $color-pink;
+  border-radius: 40px;
+
   background-color: $color-pink;
   color: $color-white;
-  border: 2px solid $color-pink;
-  padding: 10px 18px;
-  border-radius: 40px;
+
   text-decoration: none;
   font-weight: 550;
 
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease,
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease,
     transform 0.2s ease;
 
   &:hover {
@@ -94,15 +89,16 @@
   }
 }
 
+/* RESUME VIEWER */
 .resume-viewer {
   width: 100%;
   height: 80vh;
-  border-radius: 16px;
   overflow: hidden;
+  border-radius: 16px;
 
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-  border: 3px solid rgba(255, 255, 255, 0.7);
   background: $color-white;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
 }
 
 .resume-frame {
