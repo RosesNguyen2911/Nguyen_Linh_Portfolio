@@ -2,7 +2,7 @@
 
 $dsn = "mysql:host=localhost;dbname=linh_nguyen_portfolio;charset=utf8mb4";
 
-/*
+/* PDO CONFIGURATION
  I’m configuring PDO to:
  - throw exceptions when errors occur,
  - return associative arrays by default,

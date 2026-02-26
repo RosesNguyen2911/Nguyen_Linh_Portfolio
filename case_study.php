@@ -4,19 +4,19 @@
 <?php
 require_once('includes/connect.php');
 
-/* Get project id from URL */
+/* I get project id from URL */
 $project_id = 0;
 if (isset($_GET['id'])) {
   $project_id = (int)$_GET['id'];
 }
 
-/* If no id, go back to works */
+/* If the project's id <=0 , go back to works */
 if ($project_id <= 0) {
   header("Location: works.php");
   exit;
 }
 
-/* Project query
+/* PROJECTS QUERY
 I get all case study text from tbl_projects by id */
 $stmt_project = $connect->prepare("
   SELECT
@@ -43,13 +43,13 @@ $stmt_project->execute(array(':id' => $project_id));
 $project = $stmt_project->fetch(PDO::FETCH_ASSOC);
 $stmt_project = null;
 
-/* If project not found */
+/* If project not found, then just stay (or go back) to "Works" page  */
 if (!$project) {
   header("Location: works.php");
   exit;
 }
 
-/* Media query
+/* MEDIA QUERY
 I get all media for this project from tbl_projects_media */
 $stmt_media = $connect->prepare("
   SELECT project_media_type, project_media_src, project_media_alt, project_media_order
@@ -103,13 +103,13 @@ foreach ($media_rows as $m) {
   }
 }
 
-/* More projects query
+/* MORE PROJECTS QUERRY
 I always show the next 3 projects after the current one (by project_order).
 If I'm near the end and not enough projects, I "wrap" and take from the start. */
 
 $currentOrder = (int)($project['project_order'] ?? 0);
 
-/* 1) Get next projects (order > current) */
+/* 1) I get next projects (order > current) */
 $stmt_more = $connect->prepare("
   SELECT
     p.project_id,
@@ -150,7 +150,7 @@ $stmt_more->execute([
 $more_projects = $stmt_more->fetchAll(PDO::FETCH_ASSOC);
 $stmt_more = null;
 
-/* 2) If not enough, take remaining from the beginning (wrap) */
+/* 2) If not enough, I take the remaining project from the beginning (wrap) */
 $need = 3 - count($more_projects);
 
 if ($need > 0) {
@@ -195,7 +195,7 @@ if ($need > 0) {
   $stmt_more2 = null;
 }
 
-/* I turn "A | B | C" into spans like old HTML */
+/* I turn "A | B | C" into spans */
 function buildSubtitleSpans($subtitle) {
   $tags = explode('|', $subtitle);
   $out = '';
@@ -210,7 +210,7 @@ function buildSubtitleSpans($subtitle) {
   return $out;
 }
 
-/* Page title text */
+/* PAGE TITLE TEXT */
 $page_title = $project['project_title'].' — Case Study';
 ?>
 
@@ -281,7 +281,6 @@ $page_title = $project['project_title'].' — Case Study';
     </div>
   </header>
 
-  <!-- MAIN -->
   <main>
 
     <!-- HERO -->

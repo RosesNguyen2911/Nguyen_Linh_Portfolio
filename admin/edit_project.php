@@ -9,8 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once('../includes/connect.php');
 
-/*
-  EDIT PROJECT SCRIPT
+/* EDIT PROJECT SCRIPT
   I update all text fields in tbl_projects first (this is the “main” data).
   Then I process uploaded media (if any) and store them in tbl_projects_media.
 
@@ -20,8 +19,7 @@ require_once('../includes/connect.php');
 
   I treat detail images as “multiple”:
   - detail
-  For these, I do not replace old ones. I append new rows and increase project_media_order so the gallery keeps the correct sequence.
-*/
+  For these, I do not replace old ones. I append new rows and increase project_media_order so the gallery keeps the correct sequence. */
 
 $project_id = isset($_POST['project_id']) ? (int)$_POST['project_id'] : 0;
 /* I stop early if the id is invalid, because updating without a valid project_id would be unsafe. */
@@ -30,7 +28,7 @@ if ($project_id <= 0) {
   exit;
 }
 
-/* Basic fields
+/* BASIC FIELDS
 I trim inputs to avoid saving accidental spaces and to keep the database clean. */
 $title = trim($_POST['project_title'] ?? '');
 $subtitle = trim($_POST['project_subtitle'] ?? '');
@@ -52,7 +50,7 @@ $is_active = isset($_POST['is_active']) ? (int)$_POST['is_active'] : 1;
 /* I force is_active to be either 0 or 1 so it stays consistent in the database. */
 $is_active = ($is_active === 0) ? 0 : 1;
 
-/* Update project text
+/* UPDATE PROJECTS
 I update tbl_projects first so the content changes are saved even if no files are uploaded. */
 $queryUpdate = "
   UPDATE tbl_projects
@@ -154,12 +152,12 @@ function insert_media($connect, $project_id, $type, $src, $alt, $order) {
   $stmt = null;
 }
 
-/* File rules
+/* FILE RULES
 I separate image and video extensions so each upload input is validated correctly. */
 $imageExts = ['jpg', 'png', 'gif', 'webp'];
 $videoExts = ['webm', 'mp4'];
 
-/* Poster (replace)
+/* POSTER ( REPLACE IF NEED)
 I replace poster by deactivating old poster rows, then inserting the new one as order 1. */
 $poster_name = save_upload($_FILES['poster_file'] ?? null, '../images', 'poster', $imageExts);
 if ($poster_name !== '') {
@@ -167,7 +165,7 @@ if ($poster_name !== '') {
   insert_media($connect, $project_id, 'poster', $poster_name, $title . ' Poster', 1);
 }
 
-/* Hero (replace)
+/* HERO IMAGE (SINGLE)
 Same logic as poster: single active hero image per project. */
 $hero_name = save_upload($_FILES['hero_file'] ?? null, '../images', 'hero', $imageExts);
 if ($hero_name !== '') {
@@ -175,7 +173,7 @@ if ($hero_name !== '') {
   insert_media($connect, $project_id, 'hero', $hero_name, $title . ' Hero Image', 1);
 }
 
-/* Detail images (append multiple)
+/* DETAIL IMAGES (MUTIPLE APPEND)
 This part is slightly tricky:
 - detail_images is a “multiple files” input, so PHP gives arrays for name/tmp_name/error.
 - I find the current max order, then add new images after it so the order stays correct. */
@@ -213,7 +211,7 @@ if (isset($_FILES['detail_images']) && isset($_FILES['detail_images']['name']) &
   }
 }
 
-/* Video thumbnail (replace)
+/* VIDEO THUMBNAIL IMAGES (SINGLE)
 Thumbnail is stored in images folder and behaves like a single slot. */
 $thumb_name = save_upload($_FILES['video_thumbnail_file'] ?? null, '../images', 'video_thumb', $imageExts);
 if ($thumb_name !== '') {
@@ -221,7 +219,7 @@ if ($thumb_name !== '') {
   insert_media($connect, $project_id, 'video_thumbnail', $thumb_name, $title . ' Video Thumbnail', 1);
 }
 
-/* Video webm (replace)
+/* VIDEO WEBM (OPTIONAL)
 Video files go into ../video and also behave like single slots. */
 $webm_name = save_upload($_FILES['video_webm_file'] ?? null, '../video', 'video_webm', $videoExts);
 if ($webm_name !== '') {
@@ -229,14 +227,14 @@ if ($webm_name !== '') {
   insert_media($connect, $project_id, 'video_webm', $webm_name, $title . ' Video WebM', 1);
 }
 
-/* Video mp4 (replace) */
+/* VIDEO MP4 (MANDATORY) */
 $mp4_name = save_upload($_FILES['video_mp4_file'] ?? null, '../video', 'video_mp4', $videoExts);
 if ($mp4_name !== '') {
   deactivate_media_type($connect, $project_id, 'video_mp4');
   insert_media($connect, $project_id, 'video_mp4', $mp4_name, $title . ' Video MP4', 1);
 }
 
-/* Done
+/* DONE SESSION
 I redirect back to the exact edited card anchor so the admin stays at the same position after saving. */
 $_SESSION['project_flash'] = 'Project updated successfully.';
 header('Location: project_list.php#project-' . $project_id);

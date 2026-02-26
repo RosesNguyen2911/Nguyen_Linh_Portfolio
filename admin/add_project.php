@@ -10,8 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once('../includes/connect.php');
 /*
   ADD PROJECT SCRIPT
-
-  In this script, I create a new project entry.
+  I create a new project entry.
   First, I validate all required inputs and the uploaded poster.
   Then I safely upload the image and insert the project into the database.
   At this stage, I only create a basic project card.
@@ -34,7 +33,7 @@ $_SESSION['old_add_project'] = [
   'project_color'    => $color
 ];
 
-/* ===== VALIDATION (SERVER SIDE CHECK) =====
+/* VALIDATION (SERVER SIDE CHECK)
    Even though the form uses HTML "required",
    I validate again on the server to prevent empty or unsafe submissions.
 */
@@ -43,22 +42,17 @@ if ($title === '' || $subtitle === '' || $desc === '' || $color === '') {
   exit;
 }
 
-/* 
-  I make sure a poster image is uploaded successfully 
-  before continuing.
-*/
+/* I make sure a poster image is uploaded successfully 
+  before continuing.*/
 if (!isset($_FILES['project_poster']) || $_FILES['project_poster']['error'] !== UPLOAD_ERR_OK) {
   header('Location: project_list.php#admin-add-project');
   exit;
 }
 
-/*
-  IMAGE UPLOAD
-
+/* IMAGE UPLOAD
   I generate a unique filename to avoid naming conflicts.
   I also restrict allowed extensions to common image formats
-  for consistency and basic security.
-*/
+  for consistency and basic security.*/
 
 $random  = rand(10000, 99999);
 $newname = 'poster_' . $random;
@@ -80,28 +74,21 @@ if (!in_array($filetype, $allowed)) {
 $newname .= '.' . $filetype;
 $target_file = '../images/' . $newname;
 
-/* 
-  I move the uploaded file from temporary storage 
-  into the images folder.
-*/
+/* I move the uploaded file from temporary storage 
+  into the images folder.*/
 if (!move_uploaded_file($_FILES['project_poster']['tmp_name'], $target_file)) {
   header('Location: project_list.php#admin-add-project');
   exit;
 }
 
-/*
-  DATABASE INSERT
-
-  tbl_projects contains many NOT NULL fields.
+/* DATABASE INSERT
+  bl_projects contains many NOT NULL fields.
   For the Add Project step, I insert safe placeholder values
   for the case study sections.
-  These fields will be properly updated later in edit_project.php.
-*/
+  These fields will be properly updated later in edit_project.php.*/
 
-/* 
-  I automatically calculate the next project_order
-  so the new project appears at the end of the list.
-*/
+/* I automatically calculate the next project_order
+  so the new project appears at the end of the list.*/
 $stmtOrder = $connect->prepare("SELECT COALESCE(MAX(project_order), 0) + 1 AS next_order FROM tbl_projects");
 $stmtOrder->execute();
 $nextOrder = (int)($stmtOrder->fetch(PDO::FETCH_ASSOC)['next_order'] ?? 1);
@@ -160,11 +147,9 @@ $stmt->execute([
 $project_id = (int)$connect->lastInsertId();
 $stmt = null;
 
-/*
-  After inserting the project,
-  I insert its poster into tbl_projects_media
-  and link it using the generated project_id.
-*/
+/* After inserting the project,
+   I insert its poster into tbl_projects_media
+   and link it using the generated project_id. */
 $queryMedia = "
   INSERT INTO tbl_projects_media
   (project_id, project_media_type, project_media_src, project_media_alt, project_media_order, is_active)
@@ -177,11 +162,9 @@ $stmt2 = $connect->prepare($queryMedia);
 $stmt2->execute([$project_id, $newname, $altText]);
 $stmt2 = null;
 
-/* 
-  On success, I clear old session data
-  and redirect back to the project list,
-  jumping directly to the newly created project card.
-*/
+/* On success, I clear old session data
+   and redirect back to the project list,
+   jumping directly to the newly created project card. */
 unset($_SESSION['old_add_project']);
 
 $_SESSION['project_flash'] = 'Project added successfully.';

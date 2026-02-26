@@ -170,7 +170,6 @@ $stmt_skills->execute();
 
     /* TOOLS QUERY (PER SKILL)
        I fetch tools related to the current skill using the junction table. */
-
     $stmt_tools = $connect->prepare("
       SELECT t.tool_src, t.tool_alt
       FROM tbl_skills_tools st
