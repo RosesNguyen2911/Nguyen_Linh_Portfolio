@@ -2,6 +2,7 @@
 <html lang="en">
 
 <?php
+
 /*FAQ QUERY 
 I load my PDO connection first, then prepare and execute the FAQ query
 so the FAQ section can be generated dynamically from the database. */
