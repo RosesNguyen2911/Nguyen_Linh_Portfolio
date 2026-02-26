@@ -5,7 +5,7 @@
 
 require_once('includes/connect.php');
 
-/* Projects query
+/* PROJECTS QUERRY
 I get title, brief, subtitle and color from tbl_projects.
 I also get the first poster (src and alt) from tbl_projects_media. */
 $stmt_projects = $connect->prepare("
@@ -134,10 +134,7 @@ function buildTags($subtitle) {
     </div>
   </header>
 
-
-  <!-- ===== MAIN ===== -->
   <main>
-
     <!-- HERO -->
     <section id="works-hero" class="grid-con">
 
@@ -147,8 +144,6 @@ function buildTags($subtitle) {
       <div class="float orange"></div>
       <div class="float yellow"></div>
       
-      
-
       <div class="hero-content col-span-full m-col-span-full l-col-span-full">
         <h2><span class="accent">Creative Playground</span><br>Where Ideas Come Alive</h2>
 
@@ -203,7 +198,7 @@ function buildTags($subtitle) {
   </main>
 
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer id="footer" class="grid-con">
     <div class="footer-top col-span-full">
       <nav class="footer-nav">
@@ -237,7 +232,6 @@ function buildTags($subtitle) {
       <p class="credit-right">© 2026 All Rights Reserved</p>
     </div>
   </footer>
-
-
+  
 </body>
 </html>

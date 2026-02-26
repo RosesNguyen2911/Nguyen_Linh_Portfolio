@@ -49,7 +49,7 @@ $stmt_projects->execute();
 $projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
 $stmt_projects = null;
 
-/* Old add values */
+/* OLD ADD VALUE */
 $old_add = [];
 if (isset($_SESSION['old_add_project']) && is_array($_SESSION['old_add_project'])) {
   $old_add = $_SESSION['old_add_project'];

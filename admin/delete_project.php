@@ -9,8 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once('../includes/connect.php');
 
-/*
-  DELETE PROJECT SCRIPT
+/* DELETE PROJECT SCRIPT
   I get the project id from the URL and validate it first.
   If the id is invalid, I stop and return to the admin list.
 
@@ -18,8 +17,7 @@ require_once('../includes/connect.php');
   If my database has FOREIGN KEY + ON DELETE CASCADE for tbl_projects_media,
   the related media rows will be removed automatically.
 
-  I redirect back to the projects section so the page doesn’t jump to the top.
-*/
+  I redirect back to the projects section so the page doesn’t jump to the top. */
 
 $projectId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 

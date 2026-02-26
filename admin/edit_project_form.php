@@ -140,7 +140,7 @@ foreach ($media_rows as $m) {
 
 <body data-page="admin-edit-project">
 
-  <!-- HEADER (same style as your admin pages) -->
+  <!-- HEADER -->
   <header id="header" class="grid-con">
     <h1 class="hidden">Edit Project - Admin Login</h1>
 

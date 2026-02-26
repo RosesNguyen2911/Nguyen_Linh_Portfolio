@@ -3,9 +3,11 @@
 <?php
 require_once('includes/connect.php');
 
-/* (WORKS) PROJECTS QUERRY
+/* PROJECTS QUERY
 I get title, brief, subtitle and color from tbl_projects.
-I also get the first poster (src and alt) from tbl_projects_media. */
+I also get the first poster (src and alt) from tbl_projects_media.
+But I just get only 4 projects because I have button "See All" 
+and then users can go to see all projects in "Works" page */
 $stmt_projects = $connect->prepare("
   SELECT
     p.project_id,
@@ -157,7 +159,6 @@ $stmt_testimonials = null;
     </div>
   </header>
 
-  <!-- MAIN -->
   <main>
  <!-- HERO SECTION -->
  <section id="hero" class="grid-con">
@@ -311,7 +312,6 @@ $stmt_testimonials = null;
 
 <?php endforeach; ?>
 
-  <!-- Learn More Button -->
   <div class="work-button col-span-full">
     <a href="works.php" class="btn-learn">See All</a>
   </div>
@@ -327,7 +327,6 @@ $stmt_testimonials = null;
           <div class="ticker-text">
 
             <?php
-            /* I loop services and print spans like the old HTML */
             foreach ($services as $service) {
               echo '<span class="'.$service['service_color'].'">'.$service['service_title'].'</span>';
             }

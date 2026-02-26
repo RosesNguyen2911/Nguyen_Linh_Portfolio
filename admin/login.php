@@ -2,23 +2,18 @@
 session_start();
 require_once('../includes/connect.php');
 
-/*
-  LOGIN PROCESS
-
+/* LOGIN PROCESS
   I validate the login form on the server side.
   First, I check for empty fields.
   Then, I verify the username and password against tbl_users.
   If authentication fails, I store an error message in session
-  and redirect back to login_form.php.
-*/
+  and redirect back to login_form.php.*/
 
 $username = isset($_POST['username']) ? trim($_POST['username']) : '';
 $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-/* 
-  I store the entered username in session 
-  so the user does not need to retype it after a redirect.
-*/
+/* I store the entered username in session 
+  so the user does not need to retype it after a redirect.*/
 $_SESSION['old_username'] = $username;
 
 // 1) Empty checks
@@ -40,9 +35,7 @@ if ($password === '') {
   exit;
 }
 
-/*
-  2) Database check
-
+/* 2) Database check
   I use a prepared statement to safely check
   whether the provided username and password
   match a record in tbl_users.
@@ -56,10 +49,8 @@ $stmt->execute();
 if ($stmt->rowCount() === 1) {
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  /* 
-    If credentials are valid,
-    I create session variables to keep the user logged in.
-  */
+/* If credentials are valid,
+  I create session variables to keep the user logged in. */
   $_SESSION['username'] = $row['username'];
   $_SESSION['user_id'] = $row['user_id'];
 
@@ -70,12 +61,9 @@ if ($stmt->rowCount() === 1) {
   exit;
 }
 
-/*
-  3) Invalid credentials
-
-  If no matching record is found,
-  I set an error message and redirect back to the login form.
-*/
+/* 3) Invalid credentials
+   If no matching record is found,
+   I set an error message and redirect back to the login form. */
 $_SESSION['login_error'] = 'Invalid credentials. Are you sure you have access to this page?';
 header('Location: login_form.php');
 exit;
