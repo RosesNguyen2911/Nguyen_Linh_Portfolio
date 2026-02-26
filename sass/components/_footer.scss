@@ -1,13 +1,16 @@
 @use '../abstracts' as *;
 
-/* FOOTER SECTION (MOBILE FIRST) */
+/* FOOTER SECTION */
 
 #footer {
   background-color: $color-white;
   color: $color-blue;
   text-align: center;
-  padding: 60px 20px 30px;
-
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding-top: 50px;
+  padding-bottom: 30px;
   /* --- Footer Top --- */
   .footer-top {
     display: flex;
@@ -81,7 +84,7 @@
 
   /* --- Call To Action --- */
   .footer-cta {
-    margin-bottom: 50px;
+    margin-bottom: 0px;
   
     h2 {
       font-weight: 800;
@@ -155,7 +158,10 @@
 
   /* --- Desktop Layout --- */
   @media (min-width: 768px) {
-    padding: 80px 40px 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 70px;
+
 
     .footer-top {
       flex-direction: row;

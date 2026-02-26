@@ -6,8 +6,10 @@
   background-color: #FFFFFF;
   align-items: center;
   padding: 25px 40px;
-  width: 100%;
   position: relative;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 #header .header-logo img {
   width: 42px;
@@ -205,7 +207,6 @@
 /* ===== TABLET ===== */
 @media (min-width: 768px) {
   #header {
-    padding: 25px 40px;
     height: 110px;
     width: 100%;
   }
@@ -282,7 +283,6 @@
 /* ===== DESKTOP ===== */
 @media (min-width: 1200px) {
   #header {
-    padding: 25px 40px;
     height: 110px;
   }
   #header .header-hamburger {
@@ -302,12 +302,16 @@
     font-size: 19px;
   }
 }
-/* FOOTER SECTION (MOBILE FIRST) */
+/* FOOTER SECTION */
 #footer {
   background-color: #FFFFFF;
   color: #5CE1E6;
   text-align: center;
-  padding: 60px 20px 30px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-top: 50px;
+  padding-bottom: 30px;
   /* --- Footer Top --- */
 }
 #footer .footer-top {
@@ -375,7 +379,7 @@
   /* --- Call To Action --- */
 }
 #footer .footer-cta {
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 #footer .footer-cta h2 {
   font-weight: 800;
@@ -443,7 +447,9 @@
 }
 @media (min-width: 768px) {
   #footer {
-    padding: 80px 40px 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 70px;
   }
   #footer .footer-top {
     flex-direction: row;
@@ -712,7 +718,10 @@
   width: 100%;
   background-color: #D8FEFF;
   text-align: center;
-  padding: 30px 40px 0;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 60px;
+  padding-top: 50px;
 }
 #featured-works #featured-heading {
   font-size: 30px;
@@ -936,7 +945,6 @@
 @media (min-width: 768px) {
   #featured-works #featured-heading {
     font-size: 35px;
-    margin-bottom: 55px;
     letter-spacing: 0.5px;
   }
   #featured-works .work-card {
@@ -1019,7 +1027,9 @@
 #about {
   background-color: #FFFFFF;
   color: #2E989C;
-  padding: 60px 50px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   /* AVATAR */
 }
 #about .about-avatar-wrapper {
@@ -1060,6 +1070,7 @@
   text-align: left;
   font-weight: 400;
   font-size: 17.5px;
+  padding: 0px 30px;
 }
 #about .about-text-wrapper p strong {
   color: #FF66C4;
@@ -1108,9 +1119,10 @@
   }
   #about .about-text-wrapper p {
     font-size: 18px;
+    padding: 0px 0px;
   }
   #about .gradient-wave {
-    margin-left: -120px;
+    margin: 0px;
   }
 }
 #about {
@@ -1133,13 +1145,12 @@
   /* GRADIENT WAVE */
 }
 #about .gradient-wave {
-  width: 100vw;
+  width: 120vw;
   height: 200px;
   position: relative;
   left: 50%;
   transform: rotate(180deg);
-  margin-top: -60px;
-  margin-left: -100px;
+  margin-left: -120px;
   background: linear-gradient(90deg, #FF8D59, #FF66C4, #FFDE59, #5CE1E6, #FF8D59);
   background-size: 400% 100%;
   animation: gradientShift 8s ease-in-out infinite;
@@ -1478,14 +1489,19 @@ body {
 
 /* Services Section */
 #services {
-  width: 100vw;
+  width: 300vw;
+  max-width: none;
+  margin: 0;
   background-color: #D8FEFF;
   text-align: center;
   overflow-x: hidden;
   margin-left: -15px;
+  margin-top: -50px;
 }
 #services .ticker {
-  width: 100vw;
+  width: 300vw;
+  max-width: none;
+  margin: 0;
   overflow: hidden;
   background: #FFFFFF;
   padding: 25px 0;
@@ -1524,7 +1540,9 @@ body {
 /* Testimonials Section */
 .testimonials-section {
   background: #D8FEFF;
-  padding: 50px 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 20px;
   /* Wrapper */
 }
 .testimonials-section .testimonials-wrapper {

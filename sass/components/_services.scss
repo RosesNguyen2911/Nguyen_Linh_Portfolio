@@ -2,14 +2,19 @@
 
 /* Services Section */
 #services {
-  width: 100vw;
+  width:300vw;
+  max-width:none;
+  margin:0;
   background-color: $color-background;
   text-align: center;
   overflow-x: hidden;
   margin-left: -15px;
+  margin-top: -50px;
 
   .ticker {
-    width: 100vw;
+    width:300vw;
+    max-width:none;
+    margin:0;
     overflow: hidden;
     background: $color-white;
     padding: 25px 0;
