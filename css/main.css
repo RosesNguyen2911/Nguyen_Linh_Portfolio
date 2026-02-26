@@ -3461,7 +3461,7 @@ section::after {
   border-color: rgba(0, 0, 0, 0.18);
 }
 
-/* CONTACT FORM */
+/* LOGIN FORM */
 #contact-form .form-group small {
   display: block;
   margin-top: 10px;
@@ -3485,13 +3485,14 @@ section::after {
   background-color: #FFFFFF;
   color: #5CE1E6;
   text-align: center;
-  height: 100px;
-  margin-top: 40px;
+  height: 80px;
   width: 100%;
   max-width: none;
-  margin: 0;
   padding-left: 40px;
   padding-right: 40px;
+  margin-top: 40px;
+  position: absolute;
+  bottom: 0;
 }
 #footer-admin .footer-bottom-admin {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -3501,7 +3502,7 @@ section::after {
   gap: 8px;
 }
 #footer-admin .footer-bottom-admin p {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 450;
   color: #2E989C;
   opacity: 0.9;
