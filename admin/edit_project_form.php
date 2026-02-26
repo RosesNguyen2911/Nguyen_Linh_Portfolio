@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-/* Optional: protect admin page */
+/* Protect admin access */
 if (!isset($_SESSION['user_id'])) {
   header('Location: login_form.php');
   exit;

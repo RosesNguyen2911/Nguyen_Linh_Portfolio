@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+
 session_start();
+
+/* Protect admin access */
+if (!isset($_SESSION['user_id'])) {
+  header('Location: login_form.php');
+  exit;
+}
+
 require_once('../includes/connect.php');
 
 /* PROJECTS QUERY
@@ -118,7 +126,7 @@ if (isset($_SESSION['old_add_project']) && is_array($_SESSION['old_add_project']
     <!-- HERO SECTION -->
     <section id="works-hero" class="grid-con">
       <div class="hero-content col-span-full">
-        <h2><span class="accent">Admin Panel</span><br>Project List</h2>
+        <h2><span class="accent">Admin Login</span><br>Project List</h2>
         <p>Administrative dashboard for managing and maintaining portfolio projects.</p>
       </div>
     </section>

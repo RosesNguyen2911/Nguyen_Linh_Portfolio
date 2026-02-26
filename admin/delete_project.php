@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+/* Protect admin access */
+if (!isset($_SESSION['user_id'])) {
+  header('Location: login_form.php');
+  exit;
+}
+
 require_once('../includes/connect.php');
 
 /*

@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-/* Optional: protect admin page
-I block access if the admin session is missing, so this script cannot be called directly. */
+/* Protect admin access */
 if (!isset($_SESSION['user_id'])) {
   header('Location: login_form.php');
   exit;
