@@ -4,7 +4,9 @@
 #about {
   background-color: $color-white;
   color: $color-heading;
-  padding: 60px 50px;
+  width:100%;
+  max-width:none;
+  margin:0;
 
   /* AVATAR */
   .about-avatar-wrapper {
@@ -48,6 +50,7 @@
       text-align: left;
       font-weight: 400;
       font-size: 17.5px;
+      padding: 0px 30px;
 
       strong {
         color: $color-pink;
@@ -101,12 +104,13 @@
 
       p {
         font-size: 18px;
+        padding: 0px 0px;
       }
     }
 
 
    .gradient-wave {
-    margin-left: -120px;
+    margin: 0px;
   }
 }
 
@@ -132,13 +136,12 @@
 /* GRADIENT WAVE */
 
    .gradient-wave {
-  width: 100vw;
+  width: 120vw;
   height: 200px;
   position: relative;
   left: 50%;
   transform: rotate(180deg);
-  margin-top: -60px;
-  margin-left: -100px;
+  margin-left: -120px;
 
 
   background: linear-gradient(

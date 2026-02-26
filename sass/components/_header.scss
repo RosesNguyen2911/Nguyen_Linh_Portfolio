@@ -8,8 +8,10 @@
   background-color: $color-white;
   align-items: center;
   padding: 25px 40px;
-  width: 100%;
   position: relative;
+  width:100%;
+  max-width:none;
+  margin:0;
 
 
   // LOGO ANIMATION
@@ -249,7 +251,6 @@
 /* ===== TABLET ===== */
 @media (min-width: 768px) {
   #header {
-    padding: 25px 40px;
     height: 110px;
     width: 100%;
 
@@ -339,7 +340,6 @@
 /* ===== DESKTOP ===== */
 @media (min-width: 1200px) {
   #header {
-    padding: 25px 40px;
     height: 110px;
     
 
