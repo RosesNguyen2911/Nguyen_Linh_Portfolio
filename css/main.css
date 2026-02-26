@@ -487,16 +487,10 @@
   font-weight: 600;
   margin-top: -40px;
 }
-#hero {
-  /* Secondary Line */
-}
 #hero .hero-second-line {
   color: #FF8D59;
   font-size: 24px;
   font-weight: 550;
-}
-#hero {
-  /* Banner */
 }
 #hero .hero-banner {
   margin-bottom: 100px;
@@ -941,7 +935,7 @@
 /* TABLET */
 @media (min-width: 768px) {
   #featured-works #featured-heading {
-    font-size: 38px;
+    font-size: 35px;
     margin-bottom: 55px;
     letter-spacing: 0.5px;
   }
@@ -976,7 +970,7 @@
 /* DESKTOP */
 @media (min-width: 1200px) {
   #featured-works #featured-heading {
-    font-size: 50px;
+    font-size: 40px;
     margin-bottom: 65px;
     letter-spacing: 1px;
   }
@@ -1026,7 +1020,7 @@
   background-color: #FFFFFF;
   color: #2E989C;
   padding: 60px 50px;
-  /* ===== AVATAR */
+  /* AVATAR */
 }
 #about .about-avatar-wrapper {
   display: grid;
@@ -3228,4 +3222,312 @@ section::after {
   background-color: #2e989c;
   margin-top: -20px;
   opacity: 1;
+}
+
+/* ADMIN ADD PROJECT (WORKS STYLE) */
+/* ADD PROJECT SECTION */
+#admin-add-project {
+  padding: 30px 40px 0;
+}
+
+/* ADD PROJECT CARD */
+.admin-add-project-box {
+  border: 2px solid #5CE1E6;
+  border-radius: 14px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-bottom: 28px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.admin-add-project-box:hover, .admin-add-project-box:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ADD PROJECT TITLE */
+.admin-add-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #2E989C;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+/* ADD PROJECT FORM */
+.admin-add-form {
+  width: 100%;
+}
+
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.admin-form-group label {
+  font-weight: 600;
+  color: #2E989C;
+  font-size: 15px;
+}
+.admin-form-group input,
+.admin-form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.8px solid rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.admin-form-group input:focus,
+.admin-form-group textarea:focus {
+  border-color: #5CE1E6;
+  box-shadow: 0 0 0 3px rgba(92, 225, 230, 0.18);
+  outline: none;
+}
+.admin-form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.admin-form-group input[type=file] {
+  border-style: dashed;
+  cursor: pointer;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.02);
+}
+.admin-form-group small {
+  font-size: 13px;
+  opacity: 0.65;
+}
+
+/* ADD PROJECT BUTTON */
+.admin-add-btn {
+  background-color: #FF66C4;
+  color: #FFFFFF;
+  border: 2px solid #FF66C4;
+  font-weight: 600;
+  padding: 14px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  font-family: "Poppins";
+}
+.admin-add-btn.active, .admin-add-btn:hover {
+  background-color: #FFFFFF;
+  border-color: #FF66C4;
+  color: #FF66C4;
+}
+
+/* ADMIN ACTIONS */
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+  font-family: "Poppins";
+}
+
+.admin-btn i {
+  line-height: 1;
+}
+
+/* EDIT BUTTON */
+.admin-btn-edit {
+  background-color: #35c46a;
+  color: #fff;
+  border-color: #35c46a;
+}
+.admin-btn-edit:hover, .admin-btn-edit.active {
+  background-color: #FFFFFF;
+  color: #35c46a;
+}
+.admin-btn-edit:active {
+  transform: translateY(1px);
+}
+
+/* DELETE BUTTON */
+.admin-btn-delete {
+  background-color: #ff4d4d;
+  color: #fff;
+  border-color: #ff4d4d;
+}
+.admin-btn-delete:hover, .admin-btn-delete.active {
+  background-color: #FFFFFF;
+  color: #ff4d4d;
+}
+.admin-btn-delete:active {
+  transform: translateY(1px);
+}
+
+/* ADD CARD ICON */
+.admin-add-card .admin-add-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* DELETE CONFIRM LIGHTBOX (NO JS) */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.admin-modal:target {
+  display: block;
+}
+
+.admin-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.admin-modal-box {
+  position: relative;
+  max-width: 520px;
+  width: calc(100% - 40px);
+  margin: 16vh auto 0;
+  background: #fff;
+  border-radius: 14px;
+  border: 2px solid #ff4d4d;
+  padding: 22px 22px 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+.admin-modal-box h4 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #2E989C;
+}
+
+.admin-modal-box p {
+  margin: 0 0 16px;
+  color: #2E989C;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.admin-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* CANCEL BUTTON */
+.admin-btn-cancel {
+  background-color: #FFFFFF;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  color: #2E989C;
+}
+.admin-btn-cancel:hover, .admin-btn-cancel.active {
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+/* CONTACT FORM */
+#contact-form .form-group small {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #2E989C;
+  opacity: 0.8;
+}
+#contact-form .form-group .admin-contact-link {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #FF66C4;
+  transition: color 0.3s ease;
+}
+#contact-form .form-group .admin-contact-link:hover {
+  color: #5CE1E6;
+}
+
+/* FOOTER (MOBILE FIRST) */
+#footer-admin {
+  background-color: #FFFFFF;
+  color: #5CE1E6;
+  text-align: center;
+  padding: 0px 20px 30px;
+  height: 100px;
+  margin-top: 40px;
+}
+#footer-admin .footer-bottom-admin {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+#footer-admin .footer-bottom-admin p {
+  font-size: 14px;
+  font-weight: 450;
+  color: #2E989C;
+  opacity: 0.9;
+  margin: 0;
+}
+#footer-admin .footer-bottom-admin a {
+  color: #5CE1E6;
+  text-decoration: none;
+}
+
+/* TABLET OVERRIDES */
+@media (min-width: 768px) {
+  /* ADD PROJECT CARD */
+  .admin-add-project-box {
+    padding: 28px 36px;
+  }
+  /* ADD PROJECT TITLE */
+  .admin-add-title {
+    font-size: 35px;
+    text-align: left;
+  }
+  /* ADD PROJECT BUTTON */
+  .admin-add-btn {
+    width: auto;
+  }
+  /* ADMIN ACTIONS */
+  .admin-actions {
+    justify-content: flex-start;
+  }
+  /* FOOTER LAYOUT */
+  #footer-admin {
+    padding: 0px 20px 30px;
+  }
+  #footer-admin .footer-bottom-admin {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+/* DESKTOP OVERRIDES */
+@media (min-width: 1200px) {
+  /* ADD PROJECT CARD */
+  .admin-add-project-box {
+    padding: 36px;
+  }
+  /* ADD PROJECT TITLE */
+  .admin-add-title {
+    font-size: 40px;
+  }
 }/*# sourceMappingURL=main.css.map */

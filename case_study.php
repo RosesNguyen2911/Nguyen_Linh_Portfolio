@@ -32,6 +32,7 @@ $stmt_project = $connect->prepare("
     project_goals,
     project_challenges,
     project_learnings,
+    project_order,
     project_results
   FROM tbl_projects
   WHERE project_id = :id
@@ -103,7 +104,12 @@ foreach ($media_rows as $m) {
 }
 
 /* More projects query
-I get other projects + their first poster for slider */
+I always show the next 3 projects after the current one (by project_order).
+If I'm near the end and not enough projects, I "wrap" and take from the start. */
+
+$currentOrder = (int)($project['project_order'] ?? 0);
+
+/* 1) Get next projects (order > current) */
 $stmt_more = $connect->prepare("
   SELECT
     p.project_id,
@@ -132,12 +138,62 @@ $stmt_more = $connect->prepare("
   FROM tbl_projects p
   WHERE p.is_active = 1
     AND p.project_id != :id
+    AND p.project_order > :curOrder
   ORDER BY p.project_order ASC, p.project_id ASC
-  LIMIT 6
+  LIMIT 3
 ");
-$stmt_more->execute(array(':id' => $project_id));
+$stmt_more->execute([
+  ':id' => $project_id,
+  ':curOrder' => $currentOrder
+]);
+
 $more_projects = $stmt_more->fetchAll(PDO::FETCH_ASSOC);
 $stmt_more = null;
+
+/* 2) If not enough, take remaining from the beginning (wrap) */
+$need = 3 - count($more_projects);
+
+if ($need > 0) {
+  $stmt_more2 = $connect->prepare("
+    SELECT
+      p.project_id,
+      p.project_title,
+
+      (
+        SELECT pm.project_media_src
+        FROM tbl_projects_media pm
+        WHERE pm.project_id = p.project_id
+          AND pm.project_media_type = 'poster'
+          AND pm.is_active = 1
+        ORDER BY pm.project_media_order ASC
+        LIMIT 1
+      ) AS poster_src,
+
+      (
+        SELECT pm.project_media_alt
+        FROM tbl_projects_media pm
+        WHERE pm.project_id = p.project_id
+          AND pm.project_media_type = 'poster'
+          AND pm.is_active = 1
+        ORDER BY pm.project_media_order ASC
+        LIMIT 1
+      ) AS poster_alt
+
+    FROM tbl_projects p
+    WHERE p.is_active = 1
+      AND p.project_id != :id
+      AND p.project_order <= :curOrder
+    ORDER BY p.project_order ASC, p.project_id ASC
+    LIMIT {$need}
+  ");
+  $stmt_more2->execute([
+    ':id' => $project_id,
+    ':curOrder' => $currentOrder
+  ]);
+
+  $more_projects = array_merge($more_projects, $stmt_more2->fetchAll(PDO::FETCH_ASSOC));
+  $stmt_more2 = null;
+}
 
 /* I turn "A | B | C" into spans like old HTML */
 function buildSubtitleSpans($subtitle) {
