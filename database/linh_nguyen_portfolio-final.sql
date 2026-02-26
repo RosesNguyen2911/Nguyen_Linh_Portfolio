@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 26, 2026 at 06:44 AM
+-- Generation Time: Feb 26, 2026 at 09:17 PM
 -- Server version: 8.0.40
 -- PHP Version: 8.3.14
 
@@ -43,7 +43,8 @@ INSERT INTO `tbl_contacts` (`contact_id`, `contact_name`, `contact_email`, `cont
 (9, 'Test', 'iamtesting@gmail.com', 'testing so fun'),
 (10, 'Linh Nguyen', 'nngklinh.2911@gmail.com', 'ahihi'),
 (11, 'cry', 'cry@gmail.com', 'cry'),
-(12, 'Linh Nguyen', 'nngklinh.2911@gmail.com', 'hbbb');
+(12, 'Linh Nguyen', 'nngklinh.2911@gmail.com', 'hbbb'),
+(13, 'Linh Nguyen', 'nngklinh.2911@gmail.com', 'hello');
 
 -- --------------------------------------------------------
 
@@ -294,7 +295,7 @@ INSERT INTO `tbl_tools` (`tool_id`, `tool_src`, `tool_alt`, `is_active`) VALUES
 (2, 'photoshop_logo.png', 'Adobe Photoshop Logo', 1),
 (3, 'indesign_logo.png', 'Adobe InDesign Logo', 1),
 (4, 'figma_logo.png', 'Figma Logo', 1),
-(5, 'C4D_Logo.png', 'Cinema 4D Logo', 1),
+(5, 'c4d_logo.png', 'Cinema 4D Logo', 1),
 (6, 'redshift_logo.png', 'Redshift Renderer Logo', 1),
 (7, 'ae_logo.png', 'After Effects', 1),
 (8, 'pr_logo.png', 'Premiere Pro', 1),
@@ -403,7 +404,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_contacts`
 --
 ALTER TABLE `tbl_contacts`
-  MODIFY `contact_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `contact_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_faqs`
@@ -415,13 +416,13 @@ ALTER TABLE `tbl_faqs`
 -- AUTO_INCREMENT for table `tbl_projects`
 --
 ALTER TABLE `tbl_projects`
-  MODIFY `project_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `project_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_projects_media`
 --
 ALTER TABLE `tbl_projects_media`
-  MODIFY `project_media_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `project_media_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `tbl_services`
