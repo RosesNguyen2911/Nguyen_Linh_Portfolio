@@ -3,7 +3,7 @@
 <?php
 require_once('includes/connect.php');
 
-/* Projects query
+/* (WORKS) PROJECTS QUERRY
 I get title, brief, subtitle and color from tbl_projects.
 I also get the first poster (src and alt) from tbl_projects_media. */
 $stmt_projects = $connect->prepare("
@@ -37,6 +37,7 @@ $stmt_projects = $connect->prepare("
   FROM tbl_projects p
   WHERE p.is_active = 1
   ORDER BY p.project_order ASC, p.project_id ASC
+  LIMIT 4
 ");
 
 $stmt_projects->execute();

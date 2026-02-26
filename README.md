@@ -1,4 +1,4 @@
-# The Portfolio of Linh Nguyen – Interactive Media Designer & Developer 🎨  
+# The Portfolio of Linh Nguyen – Interactive Designer 🎨   & Developer 💻 
 
 ![Portfolio Banner](images/portfolio_banner.png)
 

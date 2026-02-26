@@ -1,0 +1,344 @@
+@use '../abstracts' as *;
+
+/* ADMIN ADD PROJECT (WORKS STYLE) */
+
+/* ADD PROJECT SECTION */
+#admin-add-project {
+  padding: 30px 40px 0;
+}
+
+/* ADD PROJECT CARD */
+.admin-add-project-box {
+  border: 2px solid $color-blue;
+  border-radius: 14px;
+  background-color: $color-white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-bottom: 28px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+  }
+}
+
+/* ADD PROJECT TITLE */
+.admin-add-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: $color-heading;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+/* ADD PROJECT FORM */
+.admin-add-form {
+  width: 100%;
+}
+
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  label {
+    font-weight: 600;
+    color: $color-heading;
+    font-size: 15px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.8px solid rgba(0, 0, 0, 0.08);
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+    &:focus {
+      border-color: $color-blue;
+      box-shadow: 0 0 0 3px rgba($color-blue, 0.18);
+      outline: none;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  input[type="file"] {
+    border-style: dashed;
+    cursor: pointer;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  small {
+    font-size: 13px;
+    opacity: 0.65;
+  }
+}
+
+/* ADD PROJECT BUTTON */
+.admin-add-btn {
+  background-color: $color-pink;
+  color: $color-white;
+  border: 2px solid $color-pink;
+  font-weight: 600;
+  padding: 14px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  font-family: "Poppins";
+
+  &.active,
+  &:hover {
+    background-color: $color-white;
+    border-color: $color-pink;
+    color: $color-pink;
+  }
+}
+
+/* ADMIN ACTIONS */
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+  font-family: "Poppins";
+}
+
+.admin-btn i {
+  line-height: 1;
+}
+
+/* EDIT BUTTON */
+.admin-btn-edit {
+  background-color: #35c46a;
+  color: #fff;
+  border-color: #35c46a;
+
+  &:hover,
+  &.active {
+    background-color: $color-white;
+    color: #35c46a;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* DELETE BUTTON */
+.admin-btn-delete {
+  background-color: #ff4d4d;
+  color: #fff;
+  border-color: #ff4d4d;
+
+  &:hover,
+  &.active {
+    background-color: $color-white;
+    color: #ff4d4d;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* ADD CARD ICON */
+.admin-add-card .admin-add-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* DELETE CONFIRM LIGHTBOX (NO JS) */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.admin-modal:target {
+  display: block;
+}
+
+.admin-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.admin-modal-box {
+  position: relative;
+  max-width: 520px;
+  width: calc(100% - 40px);
+  margin: 16vh auto 0;
+  background: #fff;
+  border-radius: 14px;
+  border: 2px solid #ff4d4d;
+
+  padding: 22px 22px 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+.admin-modal-box h4 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+  color: $color-heading;
+}
+
+.admin-modal-box p {
+  margin: 0 0 16px;
+  color: $color-heading;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.admin-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* CANCEL BUTTON */
+.admin-btn-cancel {
+  background-color: $color-white;
+  border: 2px solid rgba(0, 0, 0, 0.10);
+  color: $color-heading;
+
+  &:hover,
+  &.active {
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+}
+
+/* CONTACT FORM */
+#contact-form {
+  .form-group {
+    small {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: $color-heading;
+      opacity: 0.8;
+    }
+
+    .admin-contact-link {
+      font-weight: 600;
+      text-decoration: underline;
+      color: $color-pink;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $color-blue;
+      }
+    }
+  }
+}
+
+/* FOOTER (MOBILE FIRST) */
+#footer-admin {
+  background-color: $color-white;
+  color: $color-blue;
+  text-align: center;
+  padding: 0px 20px 30px;
+  height: 100px;
+  margin-top: 40px;
+
+  .footer-bottom-admin {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    p {
+      font-size: 14px;
+      font-weight: 450;
+      color: $color-heading;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    a {
+      color: $color-blue;
+      text-decoration: none;
+    }
+  }
+}
+
+/* TABLET OVERRIDES */
+@media (min-width: 768px) {
+  /* ADD PROJECT CARD */
+  .admin-add-project-box {
+    padding: 28px 36px;
+  }
+
+  /* ADD PROJECT TITLE */
+  .admin-add-title {
+    font-size: 35px;
+    text-align: left;
+  }
+
+  /* ADD PROJECT BUTTON */
+  .admin-add-btn {
+    width: auto;
+  }
+
+  /* ADMIN ACTIONS */
+  .admin-actions {
+    justify-content: flex-start;
+  }
+
+  /* FOOTER LAYOUT */
+  #footer-admin {
+    padding: 0px 20px 30px;
+
+    .footer-bottom-admin {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+}
+
+/* DESKTOP OVERRIDES */
+@media (min-width: 1200px) {
+  /* ADD PROJECT CARD */
+  .admin-add-project-box {
+    padding: 36px;
+  }
+
+  /* ADD PROJECT TITLE */
+  .admin-add-title {
+    font-size: 40px;
+  }
+}

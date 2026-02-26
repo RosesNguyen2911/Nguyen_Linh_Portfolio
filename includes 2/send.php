@@ -1,7 +1,12 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once(__DIR__ . "/connect.php");
+require_once(__DIR__ . "/connect.php"); // I use __DIR__ to prevent incorrect relative path loading
+
+// I only accept POST requests so this script cannot be accessed directly
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    exit;
+}
 
 $name_raw = $_POST["name"] ?? "";
 $email_raw = $_POST["email"] ?? "";
