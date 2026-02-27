@@ -7,9 +7,25 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-require_once('../includes/connect.php');
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
 
-/* DELETE PROJECT SCRIPT
+  $filepath = __DIR__ . '/../includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
+$pdo = $db->connect();
+
+/*
+  DELETE PROJECT SCRIPT
   I get the project id from the URL and validate it first.
   If the id is invalid, I stop and return to the admin list.
 
@@ -17,7 +33,8 @@ require_once('../includes/connect.php');
   If my database has FOREIGN KEY + ON DELETE CASCADE for tbl_projects_media,
   the related media rows will be removed automatically.
 
-  I redirect back to the projects section so the page doesn’t jump to the top. */
+  I redirect back to the projects section so the page doesn’t jump to the top.
+*/
 
 $projectId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
@@ -27,11 +44,10 @@ if ($projectId <= 0) {
 }
 
 $query = 'DELETE FROM tbl_projects WHERE project_id = :projectId';
-$stmt = $connect->prepare($query);
+$stmt = $pdo->prepare($query);
 $stmt->bindParam(':projectId', $projectId, PDO::PARAM_INT);
 $stmt->execute();
 $stmt = null;
 
 header('Location: project_list.php#featured-works');
 exit;
-?>

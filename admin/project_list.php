@@ -10,11 +10,24 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-require_once('../includes/connect.php');
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  $filepath = __DIR__ . '/../includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
 
 /* PROJECTS QUERY
 I fetch all projects + their first active poster image. */
-$stmt_projects = $connect->prepare("
+$projects = $db->query("
   SELECT
     p.project_id,
     p.project_title,
@@ -44,10 +57,6 @@ $stmt_projects = $connect->prepare("
   WHERE p.is_active = 1
   ORDER BY p.project_order ASC, p.project_id ASC
 ");
-$stmt_projects->execute();
-
-$projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
-$stmt_projects = null;
 
 /* OLD ADD VALUE */
 $old_add = [];
@@ -187,7 +196,7 @@ if (isset($_SESSION['old_add_project']) && is_array($_SESSION['old_add_project']
           name="project_color"
           placeholder="blue / pink / yellow / orange"
           required
-          value="<?php echo htmlspecialchars($old_add['project_color'] ?? ''); ?>"
+          value="<?php echo ($old_add['project_color'] ?? ''); ?>"
         >
       </div>
 

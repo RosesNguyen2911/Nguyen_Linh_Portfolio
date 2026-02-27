@@ -1,62 +1,74 @@
 <?php
+
+use Portfolio\Database;
+
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once(__DIR__ . "/connect.php");
+spl_autoload_register(function ($class) {
+    $class = str_replace('Portfolio\\', '', $class);
+    $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+    $filepath = __DIR__ . '/' . $class . '.php';
 
+    if (file_exists($filepath)) {
+        require_once $filepath;
+    }
+});
+
+
+$db = new Database();
+
+
+// I safely collect form data
 $name_raw = $_POST["name"] ?? "";
 $email_raw = $_POST["email"] ?? "";
 $message_raw = $_POST["message"] ?? "";
 
-// I trim and strip tags to prevent unwanted HTML input
+
+// I sanitize user input
 $name = trim(strip_tags($name_raw));
 $message = trim(strip_tags($message_raw));
 
-// I remove line breaks to prevent header injection
 $email_clean = str_replace(["\r", "\n", "%0a", "%0d"], "", trim($email_raw));
-
-// I validate the email format before inserting it into the database
 $email = filter_var($email_clean, FILTER_VALIDATE_EMAIL);
 
+
+// I validate required fields
 $errors = [];
 
-if ($name === "") {
-    $errors[] = "Please enter your full name.";
-}
+if ($name === "") $errors[] = "Please enter your full name.";
+if (!$email)      $errors[] = "Please enter a valid email address.";
+if ($message === "") $errors[] = "Please write your message.";
 
-if (!$email) {
-    $errors[] = "Please enter a valid email address.";
-}
-
-if ($message === "") {
-    $errors[] = "Please write your message.";
-}
 
 if (!empty($errors)) {
     echo json_encode(["errors" => $errors]);
     exit;
 }
 
+
 try {
+
+    // I insert the message into the database using prepared statements
     $query = "INSERT INTO tbl_contacts 
               (contact_name, contact_email, contact_message)
-              VALUES (?, ?, ?)";
+              VALUES (:name, :email, :message)";
 
-    $stmt = $connect->prepare($query);
-
-    $stmt->bindParam(1, $name, PDO::PARAM_STR);
-    $stmt->bindParam(2, $email, PDO::PARAM_STR);
-    $stmt->bindParam(3, $message, PDO::PARAM_STR);
-
-    $stmt->execute();
+    $db->query($query, [
+        'name'    => $name,
+        'email'   => $email,
+        'message' => $message
+    ]);
 
     echo json_encode([
         "message" => "Thank you! Your message has been sent successfully."
     ]);
     exit;
 
-} catch (PDOException $e) {
-    // I log the real database error internally but return a generic message to the user
+} catch (Throwable $e) {
+
+    // I log the real error internally
     error_log($e->getMessage());
+
     echo json_encode([
         "errors" => ["Sorry, something went wrong. Please try again later."]
     ]);
