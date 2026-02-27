@@ -3480,19 +3480,18 @@ section::after {
   color: #5CE1E6;
 }
 
-/* FOOTER (MOBILE FIRST) */
+/* FOOTER */
 #footer-admin {
   background-color: #FFFFFF;
   color: #5CE1E6;
   text-align: center;
-  height: 80px;
+  height: 100px;
+  margin-top: 40px;
   width: 100%;
   max-width: none;
+  margin: 0;
   padding-left: 40px;
   padding-right: 40px;
-  margin-top: 40px;
-  position: absolute;
-  bottom: 0;
 }
 #footer-admin .footer-bottom-admin {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -3539,7 +3538,7 @@ section::after {
     text-align: left;
   }
 }
-/* DESKTOP OVERRIDES */
+/* DESKTOP */
 @media (min-width: 1200px) {
   /* ADD PROJECT CARD */
   .admin-add-project-box {
