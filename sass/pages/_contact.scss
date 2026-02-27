@@ -150,9 +150,7 @@
   }
 }
 
-/* =========================================
-   FAQ — MOBILE FIRST
-========================================= */
+/* FAQ */
 #faqs {
   background-color: $color-background;
   padding: 60px 30px;
@@ -174,12 +172,13 @@
     padding: 22px 25px;
     margin-bottom: 30px;
     min-height: 50px;
+    min-width: 0;
 
     transition: transform 0.28s cubic-bezier(.34, 1.56, .64, 1),
                 box-shadow 0.28s ease;
     will-change: transform;
 
-    /* Alternate border colors */
+    /* Alternate Border Colors */
     &:nth-of-type(2) { border-left-color: $color-yellow; }
     &:nth-of-type(3) { border-left-color: $color-orange; }
     &:nth-of-type(4) { border-left-color: $color-pink; }
@@ -188,6 +187,8 @@
       font-size: 17px;
       font-weight: 700;
       margin-bottom: 10px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
 
       i {
         margin-right: 8px;
@@ -200,20 +201,25 @@
       opacity: 0.85;
       color: $color-heading;
       line-height: 1.6;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
     }
 
-    /* Bounce hover */
+    a {
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    /* Hover Effect */
     &:hover {
       transform: translateY(-10px) scale(1.03);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
     }
   }
-}
-
-/* FAQ links */
-#faqs .faq-item p a {
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 /* Tablet */

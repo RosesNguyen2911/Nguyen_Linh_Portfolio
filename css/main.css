@@ -2708,9 +2708,7 @@ html, body {
   color: #FF66C4;
 }
 
-/* =========================================
-   FAQ — MOBILE FIRST
-========================================= */
+/* FAQ */
 #faqs {
   background-color: #D8FEFF;
   padding: 60px 30px;
@@ -2731,9 +2729,10 @@ html, body {
   padding: 22px 25px;
   margin-bottom: 30px;
   min-height: 50px;
+  min-width: 0;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
   will-change: transform;
-  /* Alternate border colors */
+  /* Alternate Border Colors */
 }
 #faqs .faq-item:nth-of-type(2) {
   border-left-color: #FFDE59;
@@ -2748,6 +2747,8 @@ html, body {
   font-size: 17px;
   font-weight: 700;
   margin-bottom: 10px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 #faqs .faq-item h3 i {
   margin-right: 8px;
@@ -2758,19 +2759,23 @@ html, body {
   opacity: 0.85;
   color: #2E989C;
   line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+#faqs .faq-item a {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
 }
 #faqs .faq-item {
-  /* Bounce hover */
+  /* Hover Effect */
 }
 #faqs .faq-item:hover {
   transform: translateY(-10px) scale(1.03);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-}
-
-/* FAQ links */
-#faqs .faq-item p a {
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 /* Tablet */
