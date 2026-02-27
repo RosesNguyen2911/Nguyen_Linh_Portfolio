@@ -2,17 +2,30 @@
 <html lang="en">
 
 <?php
-require_once('includes/connect.php');
+
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  $filepath = __DIR__ . '/includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
 
 /* SKILLS QUERY
 I fetch all active skills first. */
-$stmt_skills = $connect->prepare("
+$skills = $db->query("
   SELECT skill_id, skill_number, skill_title, skill_desc
   FROM tbl_skills
   WHERE is_active = 1
   ORDER BY skill_id ASC
 ");
-$stmt_skills->execute();
 ?>
 
 <head>
@@ -148,11 +161,11 @@ $stmt_skills->execute();
     </section>
     
 <!-- SKILLS & TOOLS -->
-     <section id="skills">
+<section id="skills">
   <h2 class="skills-heading">Skills & Tools</h2>
 
   <?php
-  while ($skill = $stmt_skills->fetch(PDO::FETCH_ASSOC)) {
+  foreach ($skills as $skill) {
 
     echo '
       <div class="skill-row">
@@ -170,25 +183,23 @@ $stmt_skills->execute();
 
     /* TOOLS QUERY (PER SKILL)
        I fetch tools related to the current skill using the junction table. */
-    $stmt_tools = $connect->prepare("
+
+    $tools = $db->query("
       SELECT t.tool_src, t.tool_alt
       FROM tbl_skills_tools st
       INNER JOIN tbl_tools t ON t.tool_id = st.tool_id
       WHERE st.skill_id = :skill_id
         AND t.is_active = 1
       ORDER BY t.tool_id ASC
-    ");
+    ", [
+      'skill_id' => (int)$skill['skill_id']
+    ]);
 
-    $stmt_tools->bindParam(':skill_id', $skill['skill_id'], PDO::PARAM_INT);
-    $stmt_tools->execute();
-
-    while ($tool = $stmt_tools->fetch(PDO::FETCH_ASSOC)) {
+    foreach ($tools as $tool) {
       echo '
         <img src="images/'.$tool['tool_src'].'" alt="'.$tool['tool_alt'].'">
       ';
     }
-
-    $stmt_tools = null;
 
     echo '
           </div>
@@ -196,10 +207,10 @@ $stmt_skills->execute();
       </div>
     ';
   }
+?>
 
-  $stmt_skills = null;
-  ?>
 </section>
+
 
 
 <div class="resume-wrapper">

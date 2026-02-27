@@ -1,4 +1,7 @@
 <?php
+
+use Portfolio\Database;
+
 session_start();
 
 /* Protect admin access */
@@ -7,9 +10,23 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-require_once('../includes/connect.php');
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  $filepath = __DIR__ . '/../includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
 
-/* EDIT PROJECT SCRIPT
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+/* I create my Database object, then get the PDO connection from it. */
+$db = new Database();
+$pdo = $db->connect();
+
+/*
+  EDIT PROJECT SCRIPT
   I update all text fields in tbl_projects first (this is the “main” data).
   Then I process uploaded media (if any) and store them in tbl_projects_media.
 
@@ -19,7 +36,8 @@ require_once('../includes/connect.php');
 
   I treat detail images as “multiple”:
   - detail
-  For these, I do not replace old ones. I append new rows and increase project_media_order so the gallery keeps the correct sequence. */
+  For these, I do not replace old ones. I append new rows and increase project_media_order so the gallery keeps the correct sequence.
+*/
 
 $project_id = isset($_POST['project_id']) ? (int)$_POST['project_id'] : 0;
 /* I stop early if the id is invalid, because updating without a valid project_id would be unsafe. */
@@ -28,7 +46,7 @@ if ($project_id <= 0) {
   exit;
 }
 
-/* BASIC FIELDS
+/* Basic fields
 I trim inputs to avoid saving accidental spaces and to keep the database clean. */
 $title = trim($_POST['project_title'] ?? '');
 $subtitle = trim($_POST['project_subtitle'] ?? '');
@@ -50,7 +68,7 @@ $is_active = isset($_POST['is_active']) ? (int)$_POST['is_active'] : 1;
 /* I force is_active to be either 0 or 1 so it stays consistent in the database. */
 $is_active = ($is_active === 0) ? 0 : 1;
 
-/* UPDATE PROJECTS
+/* Update project text
 I update tbl_projects first so the content changes are saved even if no files are uploaded. */
 $queryUpdate = "
   UPDATE tbl_projects
@@ -73,7 +91,7 @@ $queryUpdate = "
   LIMIT 1
 ";
 
-$stmt = $connect->prepare($queryUpdate);
+$stmt = $pdo->prepare($queryUpdate);
 $stmt->execute([
   $title,
   $color,
@@ -128,9 +146,9 @@ function save_upload($fileArr, $targetDir, $prefix, $allowedExts) {
   return '';
 }
 
-function deactivate_media_type($connect, $project_id, $type) {
+function deactivate_media_type($pdo, $project_id, $type) {
   /* I “soft replace” old media by turning off is_active, so I keep history and avoid breaking references. */
-  $stmt = $connect->prepare("
+  $stmt = $pdo->prepare("
     UPDATE tbl_projects_media
     SET is_active = 0
     WHERE project_id = ?
@@ -140,9 +158,9 @@ function deactivate_media_type($connect, $project_id, $type) {
   $stmt = null;
 }
 
-function insert_media($connect, $project_id, $type, $src, $alt, $order) {
+function insert_media($pdo, $project_id, $type, $src, $alt, $order) {
   /* I insert one media row with is_active = 1 so the front-end can fetch the current media easily. */
-  $stmt = $connect->prepare("
+  $stmt = $pdo->prepare("
     INSERT INTO tbl_projects_media
       (project_id, project_media_type, project_media_src, project_media_alt, project_media_order, is_active)
     VALUES
@@ -152,34 +170,34 @@ function insert_media($connect, $project_id, $type, $src, $alt, $order) {
   $stmt = null;
 }
 
-/* FILE RULES
+/* File rules
 I separate image and video extensions so each upload input is validated correctly. */
 $imageExts = ['jpg', 'png', 'gif', 'webp'];
 $videoExts = ['webm', 'mp4'];
 
-/* POSTER ( REPLACE IF NEED)
+/* Poster (replace)
 I replace poster by deactivating old poster rows, then inserting the new one as order 1. */
 $poster_name = save_upload($_FILES['poster_file'] ?? null, '../images', 'poster', $imageExts);
 if ($poster_name !== '') {
-  deactivate_media_type($connect, $project_id, 'poster');
-  insert_media($connect, $project_id, 'poster', $poster_name, $title . ' Poster', 1);
+  deactivate_media_type($pdo, $project_id, 'poster');
+  insert_media($pdo, $project_id, 'poster', $poster_name, $title . ' Poster', 1);
 }
 
-/* HERO IMAGE (SINGLE)
+/* Hero (replace)
 Same logic as poster: single active hero image per project. */
 $hero_name = save_upload($_FILES['hero_file'] ?? null, '../images', 'hero', $imageExts);
 if ($hero_name !== '') {
-  deactivate_media_type($connect, $project_id, 'hero');
-  insert_media($connect, $project_id, 'hero', $hero_name, $title . ' Hero Image', 1);
+  deactivate_media_type($pdo, $project_id, 'hero');
+  insert_media($pdo, $project_id, 'hero', $hero_name, $title . ' Hero Image', 1);
 }
 
-/* DETAIL IMAGES (MUTIPLE APPEND)
+/* Detail images (append multiple)
 This part is slightly tricky:
 - detail_images is a “multiple files” input, so PHP gives arrays for name/tmp_name/error.
 - I find the current max order, then add new images after it so the order stays correct. */
 if (isset($_FILES['detail_images']) && isset($_FILES['detail_images']['name']) && is_array($_FILES['detail_images']['name'])) {
 
-  $stmtMax = $connect->prepare("
+  $stmtMax = $pdo->prepare("
     SELECT COALESCE(MAX(project_media_order), 0) AS max_order
     FROM tbl_projects_media
     WHERE project_id = ?
@@ -206,37 +224,36 @@ if (isset($_FILES['detail_images']) && isset($_FILES['detail_images']['name']) &
     $detail_name = save_upload($oneFile, '../images', 'detail', $imageExts);
     if ($detail_name !== '') {
       $maxOrder++;
-      insert_media($connect, $project_id, 'detail', $detail_name, $title . ' Detail Image', $maxOrder);
+      insert_media($pdo, $project_id, 'detail', $detail_name, $title . ' Detail Image', $maxOrder);
     }
   }
 }
 
-/* VIDEO THUMBNAIL IMAGES (SINGLE)
+/* Video thumbnail (replace)
 Thumbnail is stored in images folder and behaves like a single slot. */
 $thumb_name = save_upload($_FILES['video_thumbnail_file'] ?? null, '../images', 'video_thumb', $imageExts);
 if ($thumb_name !== '') {
-  deactivate_media_type($connect, $project_id, 'video_thumbnail');
-  insert_media($connect, $project_id, 'video_thumbnail', $thumb_name, $title . ' Video Thumbnail', 1);
+  deactivate_media_type($pdo, $project_id, 'video_thumbnail');
+  insert_media($pdo, $project_id, 'video_thumbnail', $thumb_name, $title . ' Video Thumbnail', 1);
 }
 
-/* VIDEO WEBM (OPTIONAL)
+/* Video webm (replace)
 Video files go into ../video and also behave like single slots. */
 $webm_name = save_upload($_FILES['video_webm_file'] ?? null, '../video', 'video_webm', $videoExts);
 if ($webm_name !== '') {
-  deactivate_media_type($connect, $project_id, 'video_webm');
-  insert_media($connect, $project_id, 'video_webm', $webm_name, $title . ' Video WebM', 1);
+  deactivate_media_type($pdo, $project_id, 'video_webm');
+  insert_media($pdo, $project_id, 'video_webm', $webm_name, $title . ' Video WebM', 1);
 }
 
-/* VIDEO MP4 (MANDATORY) */
+/* Video mp4 (replace) */
 $mp4_name = save_upload($_FILES['video_mp4_file'] ?? null, '../video', 'video_mp4', $videoExts);
 if ($mp4_name !== '') {
-  deactivate_media_type($connect, $project_id, 'video_mp4');
-  insert_media($connect, $project_id, 'video_mp4', $mp4_name, $title . ' Video MP4', 1);
+  deactivate_media_type($pdo, $project_id, 'video_mp4');
+  insert_media($pdo, $project_id, 'video_mp4', $mp4_name, $title . ' Video MP4', 1);
 }
 
-/* DONE SESSION
+/* Done
 I redirect back to the exact edited card anchor so the admin stays at the same position after saving. */
 $_SESSION['project_flash'] = 'Project updated successfully.';
 header('Location: project_list.php#project-' . $project_id);
 exit;
-?>

@@ -7,7 +7,24 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-require_once('../includes/connect.php');
+   spl_autoload_register(function ($class) {
+    $class = str_replace('Portfolio\\', '', $class);
+    $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  
+    $filepath = __DIR__ . '/../includes/' . $class . '.php';
+    $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+  
+    if (file_exists($filepath)) {
+      require_once $filepath;
+    }
+  });
+  
+  use Portfolio\Database;
+  
+  $db = new Database();
+  $pdo = $db->connect();
+
+
 /*
   ADD PROJECT SCRIPT
   I create a new project entry.
@@ -22,10 +39,8 @@ $subtitle = trim($_POST['project_subtitle'] ?? '');
 $desc     = trim($_POST['project_desc'] ?? '');
 $color    = trim($_POST['project_color'] ?? '');
 
-/* 
-  I store old input values in session 
-  so the user does not lose data if a redirect happens.
-*/
+/* I store old input values in session 
+  so the user does not lose data if a redirect happens. */
 $_SESSION['old_add_project'] = [
   'project_title'    => $title,
   'project_subtitle' => $subtitle,
@@ -88,8 +103,8 @@ if (!move_uploaded_file($_FILES['project_poster']['tmp_name'], $target_file)) {
   These fields will be properly updated later in edit_project.php.*/
 
 /* I automatically calculate the next project_order
-  so the new project appears at the end of the list.*/
-$stmtOrder = $connect->prepare("SELECT COALESCE(MAX(project_order), 0) + 1 AS next_order FROM tbl_projects");
+  so the new project appears at the end of the list. */
+$stmtOrder = $pdo->prepare("SELECT COALESCE(MAX(project_order), 0) + 1 AS next_order FROM tbl_projects");
 $stmtOrder->execute();
 $nextOrder = (int)($stmtOrder->fetch(PDO::FETCH_ASSOC)['next_order'] ?? 1);
 $stmtOrder = null;
@@ -127,7 +142,7 @@ $queryProject = "
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
 ";
 
-$stmt = $connect->prepare($queryProject);
+$stmt = $pdo->prepare($queryProject);
 $stmt->execute([
   $title,
   $color,
@@ -144,12 +159,14 @@ $stmt->execute([
   $nextOrder
 ]);
 
-$project_id = (int)$connect->lastInsertId();
+$project_id = (int)$pdo->lastInsertId();
 $stmt = null;
 
-/* After inserting the project,
-   I insert its poster into tbl_projects_media
-   and link it using the generated project_id. */
+/*
+  After inserting the project,
+  I insert its poster into tbl_projects_media
+  and link it using the generated project_id.
+*/
 $queryMedia = "
   INSERT INTO tbl_projects_media
   (project_id, project_media_type, project_media_src, project_media_alt, project_media_order, is_active)
@@ -158,13 +175,15 @@ $queryMedia = "
 
 $altText = $title . ' Poster';
 
-$stmt2 = $connect->prepare($queryMedia);
+$stmt2 = $pdo->prepare($queryMedia);
 $stmt2->execute([$project_id, $newname, $altText]);
 $stmt2 = null;
 
-/* On success, I clear old session data
-   and redirect back to the project list,
-   jumping directly to the newly created project card. */
+/* 
+  On success, I clear old session data
+  and redirect back to the project list,
+  jumping directly to the newly created project card.
+*/
 unset($_SESSION['old_add_project']);
 
 $_SESSION['project_flash'] = 'Project added successfully.';

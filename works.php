@@ -3,12 +3,25 @@
 
 <?php
 
-require_once('includes/connect.php');
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  $filepath = __DIR__ . '/includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
 
 /* PROJECTS QUERRY
 I get title, brief, subtitle and color from tbl_projects.
 I also get the first poster (src and alt) from tbl_projects_media. */
-$stmt_projects = $connect->prepare("
+$projects = $db->query("
   SELECT
     p.project_id,
     p.project_title,
@@ -41,11 +54,6 @@ $stmt_projects = $connect->prepare("
   ORDER BY p.project_order ASC, p.project_id ASC
 ");
 
-$stmt_projects->execute();
-
-/* I store all projects into an array so I can loop them in the HTML section */
-$projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
-$stmt_projects = null;
 
 /* This function turns "A | B | C" into separate span tags */
 function buildTags($subtitle) {

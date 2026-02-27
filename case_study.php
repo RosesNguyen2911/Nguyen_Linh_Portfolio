@@ -2,7 +2,21 @@
 <html lang="en">
 
 <?php
-require_once('includes/connect.php');
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+
+  $filepath = __DIR__ . '/includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
 
 /* I get project id from URL */
 $project_id = 0;
@@ -18,7 +32,7 @@ if ($project_id <= 0) {
 
 /* PROJECTS QUERY
 I get all case study text from tbl_projects by id */
-$stmt_project = $connect->prepare("
+$project_rows = $db->query("
   SELECT
     project_id,
     project_title,
@@ -38,10 +52,11 @@ $stmt_project = $connect->prepare("
   WHERE project_id = :id
     AND is_active = 1
   LIMIT 1
-");
-$stmt_project->execute(array(':id' => $project_id));
-$project = $stmt_project->fetch(PDO::FETCH_ASSOC);
-$stmt_project = null;
+", [
+  'id' => $project_id
+]);
+
+$project = $project_rows[0] ?? null;
 
 /* If project not found, then just stay (or go back) to "Works" page  */
 if (!$project) {
@@ -51,16 +66,15 @@ if (!$project) {
 
 /* MEDIA QUERY
 I get all media for this project from tbl_projects_media */
-$stmt_media = $connect->prepare("
+$media_rows = $db->query("
   SELECT project_media_type, project_media_src, project_media_alt, project_media_order
   FROM tbl_projects_media
   WHERE project_id = :id
     AND is_active = 1
   ORDER BY project_media_order ASC, project_media_id ASC
-");
-$stmt_media->execute(array(':id' => $project_id));
-$media_rows = $stmt_media->fetchAll(PDO::FETCH_ASSOC);
-$stmt_media = null;
+", [
+  'id' => $project_id
+]);
 
 /* I sort media into simple variables */
 $hero_src = '';
@@ -109,8 +123,8 @@ If I'm near the end and not enough projects, I "wrap" and take from the start. *
 
 $currentOrder = (int)($project['project_order'] ?? 0);
 
-/* 1) I get next projects (order > current) */
-$stmt_more = $connect->prepare("
+/* 1) Get next projects (order -> current) */
+$more_projects = $db->query("
   SELECT
     p.project_id,
     p.project_title,
@@ -141,20 +155,17 @@ $stmt_more = $connect->prepare("
     AND p.project_order > :curOrder
   ORDER BY p.project_order ASC, p.project_id ASC
   LIMIT 3
-");
-$stmt_more->execute([
-  ':id' => $project_id,
-  ':curOrder' => $currentOrder
+", [
+  'id' => $project_id,
+  'curOrder' => $currentOrder
 ]);
 
-$more_projects = $stmt_more->fetchAll(PDO::FETCH_ASSOC);
-$stmt_more = null;
-
-/* 2) If not enough, I take the remaining project from the beginning (wrap) */
+/* 2) If not enough, take remaining from the beginning (wrap) */
 $need = 3 - count($more_projects);
 
 if ($need > 0) {
-  $stmt_more2 = $connect->prepare("
+  // NOTE: LIMIT cannot be bound in PDO reliably, so we keep {$need} in the SQL like before.
+  $more_projects_2 = $db->query("
     SELECT
       p.project_id,
       p.project_title,
@@ -185,17 +196,15 @@ if ($need > 0) {
       AND p.project_order <= :curOrder
     ORDER BY p.project_order ASC, p.project_id ASC
     LIMIT {$need}
-  ");
-  $stmt_more2->execute([
-    ':id' => $project_id,
-    ':curOrder' => $currentOrder
+  ", [
+    'id' => $project_id,
+    'curOrder' => $currentOrder
   ]);
 
-  $more_projects = array_merge($more_projects, $stmt_more2->fetchAll(PDO::FETCH_ASSOC));
-  $stmt_more2 = null;
+  $more_projects = array_merge($more_projects, $more_projects_2);
 }
 
-/* I turn "A | B | C" into spans */
+/* I turn "A | B | C" into spans like old HTML */
 function buildSubtitleSpans($subtitle) {
   $tags = explode('|', $subtitle);
   $out = '';

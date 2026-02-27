@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once('includes/connect.php');
+
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  $filepath = __DIR__ . '/includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+  
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
 
 /* PROJECTS QUERY
 I get title, brief, subtitle and color from tbl_projects.
 I also get the first poster (src and alt) from tbl_projects_media.
 But I just get only 4 projects because I have button "See All" 
 and then users can go to see all projects in "Works" page */
-$stmt_projects = $connect->prepare("
+$projects = $db->query("
   SELECT
     p.project_id,
     p.project_title,
@@ -42,12 +56,6 @@ $stmt_projects = $connect->prepare("
   LIMIT 4
 ");
 
-$stmt_projects->execute();
-
-/* I store all projects into an array so I can loop them in the HTML section */
-$projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
-$stmt_projects = null;
-
 /* This function turns "A | B | C" into separate span tags */
 function buildTags($subtitle) {
   $tags = explode('|', $subtitle);
@@ -65,29 +73,24 @@ function buildTags($subtitle) {
 
 /* SERVICES QUERY
 I get service title + color from tbl_services */
-$stmt_services = $connect->prepare("
+$services = $db->query("
   SELECT service_title, service_color
   FROM tbl_services
   WHERE is_active = 1
   ORDER BY service_order ASC, service_id ASC
 ");
-$stmt_services->execute();
-$services = $stmt_services->fetchAll(PDO::FETCH_ASSOC);
-$stmt_services = null;
-
 
 /* TESTIMONIALS QUERY
 I get name, role, message and color from tbl_testimonials */
-$stmt_testimonials = $connect->prepare("
+$testimonials = $db->query("
   SELECT testimonial_author_name, testimonial_author_role, testimonial_message, testimonial_color
   FROM tbl_testimonials
   WHERE is_active = 1
   ORDER BY testimonial_id ASC
 ");
-$stmt_testimonials->execute();
-$testimonials = $stmt_testimonials->fetchAll(PDO::FETCH_ASSOC);
-$stmt_testimonials = null;
 ?>
+
+
 
 <head>
   <meta charset="UTF-8">

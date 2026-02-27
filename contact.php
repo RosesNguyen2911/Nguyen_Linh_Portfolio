@@ -2,21 +2,31 @@
 <html lang="en">
 
 <?php
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+  $filepath = __DIR__ . '/includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
 
-/*FAQ QUERY 
-I load my PDO connection first, then prepare and execute the FAQ query
-so the FAQ section can be generated dynamically from the database. */
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
 
-require_once('includes/connect.php');
+use Portfolio\Database;
 
-$stmt_faq = $connect->prepare("
+$db = new Database();
+
+/* FAQ QUERY
+I load my Database class (which uses PDO internally),
+then fetch all active FAQs dynamically from the database. */
+
+$faqs = $db->query("
     SELECT faq_id, faq_icon, faq_question, faq_answer 
     FROM tbl_faqs 
     WHERE is_active = 1
     ORDER BY faq_id ASC
 ");
-
-$stmt_faq->execute();
 ?>
 
 <head>
@@ -167,24 +177,18 @@ $stmt_faq->execute();
 <section id="faqs" class="grid-con">
   <h2 class="col-span-full">Frequently Asked Questions</h2>
 
-  <?php 
-  while($row = $stmt_faq->fetch(PDO::FETCH_ASSOC)) {
+  <?php foreach($faqs as $row) { ?>
+    <article class="faq-item col-span-full m-col-span-3 l-col-span-3">
+      <div class="faq-inner">
+        <h3>
+          <i class="<?php echo $row['faq_icon']; ?>"></i>
+          <?php echo $row['faq_question']; ?>
+        </h3>
+        <p><?php echo $row['faq_answer']; ?></p>
+      </div>
+    </article>
+  <?php } ?>
 
-    echo '
-      <article class="faq-item col-span-full m-col-span-3 l-col-span-3">
-        <div class="faq-inner">
-          <h3>
-            <i class="'.($row['faq_icon']).'"></i> 
-            '.($row['faq_question']).'
-          </h3>
-          <p>'.($row['faq_answer']).'</p>
-        </div>
-      </article>
-    ';
-  }
-
-  $stmt_faq = null;
-  ?>
 </section>
 
   </main>

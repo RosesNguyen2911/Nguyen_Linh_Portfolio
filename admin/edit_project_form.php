@@ -9,7 +9,22 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-require_once('../includes/connect.php');
+spl_autoload_register(function ($class) {
+  $class = str_replace('Portfolio\\', '', $class);
+  $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+
+  $filepath = __DIR__ . '/../includes/' . $class . '.php';
+  $filepath = str_replace("/", DIRECTORY_SEPARATOR, $filepath);
+
+  if (file_exists($filepath)) {
+    require_once $filepath;
+  }
+});
+
+use Portfolio\Database;
+
+$db = new Database();
+$pdo = $db->connect();
 
 /* Get project id from URL */
 $project_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -19,7 +34,7 @@ if ($project_id <= 0) {
 }
 
 /* Project query */
-$stmt_project = $connect->prepare("
+$stmt_project = $pdo->prepare("
   SELECT
     project_id,
     project_title,
@@ -50,7 +65,7 @@ if (!$project) {
 }
 
 /* Media query */
-$stmt_media = $connect->prepare("
+$stmt_media = $pdo->prepare("
   SELECT project_media_type, project_media_src, project_media_alt, project_media_order
   FROM tbl_projects_media
   WHERE project_id = :id
